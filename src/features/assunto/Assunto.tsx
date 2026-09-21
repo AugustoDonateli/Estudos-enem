@@ -24,6 +24,7 @@ import {
   Vazio,
 } from '@/design/Primitivos';
 import { PlayerQuestao } from '@/features/questao/PlayerQuestao';
+import { Tarja } from '@/design/Caderno';
 import { definirTitulo } from '@/lib/titulo';
 import s from './Assunto.module.css';
 
@@ -94,6 +95,9 @@ export function Assunto() {
       {/* Cabeçalho do assunto ---------------------------------------- */}
       <section className={s.cabecalho}>
         <div className={`container ${s.cabecalhoInterno} entrada`}>
+          {/* Marginália da página: o código identifica este assunto no site.
+              É a mesma posição que a tarja ocupa no caderno impresso. */}
+          <Tarja valor={assunto.id} altura={20} className={s.tarjaTopo} />
           <Trilha
             itens={[
               { rotulo: 'Áreas', para: '/areas' },

@@ -4,6 +4,7 @@ import { useProgresso } from '@/lib/progresso';
 import { revisoesVencidas } from '@/engine/revisao';
 import { diasAteProva, hoje, PROVA_DIA_1, PROVA_DIA_2 } from '@/engine/datas';
 import { Assinatura, Grafismo } from '@/design/Marca';
+import { Tarja } from '@/design/Caderno';
 import s from './Layout.module.css';
 
 const ITENS = [
@@ -167,9 +168,12 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
         <div className={s.rodapeBase}>
-          <div className="container">
-            Conteúdo autoral. Estrutura do exame, matriz de referência e critérios da redação
-            conforme documentos do INEP/MEC — ver a página de fontes.
+          <div className={`container ${s.rodapeBaseInterno}`}>
+            <span>
+              Conteúdo autoral. Estrutura do exame, matriz de referência e critérios da redação
+              conforme documentos do INEP/MEC — ver a página de fontes.
+            </span>
+            <Tarja valor="ENEM ESTUDOS" altura={18} className={s.rodapeTarja} />
           </div>
         </div>
       </footer>

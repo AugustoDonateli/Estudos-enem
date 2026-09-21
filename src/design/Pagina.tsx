@@ -18,16 +18,20 @@ export function HeroEscuro({
   descricao,
   areaId,
   aside,
+  abaixo,
 }: {
   rotulo?: string;
   titulo: ReactNode;
   descricao?: ReactNode;
   areaId?: AreaId;
   aside?: ReactNode;
+  abaixo?: ReactNode;
 }) {
   return (
     <section className={s.heroEscuro} {...(areaId ? { 'data-area': areaId } : {})}>
-      <Grafismo variante="bolhas" />
+      {/* Sem grafismo: quando o hero traz a grade de dias, dois padrões na
+          mesma faixa viram ruído — e o que é dado ganha do que é textura. */}
+      {!aside && <Grafismo variante="bolhas" />}
       <div className={`container ${s.heroInterno}`}>
         <div className={s.heroGrade}>
           <div className="entrada">
@@ -37,6 +41,7 @@ export function HeroEscuro({
           </div>
           {aside && <div className={`${s.aside} entrada-2`}>{aside}</div>}
         </div>
+        {abaixo && <div className={`${s.heroAbaixo} entrada-3`}>{abaixo}</div>}
       </div>
     </section>
   );

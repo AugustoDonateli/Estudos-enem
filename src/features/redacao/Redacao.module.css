@@ -189,7 +189,7 @@
 }
 
 .checkItem:hover {
-  background: var(--cinza-1);
+  background: var(--papel-2);
 }
 
 .checkItem input {
@@ -274,7 +274,7 @@
    arredondamento exagerado. */
 .form {
   max-width: var(--largura-leitura);
-  background: var(--cinza-1);
+  background: var(--papel-2);
   border-top: 4px solid var(--acento, var(--azul-70));
   padding: var(--e-3x);
 }

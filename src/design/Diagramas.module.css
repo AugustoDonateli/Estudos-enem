@@ -10,7 +10,7 @@
 }
 
 .quadro {
-  background: var(--cinza-1);
+  background: var(--papel-2);
   border-top: 3px solid var(--acento, var(--azul-70));
   border-bottom: var(--borda) solid var(--cinza-10);
   padding: var(--e-3x) var(--e-2x);

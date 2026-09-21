@@ -342,3 +342,38 @@
   font-size: var(--t-base);
   color: var(--cinza-60);
 }
+
+/* --- Resumo do dia na faixa escura -----------------------------------
+   Três números numa linha só. Depois de um contador em escala de cartaz,
+   repetir o formato de número grande faria tudo gritar ao mesmo tempo. */
+.resumoDia {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e-base) var(--e-3x);
+  margin: 0;
+  max-width: none;
+  font-size: var(--t-base);
+  color: var(--azul-20);
+}
+
+.resumoDia strong {
+  font-weight: var(--peso-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--branco);
+}
+
+.resumoBarra {
+  display: none;
+  width: 1px;
+  height: 1em;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* O separador só existe quando os três cabem na mesma linha; abaixo disso
+   ele apareceria pendurado no começo da linha seguinte. */
+@media (min-width: 576px) {
+  .resumoBarra {
+    display: block;
+  }
+}

@@ -148,7 +148,7 @@
    Faixa cinza-clara com filete superior azul: separa a gestão de dados
    do conteúdo de estudo sem virar um card solto no meio da página. */
 .dados {
-  background: var(--cinza-2);
+  background: var(--papel-2);
   border-top: 4px solid var(--azul-70);
   padding: var(--e-3x);
 }

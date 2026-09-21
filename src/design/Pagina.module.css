@@ -34,7 +34,7 @@
 
 @media (min-width: 992px) {
   .heroInterno {
-    padding-block: var(--e-8x) var(--e-10x);
+    padding-block: var(--e-6x) var(--e-7x);
   }
 }
 
@@ -69,8 +69,8 @@
    ================================================================== */
 .heroClaro {
   position: relative;
-  border-bottom: var(--borda) solid var(--cinza-10);
-  background: var(--branco);
+  border-bottom: var(--borda) solid var(--papel-borda);
+  background: var(--papel);
 }
 
 .heroClaroInterno {
@@ -90,6 +90,12 @@
    encostava na última linha do texto. */
 .abaixo {
   margin-top: var(--e-4x);
+}
+
+.heroAbaixo {
+  margin-top: var(--e-4x);
+  padding-top: var(--e-3x);
+  border-top: var(--borda) solid rgba(255, 255, 255, 0.18);
 }
 
 .aside {

@@ -43,6 +43,15 @@
   --cinza-1: #fcfcfc;
   --branco: #ffffff;
 
+  /* Papel.
+     O caderno de prova é um objeto impresso, e #ffffff é a cor de uma tela
+     acesa, não de papel. Este off-white levemente quente é o fundo de todas
+     as superfícies de leitura; o branco puro fica reservado ao que precisa
+     saltar do papel — cartões, campos de formulário, faixas de alternativa. */
+  --papel: #fbfaf7;
+  --papel-2: #f4f2ed; /* segunda camada: faixas, citações, quadros */
+  --papel-borda: #e4e0d8; /* divisor sobre papel, mais quente que o cinza-10 */
+
   /* Funcionais — usadas só para significar estado, nunca para decorar */
   --sucesso: #168821;
   --sucesso-fundo: #e3f5e1;
@@ -83,13 +92,33 @@
 
   /* ================================================================
      3. TIPOGRAFIA
-     Rawline com Raleway de reserva — o par oficial do governo federal.
+     Três vozes, e cada uma diz de onde a informação vem.
+
+     --fonte       Rawline, o par oficial do gov.br. É a voz da interface:
+                   navegação, rótulos, listas, corpo de texto.
+     --fonte-titulo Fraunces. É a voz editorial do site — título de página e
+                   número grande. Serifa de alto contraste com eixo óptico:
+                   quanto maior o corpo, mais fina a haste e mais marcada a
+                   serifa. É ela que tira a temperatura de "template".
+     --fonte-prova A pilha grotesca do sistema. Não é escolha estética: os
+                   cadernos de 2024 e 2025 que estão neste repositório trazem
+                   ArialMT e Arial-BoldMT embutidas no PDF. Onde a interface
+                   imita a prova, ela se compõe na fonte da prova — e não
+                   custa um byte de download.
      ================================================================ */
   --fonte: 'Rawline', 'Raleway Variable', 'Raleway', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --fonte-titulo: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Georgia,
+    serif;
+  --fonte-prova: Arial, 'Liberation Sans', 'Helvetica Neue', Helvetica,
+    sans-serif;
   --fonte-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
-  /* Escala 1,2 sobre base de 14px, como no DS oficial */
+  /* Escala 1,2 sobre base de 14px, como no DS oficial, estendida para cima.
+     Os quatro degraus acima de --t-up-06 não seguem a razão: são tamanhos de
+     cartaz, existem para um número por tela e quebram a escala de propósito.
+     Uma hierarquia em que nada passa de 42px é o que faz toda página parecer
+     ter a mesma importância. */
   --t-down-02: 0.607rem; /* 9,7px  — apenas metadados muito secundários */
   --t-down-01: 0.729rem; /* 11,7px */
   --t-base: 0.875rem; /*   14px  — interface */
@@ -99,6 +128,10 @@
   --t-up-04: 1.814rem; /*  29,0px */
   --t-up-05: 2.177rem; /*  34,8px */
   --t-up-06: 2.613rem; /*  41,8px */
+  --t-cartaz-01: 3.75rem; /*  60px */
+  --t-cartaz-02: 5.5rem; /*   88px */
+  --t-cartaz-03: 8rem; /*    128px */
+  --t-cartaz-04: 12rem; /*   192px — o contador de dias, e só ele */
 
   --peso-regular: 400;
   --peso-medio: 500;

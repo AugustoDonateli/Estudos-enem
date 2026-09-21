@@ -1,38 +1,80 @@
 /* ==================================================================
-   QUESTÃO — bloco institucional, com cabeçalho escuro identificando
-   conceito e procedência. Sem sombra: é conteúdo, não cartão flutuante.
+   QUESTÃO — uma página de caderno de prova.
+
+   O quadro branco com cantos arredondados e cabeçalho azul foi trocado
+   pelo objeto real: folha de papel, filete preto no topo, tarja de
+   código, numeração em grotesca. A questão deixa de parecer componente
+   de produto e passa a parecer o que é.
    ================================================================== */
 .questao {
   max-width: var(--largura-leitura);
-  border: var(--borda) solid var(--cinza-20);
-  border-radius: var(--raio-lg);
-  overflow: hidden;
   background: var(--branco);
+  border: var(--borda) solid var(--papel-borda);
+  border-top: 3px solid var(--cinza-90);
+  /* Sem raio: papel não tem canto arredondado. */
+}
+
+/* Alto da página: tarja à esquerda, procedência à direita — a mesma
+   divisão de marginália do caderno impresso. */
+.marginalia {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-base) var(--e-2x);
+  padding: var(--e-baseh) var(--e-3x);
+  border-bottom: var(--borda) solid var(--papel-borda);
 }
 
 .cabecalho {
+  padding: var(--e-3x) var(--e-3x) var(--e-2x);
+}
+
+/* `QUESTÃO 140` em caixa alta e grotesca pesada, como no caderno. O
+   número só existe quando é real: veio da referência de uma prova
+   oficial. Questão autoral não recebe numeração de prova. */
+.numero {
+  display: block;
+  font-family: var(--fonte-prova);
+  font-size: var(--t-up-02);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--cinza-90);
+  font-variant-numeric: tabular-nums;
+}
+
+.conceito {
+  display: block;
+  margin-top: var(--e-half);
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--acento, var(--azul-70));
+}
+
+.etiquetas {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--e-base);
-  padding: var(--e-2x) var(--e-3x);
-  background: var(--azul-90);
-  color: var(--branco);
 }
 
-.conceito {
-  margin-right: auto;
-  font-size: var(--t-down-01);
-  font-weight: var(--peso-bold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--azul-20);
-}
-
+/* Texto-base na composição da prova: grotesca, justificada, entrelinha
+   apertada, medida estreita. É assim que ele chega no dia. */
 .enunciado {
-  padding: var(--e-3x);
-  font-size: var(--t-up-01);
-  line-height: var(--lh-alta);
+  padding: 0 var(--e-3x) var(--e-3x);
+  font-family: var(--fonte-prova);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--cinza-90);
+}
+
+@media (min-width: 576px) {
+  .enunciado {
+    text-align: justify;
+    hyphens: auto;
+  }
 }
 
 .enunciado > * + * {
@@ -60,8 +102,9 @@
   border: var(--borda-forte) solid var(--cinza-20);
   border-radius: var(--raio);
   background: var(--branco);
-  font-size: var(--t-up-01);
-  line-height: var(--lh-media);
+  font-family: var(--fonte-prova);
+  font-size: 1rem;
+  line-height: 1.5;
   cursor: pointer;
   transition:
     border-color var(--d-rapida) var(--curva),

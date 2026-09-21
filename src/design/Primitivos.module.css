@@ -370,7 +370,7 @@
   gap: var(--e-baseh) var(--e-3x);
   padding: var(--e-4x) var(--e-3x);
   color: var(--cinza-70);
-  background: var(--cinza-1);
+  background: var(--papel-2);
   border-left: 4px solid var(--cinza-20);
 }
 

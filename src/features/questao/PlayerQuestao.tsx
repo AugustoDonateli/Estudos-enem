@@ -5,6 +5,7 @@ import { ASSUNTO_POR_ID, proximaIrma } from '@/content/conteudo';
 import { useProgresso } from '@/lib/progresso';
 import { EXPLICACAO_TIPO_ERRO, ROTULO_TIPO_ERRO } from '@/engine/erros';
 import { Blocos, Botao, BotaoLink, SeloProcedencia, Tag } from '@/design/Primitivos';
+import { FaixaCaderno, Tarja } from '@/design/Caderno';
 import s from './PlayerQuestao.module.css';
 
 /**
@@ -65,18 +66,43 @@ export function PlayerQuestao({
     window.setTimeout(() => resultadoRef.current?.focus(), 60);
   }
 
+  // Só questão oficial com número de prova recebe numeração de caderno.
+  const referencia = questao.procedencia === 'oficial' ? questao.referencia : undefined;
+  const oficial = referencia !== undefined && referencia.numero !== undefined;
+
   return (
-    <article className={s.questao}>
-      <header className={s.cabecalho}>
-        <span className={s.conceito}>{questao.conceito}</span>
-        <Tag>
-          {questao.dificuldade === 'facil'
-            ? 'Fácil'
-            : questao.dificuldade === 'media'
-              ? 'Média'
-              : 'Difícil'}
-        </Tag>
+    <article className={s.questao} {...(assunto ? { 'data-area': assunto.areaId } : {})}>
+      {/* Marginália: o código é o identificador desta questão no site, nunca
+          um código de caderno do INEP. A tarja é linguagem visual da prova;
+          a procedência ao lado diz de onde o item realmente veio. */}
+      <div className={s.marginalia}>
+        <Tarja valor={questao.id} altura={22} />
         <SeloProcedencia procedencia={questao.procedencia} />
+      </div>
+
+      <header className={s.cabecalho}>
+        {oficial ? (
+          <>
+            <span className={s.numero}>QUESTÃO {String(referencia.numero).padStart(2, '0')}</span>
+            <FaixaCaderno
+              dia={referencia.prova.includes('2º') ? 2 : 1}
+              {...(referencia.caderno ? { caderno: referencia.caderno } : {})}
+              nota={`ENEM ${referencia.ano}`}
+            />
+          </>
+        ) : (
+          <span className={s.numero}>QUESTÃO</span>
+        )}
+        <span className={s.conceito}>{questao.conceito}</span>
+        <div className={s.etiquetas}>
+          <Tag>
+            {questao.dificuldade === 'facil'
+              ? 'Fácil'
+              : questao.dificuldade === 'media'
+                ? 'Média'
+                : 'Difícil'}
+          </Tag>
+        </div>
       </header>
 
       <div className={s.enunciado}>

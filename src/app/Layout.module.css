@@ -86,8 +86,8 @@
   position: sticky;
   top: 0;
   z-index: 40;
-  background: var(--branco);
-  border-bottom: var(--borda) solid var(--cinza-10);
+  background: var(--papel);
+  border-bottom: var(--borda) solid var(--papel-borda);
   transition: box-shadow var(--d-rapida) var(--curva);
 }
 
@@ -148,7 +148,7 @@
    ================================================================== */
 .barraNav {
   display: none;
-  background: var(--branco);
+  background: var(--papel);
   border-bottom: var(--borda-forte) solid var(--cinza-10);
 }
 
@@ -375,6 +375,24 @@
 .rodapeLista a:hover {
   color: var(--branco);
   text-decoration: underline;
+}
+
+.rodapeBaseInterno {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-2x) var(--e-4x);
+}
+
+/* No escuro do rodapé a tarja inverte: barras claras sobre fundo azul. */
+.rodapeTarja {
+  color: var(--azul-30);
+  flex-shrink: 0;
+}
+
+.rodapeTarja span {
+  color: var(--azul-40);
 }
 
 .rodapeBase {

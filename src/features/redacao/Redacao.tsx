@@ -4,6 +4,7 @@ import { SECOES_REDACAO_META } from '@/content/indice';
 import { useProgresso } from '@/lib/progresso';
 import { Destaque, Vazio } from '@/design/Primitivos';
 import { CabecalhoPagina, Metricas } from '@/design/Pagina';
+import { Figura } from '@/design/Figura';
 import { definirTitulo } from '@/lib/titulo';
 import s from './Redacao.module.css';
 
@@ -47,6 +48,8 @@ export function Redacao() {
           />
         }
       />
+
+      <Figura nome="redacao" proporcao="21 / 9" />
 
       <div className="container">
         <div className="secao">

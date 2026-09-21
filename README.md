@@ -28,7 +28,7 @@ npm run preview    # serve o build
 ```bash
 npm run validate   # regras editoriais do conteúdo
 npm run typecheck  # tipos
-npm run test       # 51 testes de motor e de fluxo (Vitest + Testing Library)
+npm run test       # 71 testes de motor, fluxo e codificação (Vitest + Testing Library)
 npm run test:e2e   # 62 testes de navegador (Playwright, desktop e celular)
 npm run test:all   # tudo acima
 ```
@@ -111,4 +111,5 @@ questões oficiais foram determinadas por resolução — ver
 - [Etapa 3 — Auditoria, testes e refinamento](docs/ETAPA-3-AUDITORIA.md)
 - [Etapa 4 — Incorporação das fontes oficiais](docs/ETAPA-4-FONTES-OFICIAIS.md)
 - [Etapa 5 — Redesenho visual institucional](docs/ETAPA-5-REDESIGN.md)
+- [Etapa 6 — Personalidade visual](docs/ETAPA-6-PERSONALIDADE.md)
 - [Como adicionar questões oficiais](docs/ADICIONAR-QUESTOES.md)

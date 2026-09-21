@@ -1,0 +1,122 @@
+/* ====================================================================
+   LINGUAGEM DO CADERNO DE PROVA
+   Tudo aqui se compõe em --fonte-prova, porque é a fonte em que a prova
+   é de fato composta: os PDFs oficiais de 2024 e 2025 embutem ArialMT.
+   ==================================================================== */
+
+/* --- Tarja Code 39 ---------------------------------------------------
+   No caderno impresso ela fica no alto da página, encostada na margem.
+   Aqui vale a mesma regra: é marginália, não conteúdo — fica pequena,
+   em cinza médio, e nunca disputa com o texto. */
+.tarja {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--cinza-80);
+  line-height: 1;
+}
+
+.tarjaSvg {
+  display: block;
+  width: auto;
+  max-width: 100%;
+}
+
+.tarjaTexto {
+  font-family: var(--fonte-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--cinza-50);
+  white-space: nowrap;
+}
+
+/* --- Faixa de capa ---------------------------------------------------
+   `1º DIA · CADERNO 1 | AZUL`, na composição da capa: caixa alta,
+   grotesca, espacejamento aberto, separadores verticais finos. */
+.faixaCaderno {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e-baseh);
+  margin: 0;
+  font-family: var(--fonte-prova);
+  font-size: var(--t-down-01);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cinza-70);
+}
+
+.faixaDia {
+  color: var(--cinza-90);
+}
+
+.faixaBarra {
+  width: 1px;
+  height: 1em;
+  background: var(--cinza-30);
+}
+
+.faixaCad,
+.faixaNota {
+  font-weight: 400;
+}
+
+/* --- Página de instruções --------------------------------------------
+   O formato mais reconhecível do exame: título em caixa alta e regras
+   numeradas, justificadas, em coluna estreita. */
+.instrucoes {
+  background: var(--papel-2);
+  border: var(--borda) solid var(--papel-borda);
+  padding: var(--e-3x);
+  max-width: var(--largura-leitura);
+}
+
+@media (min-width: 768px) {
+  .instrucoes {
+    padding: var(--e-4x);
+  }
+}
+
+.instrucoesTitulo {
+  font-family: var(--fonte-prova);
+  font-size: var(--t-base);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cinza-90);
+  margin-bottom: var(--e-3x);
+  padding-bottom: var(--e-base);
+  border-bottom: var(--borda-forte) solid var(--cinza-90);
+}
+
+.instrucoesLista {
+  font-family: var(--fonte-prova);
+  font-size: var(--t-base);
+  line-height: 1.55;
+  color: var(--cinza-80);
+  margin: 0;
+  padding-left: var(--e-3x);
+  counter-reset: instrucao;
+  list-style: none;
+}
+
+.instrucoesLista > li {
+  position: relative;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.instrucoesLista > li + li {
+  margin-top: var(--e-2x);
+}
+
+.instrucoesLista > li::before {
+  counter-increment: instrucao;
+  content: counter(instrucao) '.';
+  position: absolute;
+  left: calc(var(--e-3x) * -1);
+  font-weight: 700;
+  color: var(--cinza-90);
+  font-variant-numeric: tabular-nums;
+}

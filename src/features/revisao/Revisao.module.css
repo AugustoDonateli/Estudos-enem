@@ -79,7 +79,7 @@
 }
 
 .item:hover {
-  background: var(--cinza-1);
+  background: var(--papel-2);
 }
 
 @media (min-width: 576px) {

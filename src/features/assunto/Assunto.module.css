@@ -3,7 +3,7 @@
    ================================================================== */
 .cabecalho {
   position: relative;
-  background: var(--branco);
+  background: var(--papel);
   border-bottom: var(--borda) solid var(--cinza-10);
 }
 
@@ -14,6 +14,19 @@
 @media (min-width: 768px) {
   .cabecalhoInterno {
     padding-block: var(--e-3x) var(--e-5x);
+  }
+}
+
+/* A tarja é marginália: some no celular, onde cada linha do cabeçalho
+   custa conteúdo abaixo da dobra. */
+.tarjaTopo {
+  display: none;
+  margin-bottom: var(--e-2x);
+}
+
+@media (min-width: 768px) {
+  .tarjaTopo {
+    display: inline-flex;
   }
 }
 
@@ -40,7 +53,20 @@
 }
 
 @media (min-width: 768px) {
-  .metaTopo {
+  /* A tarja é marginália: some no celular, onde cada linha do cabeçalho
+   custa conteúdo abaixo da dobra. */
+.tarjaTopo {
+  display: none;
+  margin-bottom: var(--e-2x);
+}
+
+@media (min-width: 768px) {
+  .tarjaTopo {
+    display: inline-flex;
+  }
+}
+
+.metaTopo {
     flex-wrap: wrap;
     overflow-x: visible;
   }

@@ -7,6 +7,9 @@ import { faixaDeDominio, ROTULO_FAIXA } from '@/engine/dominio';
 import { PROVA_DIA_1, PROVA_DIA_2 } from '@/engine/datas';
 import { BarraDominio } from '@/design/Primitivos';
 import { CabecalhoPagina } from '@/design/Pagina';
+import { FaixaCaderno } from '@/design/Caderno';
+import { GradeProva } from '@/design/GradeProva';
+import { Figura } from '@/design/Figura';
 import { definirTitulo } from '@/lib/titulo';
 import type { AreaId } from '@/content/tipos';
 import s from './Areas.module.css';
@@ -41,7 +44,12 @@ export function Areas() {
         rotulo="Estrutura do exame"
         titulo="Áreas do ENEM"
         descricao="Quatro provas objetivas de 45 questões e a redação, distribuídas em dois domingos consecutivos."
+        abaixo={<GradeProva />}
       />
+
+      {/* Faixa fotográfica: a única coisa no site que sangra de borda a
+          borda. Não renderiza enquanto não houver arquivo com crédito. */}
+      <Figura nome="diaDeProva" proporcao="21 / 9" />
 
       <div className="container">
         {/* Composição por dia de prova: é assim que o exame chega ao aluno. */}
@@ -59,11 +67,18 @@ export function Areas() {
               const total = doDia.reduce((soma, a) => soma + (a.questoes ?? 0), 0);
               return (
                 <div key={numeroDia} className={s.dia}>
+                  {/* A duração está impressa na capa de cada caderno: o 1º dia
+                      tem cinco horas e trinta minutos; o 2º, cinco horas. */}
+                  <FaixaCaderno
+                    dia={numeroDia}
+                    nota={numeroDia === 1 ? '5h30 de prova' : '5h de prova'}
+                    className={s.diaFaixa}
+                  />
                   <div className={s.diaTopo}>
-                    <span className={s.diaNumero}>{numeroDia}º dia de prova</span>
-                    <span className={s.diaData}>
+                    <span className={s.diaNumero}>
                       {dataLonga(numeroDia === 1 ? PROVA_DIA_1 : PROVA_DIA_2)}
                     </span>
+                    <span className={s.diaData}>{total} questões</span>
                   </div>
                   <ul className={s.diaLista}>
                     {doDia.map((area) => (
@@ -76,11 +91,13 @@ export function Areas() {
                       </li>
                     ))}
                   </ul>
+                  {/* O 2º dia divide certo: 300 minutos para 90 questões dão
+                      3min20 cada. O 1º dia não divide, porque as 5h30 incluem
+                      a redação — e quanto reservar para ela é escolha do
+                      aluno, não dado do exame. */}
                   <p className={s.diaTotal}>
-                    <span>Total</span>
-                    <span>
-                      {total} questões · {numeroDia === 1 ? '5h30' : '5h'}
-                    </span>
+                    <span>{numeroDia === 1 ? 'Inclui a redação' : 'Por questão'}</span>
+                    <span>{numeroDia === 1 ? '5h30 no total' : '3min20'}</span>
                   </p>
                 </div>
               );

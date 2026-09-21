@@ -1,0 +1,97 @@
+/* No celular o número e a grade ficam lado a lado: empilhados, os dois
+   sozinhos comiam meia tela e empurravam o plano do dia para fora dela.
+   No desktop, onde há coluna sobrando, voltam a empilhar. */
+.contagem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--e-3x);
+}
+
+.numeroLinha {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--e-base);
+}
+
+@media (min-width: 992px) {
+  .contagem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--e-2x);
+  }
+
+  .numeroLinha {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--e-3x);
+  }
+}
+
+/* Escala de cartaz. O contador é a única coisa na interface que tem
+   licença para ser deste tamanho — é o número que define o produto. */
+.numero {
+  font-family: var(--fonte-titulo);
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' 144, 'SOFT' 0;
+  font-size: clamp(var(--t-cartaz-01), 13vw, var(--t-cartaz-03));
+  font-weight: var(--peso-semibold);
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--branco);
+}
+
+.rotulo {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: var(--lh-baixa);
+  color: var(--azul-20);
+  max-width: 9ch;
+}
+
+/* --- Calendário ------------------------------------------------------
+   Sete colunas, uma por dia da semana. Cada célula é um dia que falta. */
+/* Sete colunas de 18px. A grade precisa caber no canto da faixa: é
+   referência de tamanho, não o assunto principal do hero. */
+.grade {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  /* Largura explícita: dentro de um flex com align-items:flex-start, um
+     grid de colunas 1fr encolhe até min-content e some da tela. */
+  width: 116px;
+  flex-shrink: 0;
+}
+
+.celula,
+.vazia {
+  aspect-ratio: 1;
+  border-radius: 1px;
+}
+
+.celula {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+/* Fim de semana um pouco mais claro: é quando dá para estudar mais, e
+   dá ritmo de calendário à grade sem precisar de rótulo. */
+.fimDeSemana {
+  background: rgba(255, 255, 255, 0.38);
+}
+
+/* O último quadrado é o dia da prova: cheio, na cor de alerta. */
+.prova {
+  background: var(--alerta);
+  box-shadow: 0 0 0 2px rgba(255, 205, 7, 0.3);
+}
+
+@media (min-width: 992px) {
+  .grade {
+    width: 176px;
+    gap: 4px;
+  }
+}

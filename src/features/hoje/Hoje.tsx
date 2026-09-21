@@ -6,10 +6,11 @@ import { useProgresso } from '@/lib/progresso';
 import { gerarPlano, type ItemPlano } from '@/engine/planoDiario';
 import { analisarErros, EXPLICACAO_TIPO_ERRO } from '@/engine/erros';
 import { revisoesVencidas } from '@/engine/revisao';
-import { DESCRICAO_FASE, diasAteProva, hoje as hojeISO } from '@/engine/datas';
+import { DESCRICAO_FASE, PROVA_DIA_1, diasAteProva, hoje as hojeISO } from '@/engine/datas';
 import { faixaDeDominio, ROTULO_FAIXA } from '@/engine/dominio';
 import { BarraDominio, BotaoLink, Vazio } from '@/design/Primitivos';
-import { HeroEscuro, Metricas } from '@/design/Pagina';
+import { HeroEscuro } from '@/design/Pagina';
+import { ContagemRegressiva } from '@/design/Contagem';
 import { definirTitulo } from '@/lib/titulo';
 import s from './Hoje.module.css';
 
@@ -69,15 +70,30 @@ export function Hoje() {
             : 'Faça o diagnóstico rápido e o plano passa a priorizar o que você realmente não domina.'
         }
         aside={
-          <Metricas
-            escuro
-            itens={[
-              { numero: dias > 0 ? dias : '—', rotulo: dias === 1 ? 'dia até a prova' : 'dias até a prova' },
-              { numero: restantes.length, rotulo: 'itens no plano de hoje' },
-              { numero: `${plano.minutosPlanejados}`, rotulo: 'minutos planejados' },
-              { numero: pendentes.length, rotulo: 'revisões vencidas' },
-            ]}
+          <ContagemRegressiva
+            ate={PROVA_DIA_1}
+            rotulo={dias === 1 ? 'dia até a prova' : 'dias até a prova'}
           />
+        }
+        abaixo={
+          /* Os três números do dia numa linha só. Depois da contagem em
+             escala de cartaz, repetir o formato de métrica grande faria a
+             faixa inteira gritar — e aí nada grita. */
+          <p className={s.resumoDia}>
+            <span>
+              <strong>{restantes.length}</strong>{' '}
+              {restantes.length === 1 ? 'item no plano' : 'itens no plano'}
+            </span>
+            <span aria-hidden="true" className={s.resumoBarra} />
+            <span>
+              <strong>{plano.minutosPlanejados}</strong> min planejados
+            </span>
+            <span aria-hidden="true" className={s.resumoBarra} />
+            <span>
+              <strong>{pendentes.length}</strong>{' '}
+              {pendentes.length === 1 ? 'revisão vencida' : 'revisões vencidas'}
+            </span>
+          </p>
         }
       />
 

@@ -13,6 +13,11 @@ import { createRoot } from 'react-dom/client';
  * Raleway fica declarada no stack de fontes mas não é baixada: como Rawline
  * cobre tudo, a reserva só entraria em cena se a principal falhasse, e enviar
  * uma fonte variável inteira para esse caso custaria mais do que resolve.
+ *
+ * A terceira família é a Fraunces, em fraunces.css: a voz editorial do site,
+ * usada só em título de página e número grande. As superfícies que imitam o
+ * caderno de prova não usam nenhuma das duas — usam a pilha grotesca do
+ * sistema, porque é literalmente em Arial que a prova é composta.
  */
 import 'rawline-webfont/latin-400.css';
 import 'rawline-webfont/latin-500.css';
@@ -20,6 +25,7 @@ import 'rawline-webfont/latin-600.css';
 import 'rawline-webfont/latin-700.css';
 import 'rawline-webfont/latin-800.css';
 
+import './design/fraunces.css';
 import './design/tokens.css';
 import './design/base.css';
 import { App } from './app/App';

@@ -4,7 +4,7 @@
 .barraFiltros {
   border-top: var(--borda) solid var(--cinza-10);
   border-bottom: var(--borda) solid var(--cinza-10);
-  background: var(--cinza-1);
+  background: var(--papel-2);
 }
 
 .filtrosInterno {

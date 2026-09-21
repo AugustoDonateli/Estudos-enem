@@ -1,0 +1,66 @@
+.figura {
+  margin: 0;
+}
+
+.grade {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2x);
+}
+
+/* Cada bloco é uma área: 45 células em linhas de 15, para a leitura ser
+   "três fileiras de quinze" e não uma mancha indistinta. */
+.bloco {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 2px;
+  flex: 1 1 210px;
+  min-width: 0;
+}
+
+.celula {
+  aspect-ratio: 1;
+  background: var(--acento);
+  opacity: 0.85;
+}
+
+/* Alterna a opacidade em diagonal para a mancha respirar sem virar xadrez. */
+.celula:nth-child(3n) {
+  opacity: 0.6;
+}
+
+.celula:nth-child(7n) {
+  opacity: 1;
+}
+
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-base) var(--e-3x);
+  margin-top: var(--e-2x);
+  font-size: var(--t-down-01);
+  color: var(--cinza-70);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-base);
+}
+
+.item strong {
+  color: var(--cinza-90);
+  font-variant-numeric: tabular-nums;
+}
+
+.marca {
+  width: 10px;
+  height: 10px;
+  background: var(--acento);
+}
+
+@media (min-width: 768px) {
+  .bloco {
+    gap: 3px;
+  }
+}

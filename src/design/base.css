@@ -22,7 +22,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--branco);
+  background: var(--papel);
   color: var(--cinza-90);
   font-family: var(--fonte);
   font-size: var(--t-up-01);
@@ -48,10 +48,17 @@ h4 {
   scroll-margin-top: var(--altura-cabecalho);
 }
 
+/* O h1 é a voz editorial do site: Fraunces, com o eixo óptico alto para a
+   serifa abrir no corpo grande. É o que separa "título de página" de
+   "cabeçalho de seção" sem precisar de mais um tamanho na escala. */
 h1 {
-  font-size: clamp(var(--t-up-04), 4.5vw, var(--t-up-05));
-  font-weight: var(--peso-bold);
-  letter-spacing: -0.022em;
+  font-family: var(--fonte-titulo);
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' 96, 'SOFT' 20;
+  font-size: clamp(var(--t-up-05), 6vw, var(--t-cartaz-01));
+  font-weight: var(--peso-semibold);
+  letter-spacing: -0.02em;
+  line-height: 1.04;
 }
 
 h2 {

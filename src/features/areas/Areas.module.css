@@ -74,6 +74,12 @@
   white-space: nowrap;
 }
 
+.diaFaixa {
+  margin-bottom: var(--e-2x);
+  padding-bottom: var(--e-base);
+  border-bottom: var(--borda) solid var(--papel-borda);
+}
+
 .diaTotal {
   display: flex;
   justify-content: space-between;
