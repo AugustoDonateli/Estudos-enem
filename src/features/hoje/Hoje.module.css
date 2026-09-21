@@ -1,27 +1,71 @@
+.topo {
+  margin-bottom: var(--s-6);
+}
+
 .contexto {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--s-2) var(--s-3);
+  gap: var(--s-2);
   margin-bottom: var(--s-2);
 }
 
 .fase {
   font-size: var(--t-12);
-  font-weight: 640;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
+.contagem {
+  font-size: var(--t-14);
+  color: var(--ink-3);
+}
+
+.tituloLinha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-top: var(--s-1);
+}
+
 .faseTexto {
   font-size: var(--t-14);
-  color: var(--ink-2);
+  color: var(--ink-3);
+  margin-top: var(--s-3);
   max-width: var(--measure);
 }
 
-.titulo {
+/* Convite ao diagnóstico: banner compacto, não caixa grande — ele não pode
+   empurrar o plano do dia para fora da primeira tela no celular. */
+.convite {
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+  padding: var(--s-4);
   margin-bottom: var(--s-6);
+}
+
+.conviteTitulo {
+  font-family: var(--font-title);
+  font-size: var(--t-19);
+  font-weight: 600;
+  margin-bottom: var(--s-2);
+}
+
+.conviteTexto {
+  font-size: var(--t-14);
+  color: var(--ink-2);
+}
+
+.conviteAcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
 }
 
 /* --- Plano ------------------------------------------------------------- */
@@ -58,26 +102,39 @@
   opacity: 0.55;
 }
 
+/*
+ * O alvo tem 44px (mínimo acessível de toque) e o círculo visível tem 26px.
+ * Antes, o botão inteiro media 26px: passava no olho e falhava no dedo.
+ */
 .marcar {
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
-  margin-top: 2px;
-  border-radius: 50%;
-  border: 1.5px solid var(--line-strong);
-  background: var(--paper);
+  width: 44px;
+  height: 44px;
+  margin: -9px 0 0 -9px;
+  border: 0;
+  background: none;
   cursor: pointer;
   display: grid;
   place-items: center;
   padding: 0;
+}
+
+.marcarCirculo {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-strong);
+  background: var(--paper);
+  display: grid;
+  place-items: center;
   transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
 }
 
-.marcar:hover {
+.marcar:hover .marcarCirculo {
   border-color: var(--accent);
 }
 
-.marcarFeito {
+.marcarFeito .marcarCirculo {
   background: var(--ok);
   border-color: var(--ok);
   color: #fff;

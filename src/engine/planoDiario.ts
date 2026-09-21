@@ -123,7 +123,9 @@ export function gerarPlano({ assuntos, progresso, dia, secoesRedacao }: EntradaP
       const jaNoPlano = itens.some((i) => i.href.includes(`/assunto/${p.assunto.id}`));
       return !jaNoPlano && (!estado?.lido || (estado.dominio ?? 0) < 65);
     });
-    const limite = orcamento >= 90 ? 2 : 1;
+    // O limite cresce com o orçamento: com 60 minutos declarados, entregar um
+    // único assunto de 25 minutos desperdiçava mais da metade do tempo do aluno.
+    const limite = orcamento >= 90 ? 3 : orcamento >= 60 ? 2 : 1;
     for (const p of fila.slice(0, limite)) {
       const minutos = p.assunto.minutosEstimados;
       if (!cabe(minutos)) break;
@@ -160,25 +162,34 @@ export function gerarPlano({ assuntos, progresso, dia, secoesRedacao }: EntradaP
     });
   }
 
-  /* 5. Sobrou tempo: prática solta no assunto mais frágil já estudado. */
+  /* 5. Sobrou tempo: prática de questões. */
   const sobra = orcamento - usado;
   if (sobra >= 10) {
-    const estudados = priorizar(assuntos, progresso.assuntos, dia).filter(
+    // Preferência: o assunto já estudado mais frágil. Se o aluno é novo e ainda
+    // não leu nada, pratica o assunto que ele acabou de receber no plano — sem
+    // isso, o primeiro dia sobrava tempo ocioso justamente para quem mais
+    // precisa de direção.
+    const fragil = priorizar(assuntos, progresso.assuntos, dia).find(
       (p) => progresso.assuntos[p.assunto.id]?.lido,
     );
-    const alvo = estudados[0];
-    if (alvo && !itens.some((i) => i.id === `pratica:${alvo.assunto.id}`)) {
+    const novoDeHoje = itens.find((i) => i.tipo === 'novo');
+    const alvoId = fragil?.assunto.id ?? novoDeHoje?.id.replace('novo:', '');
+    const alvo = alvoId ? porId.get(alvoId) : undefined;
+
+    if (alvo && !itens.some((i) => i.id === `pratica:${alvo.id}`)) {
       const minutos = Math.min(sobra, 15);
       usado += minutos;
       itens.push({
-        id: `pratica:${alvo.assunto.id}`,
+        id: `pratica:${alvo.id}`,
         tipo: 'pratica',
-        titulo: `Praticar: ${alvo.assunto.titulo}`,
+        titulo: `Praticar: ${alvo.titulo}`,
         subtitulo: 'Questões avulsas',
-        motivo: 'Sobrou tempo no orçamento de hoje — prática no que está mais frágil.',
+        motivo: fragil
+          ? 'Sobrou tempo no orçamento de hoje — prática no que está mais frágil.'
+          : 'Fixar com questões o assunto que você acabou de estudar.',
         minutos,
-        href: `/questoes?assunto=${alvo.assunto.id}`,
-        concluido: concluidos.has(`pratica:${alvo.assunto.id}`),
+        href: `/questoes?assunto=${alvo.id}`,
+        concluido: concluidos.has(`pratica:${alvo.id}`),
       });
     }
   }

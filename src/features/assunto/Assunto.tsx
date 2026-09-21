@@ -23,6 +23,17 @@ import { PlayerQuestao } from '@/features/questao/PlayerQuestao';
 import { definirTitulo } from '@/lib/titulo';
 import s from './Assunto.module.css';
 
+const BLOCOS_NAV = [
+  { id: 'b1', rotulo: 'Essencial' },
+  { id: 'b2', rotulo: 'Explicação' },
+  { id: 'b3', rotulo: 'Conceitos' },
+  { id: 'b4', rotulo: 'Exemplo' },
+  { id: 'b5', rotulo: 'No ENEM' },
+  { id: 'b6', rotulo: 'Erros' },
+  { id: 'b7', rotulo: 'Questões' },
+  { id: 'b9', rotulo: 'Revisão' },
+];
+
 export function Assunto() {
   const { topicId } = useParams<{ topicId: string }>();
   const [params] = useSearchParams();
@@ -100,10 +111,30 @@ export function Assunto() {
 
       {modoRevisao && (
         <div className={s.modoRevisao}>
-          <strong>Modo revisão.</strong> Comece pelo bloco de revisão rápida no fim da página
-          e vá direto para a questão. Se travar, volte aos conceitos.
+          <strong>Modo revisão.</strong> Comece pela revisão rápida e vá direto para a
+          questão. Se travar, volte aos conceitos.
+          <div className={s.modoAcoes}>
+            <a href="#b9" className={s.atalho}>
+              Ir para a revisão rápida
+            </a>
+            <a href="#b7" className={s.atalho}>
+              Ir para a questão
+            </a>
+          </div>
         </div>
       )}
+
+      {/*
+        Navegação entre blocos: a página de um assunto é longa de propósito, e
+        sem isto o aluno que só quer praticar precisa rolar por seis blocos.
+      */}
+      <nav className={s.blocoNav} aria-label="Blocos deste assunto">
+        {BLOCOS_NAV.map((b) => (
+          <a key={b.id} href={`#${b.id}`} className={s.blocoLink}>
+            {b.rotulo}
+          </a>
+        ))}
+      </nav>
 
       <Destaque variante="nota" titulo={`Por que este assunto é ${assunto.prioridade}`}>
         <p>{assunto.justificativa}</p>
@@ -205,6 +236,9 @@ export function Assunto() {
         <h2 id="b5" className={s.blocoTitulo}>
           Como isso aparece no ENEM
         </h2>
+        <p className={s.marcaAnalise}>
+          Análise pedagógica deste site, não texto oficial do INEP.
+        </p>
         <p>{c.noEnem.texto}</p>
         <div className={s.eixos}>
           {c.noEnem.eixos.map((e) => (

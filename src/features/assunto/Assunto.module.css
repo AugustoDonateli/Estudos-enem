@@ -1,4 +1,5 @@
 .cabecalho {
+  max-width: 46rem;
   padding-bottom: var(--s-6);
   border-bottom: 1px solid var(--line);
   margin-bottom: var(--s-8);
@@ -34,7 +35,7 @@
 /* --- Blocos -------------------------------------------------------------- */
 .bloco {
   margin-top: var(--s-12);
-  scroll-margin-top: 72px;
+  max-width: 46rem;
 }
 
 .blocoNumero {
@@ -110,6 +111,7 @@
 }
 
 .exemploEnunciado {
+  max-width: none;
   padding: var(--s-4);
   background: var(--paper-2);
   border-bottom: 1px solid var(--line);
@@ -152,6 +154,7 @@
 }
 
 .exemploConclusao {
+  max-width: none;
   padding: var(--s-4);
   background: var(--ok-soft);
   border-top: 1px solid var(--line);
@@ -221,6 +224,7 @@
 }
 
 .proximo {
+  max-width: 46rem;
   margin-top: var(--s-12);
   padding-top: var(--s-6);
   border-top: 1px solid var(--line);
@@ -233,4 +237,54 @@
   padding: var(--s-3) var(--s-4);
   margin-bottom: var(--s-6);
   font-size: var(--t-14);
+}
+
+.modoAcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+}
+
+.atalho {
+  font-weight: 600;
+  font-size: var(--t-14);
+}
+
+.blocoNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-6);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+.blocoLink {
+  padding: var(--s-1) var(--s-3);
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: var(--t-14);
+  font-weight: 540;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: all var(--fast) var(--ease);
+}
+
+.blocoLink:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.marcaAnalise {
+  font-size: var(--t-12);
+  font-weight: 640;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: var(--s-3);
 }

@@ -218,6 +218,18 @@ describe('plano diário', () => {
     expect(plano.minutosPlanejados).toBeLessThanOrEqual(30);
   });
 
+  it('usa a maior parte do orçamento em vez de deixar tempo ocioso', () => {
+    // Regressão: no primeiro dia, o plano entregava um único assunto de 25 min
+    // para um orçamento de 60 e desperdiçava mais da metade do tempo.
+    for (const orcamento of [30, 60, 90] as const) {
+      const progresso = progressoInicial(dia);
+      progresso.config.orcamentoDiario = orcamento;
+      const plano = gerarPlano({ assuntos, progresso, dia, secoesRedacao: secoes });
+      expect(plano.minutosPlanejados).toBeLessThanOrEqual(orcamento);
+      expect(plano.minutosPlanejados).toBeGreaterThanOrEqual(orcamento * 0.7);
+    }
+  });
+
   it('é determinístico: duas chamadas iguais produzem o mesmo plano', () => {
     const progresso = progressoInicial(dia);
     const a = gerarPlano({ assuntos, progresso, dia, secoesRedacao: secoes });

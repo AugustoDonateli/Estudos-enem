@@ -6,6 +6,8 @@ export function NaoEncontrado() {
   useEffect(() => definirTitulo('Página não encontrada'), []);
   return (
     <div className="page">
+      {/* Toda página precisa de um h1 — inclusive a de erro. */}
+      <h1 className="visually-hidden">Página não encontrada</h1>
       <Vazio
         titulo="Esta página não existe"
         acao={<BotaoLink to="/">Voltar para o plano de hoje</BotaoLink>}

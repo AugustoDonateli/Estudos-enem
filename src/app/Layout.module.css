@@ -17,8 +17,10 @@
   position: sticky;
   top: 0;
   z-index: 20;
-  background: color-mix(in srgb, var(--paper) 92%, transparent);
-  backdrop-filter: saturate(180%) blur(8px);
+  /* Opaco de propósito: com fundo translúcido, o conteúdo aparecia por baixo
+     do cabeçalho ao rolar — além de ser exatamente o efeito de vidro que este
+     projeto decidiu não usar. */
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
 

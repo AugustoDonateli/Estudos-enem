@@ -24,6 +24,9 @@ h1,
 h2,
 h3,
 h4 {
+  /* O cabeçalho é fixo: sem esta margem, todo link de âncora deixa o título
+     escondido atrás dele. */
+  scroll-margin-top: 84px;
   font-family: var(--font-title);
   font-weight: 600;
   line-height: var(--lh-tight);
@@ -33,7 +36,9 @@ h4 {
 }
 
 h1 {
-  font-size: var(--t-33);
+  /* No celular, 33px levava "Faltam 48 dias para o primeiro dia de prova" a
+     duas linhas altas e empurrava o plano do dia para fora da primeira tela. */
+  font-size: clamp(1.625rem, 5.5vw, 2.0625rem);
 }
 h2 {
   font-size: var(--t-23);
@@ -214,4 +219,15 @@ hr {
 
 .voltar:hover {
   color: var(--accent);
+}
+
+/*
+ * Coluna de leitura.
+ *
+ * A página tem 1080px para acomodar cabeçalho e navegação, mas texto corrido
+ * dentro dessa largura deixa um vazio enorme à direita — a medida de linha é
+ * de 68ch. Blocos de leitura ficam nesta coluna mais estreita.
+ */
+.coluna {
+  max-width: 46rem;
 }

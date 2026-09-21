@@ -121,6 +121,7 @@
 
 /* Destaque (callout) --------------------------------------------------- */
 .destaque {
+  max-width: 46rem;
   border-left: 3px solid var(--line-strong);
   background: var(--paper-2);
   padding: var(--s-3) var(--s-4);
@@ -162,6 +163,11 @@
   border-radius: 3px;
   background: var(--paper-3);
   overflow: hidden;
+}
+
+.barraVazia {
+  background: transparent;
+  border: 1px dashed var(--line-strong);
 }
 
 .barraPreenchida {
@@ -267,6 +273,7 @@
 
 /* Estado vazio ---------------------------------------------------------- */
 .vazio {
+  max-width: 46rem;
   border: 1px dashed var(--line-strong);
   border-radius: var(--radius);
   padding: var(--s-8) var(--s-4);

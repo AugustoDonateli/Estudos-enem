@@ -68,6 +68,7 @@
 
 /* --- Autoavaliação -------------------------------------------------------- */
 .form {
+  max-width: 46rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--s-4);
@@ -151,11 +152,16 @@
 }
 
 /* --- Página de seção ------------------------------------------------------ */
+.conteudo {
+  max-width: 46rem;
+}
+
 .conteudo > * + * {
   margin-top: var(--s-4);
 }
 
 .checklist {
+  max-width: 46rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--s-4);
@@ -178,6 +184,7 @@
 }
 
 .exercicio {
+  max-width: 46rem;
   border: 1px solid var(--accent-line);
   background: var(--accent-soft);
   border-radius: var(--radius);

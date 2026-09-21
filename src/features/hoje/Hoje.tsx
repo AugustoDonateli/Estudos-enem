@@ -8,7 +8,7 @@ import { analisarErros, EXPLICACAO_TIPO_ERRO } from '@/engine/erros';
 import { revisoesVencidas } from '@/engine/revisao';
 import { DESCRICAO_FASE, diasAteProva, hoje as hojeISO } from '@/engine/datas';
 import { faixaDeDominio, ROTULO_FAIXA } from '@/engine/dominio';
-import { BarraDominio, Botao, BotaoLink, Vazio } from '@/design/Primitivos';
+import { BarraDominio, BotaoLink, Vazio } from '@/design/Primitivos';
 import { definirTitulo } from '@/lib/titulo';
 import s from './Hoje.module.css';
 
@@ -59,48 +59,22 @@ export function Hoje() {
 
   return (
     <div className="page">
-      <div className={s.contexto}>
-        <span className={s.fase}>{fase.rotulo}</span>
-        <span className={s.faseTexto}>{fase.explicacao}</span>
-      </div>
-
-      <header className="cabecalho-pagina">
-        <h1>
-          {dias > 0
-            ? `Faltam ${dias} ${dias === 1 ? 'dia' : 'dias'} para o primeiro dia de prova`
-            : 'Semana de prova'}
-        </h1>
-        <p className="subtitulo">
-          {comecou
-            ? 'Seu plano de hoje está abaixo. Cada item diz por que está aí.'
-            : 'Comece pelo diagnóstico rápido: 90 segundos que tornam todo o resto mais preciso.'}
+      {/*
+        Ordem deliberada: no celular, o plano precisa estar na primeira tela.
+        Contexto (fase e contagem regressiva) vem como uma linha curta, o título
+        é a própria ação, e a explicação da fase desce para depois do plano.
+      */}
+      <header className={s.topo}>
+        <p className={s.contexto}>
+          <span className={s.fase}>{fase.rotulo}</span>
+          <span className={s.contagem}>
+            {dias > 0
+              ? `faltam ${dias} ${dias === 1 ? 'dia' : 'dias'} para o 1º dia de prova`
+              : 'semana de prova'}
+          </span>
         </p>
-      </header>
-
-      {!comecou && (
-        <Vazio
-          titulo="Ainda não sei o que você já sabe"
-          acao={
-            <div className="acoes" style={{ justifyContent: 'center', marginTop: 0 }}>
-              <BotaoLink to="/diagnostico">Fazer o diagnóstico (90s)</BotaoLink>
-              <BotaoLink to="/areas" variante="secundario">
-                Prefiro escolher sozinho
-              </BotaoLink>
-            </div>
-          }
-        >
-          <p style={{ margin: '0 auto' }}>
-            Sem isso, o plano abaixo é um chute razoável. Com isso, ele passa a priorizar o
-            que você realmente não domina.
-          </p>
-        </Vazio>
-      )}
-
-      <section className="secao" aria-labelledby="plano-titulo">
-        <div className="secao-cabecalho">
-          <h2 id="plano-titulo" className="secao-titulo">
-            Plano de hoje
-          </h2>
+        <div className={s.tituloLinha}>
+          <h1>Plano de hoje</h1>
           <div className={s.orcamento} role="group" aria-label="Tempo disponível hoje">
             {([30, 60, 90] as const).map((m) => (
               <button
@@ -117,7 +91,26 @@ export function Hoje() {
             ))}
           </div>
         </div>
+      </header>
 
+      {!comecou && (
+        <div className={s.convite}>
+          <p className={s.conviteTitulo}>Ainda não sei o que você já sabe</p>
+          <p className={s.conviteTexto}>
+            Sem o diagnóstico, o plano abaixo é um chute razoável. São cerca de 2 minutos, e
+            depois dele a fila passa a priorizar o que você realmente não domina.
+          </p>
+          <div className={s.conviteAcoes}>
+            <BotaoLink to="/diagnostico">Fazer o diagnóstico</BotaoLink>
+            <BotaoLink to="/areas" variante="secundario">
+              Prefiro escolher sozinho
+            </BotaoLink>
+          </div>
+        </div>
+      )}
+
+      {/* O h1 acima já nomeia esta região; um h2 oculto seria só duplicação. */}
+      <section aria-label="Itens do plano de hoje">
         {plano.itens.length === 0 ? (
           <Vazio titulo="Nada planejado para hoje" acao={<BotaoLink to="/areas">Escolher um assunto</BotaoLink>}>
             <p style={{ margin: '0 auto' }}>
@@ -146,26 +139,26 @@ export function Hoje() {
                         : `Marcar ${item.titulo} como concluído`
                     }
                   >
-                    {item.concluido && (
-                      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-                        <path
-                          d="M3 8.5l3.5 3.5L13 5"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
+                    <span className={s.marcarCirculo} aria-hidden="true">
+                      {item.concluido && (
+                        <svg viewBox="0 0 16 16" width="14" height="14">
+                          <path
+                            d="M3 8.5l3.5 3.5L13 5"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </span>
                   </button>
 
                   <div className={s.corpo}>
                     <div className={s.itemTopo}>
                       <span className={s.itemTipo}>{ROTULO_TIPO[item.tipo]}</span>
-                      {item.subtitulo && (
-                        <span className={s.areaFaixa}>{item.subtitulo}</span>
-                      )}
+                      {item.subtitulo && <span className={s.areaFaixa}>{item.subtitulo}</span>}
                     </div>
                     <Link to={item.href} className={s.itemTitulo}>
                       {item.titulo}
@@ -178,9 +171,9 @@ export function Hoje() {
               ))}
             </ul>
 
-            <p className="secao-meta" style={{ marginTop: 'var(--s-4)' }}>
+            <p className={s.metaNumero} style={{ marginTop: 'var(--s-4)' }}>
               {restantes.length > 0
-                ? `${plano.minutosPlanejados} min planejados · ${restantes.length} ${
+                ? `${plano.minutosPlanejados} de ${plano.orcamento} min planejados · ${restantes.length} ${
                     restantes.length === 1 ? 'item restante' : 'itens restantes'
                   }`
                 : 'Tudo concluído hoje. Bom trabalho.'}
@@ -189,6 +182,8 @@ export function Hoje() {
                   plano.revisoesAdiadas === 1 ? 'revisão adiada' : 'revisões adiadas'
                 } para caber no seu tempo`}
             </p>
+
+            <p className={s.faseTexto}>{fase.explicacao}</p>
           </>
         )}
       </section>
@@ -264,9 +259,10 @@ export function Hoje() {
 
       {comecou && (
         <div className="acoes">
-          <Botao variante="secundario" onClick={() => window.location.assign('/diagnostico')}>
+          {/* Navegação por rota: window.location recarregaria a aplicação inteira. */}
+          <BotaoLink to="/diagnostico" variante="secundario">
             Refazer diagnóstico
-          </Botao>
+          </BotaoLink>
         </div>
       )}
     </div>

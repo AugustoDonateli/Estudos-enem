@@ -10,8 +10,11 @@
   --paper-2: #faf9f7;
   --paper-3: #f3f1ed;
   --ink: #17161a;
-  --ink-2: #56545e;
-  --ink-3: #8a8792;
+  /* Medidos contra --paper e contra os fundos tingidos (--accent-soft,
+     --warn-soft): todos acima de 4.5:1. O valor anterior de --ink-3 (#8a8792)
+     ficava em 3.3:1 e reprovava em texto de metadado. */
+  --ink-2: #4a4852;
+  --ink-3: #6b6875;
   --line: #e6e3dd;
   --line-strong: #d3cfc7;
 

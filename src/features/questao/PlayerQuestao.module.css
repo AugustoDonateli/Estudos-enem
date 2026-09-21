@@ -1,4 +1,5 @@
 .questao {
+  max-width: 46rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
@@ -153,6 +154,8 @@
 .resultado {
   padding: var(--s-4);
   border-top: 1px solid var(--line);
+  /* O cabeçalho é fixo: sem esta margem, o foco leva a correção para debaixo dele. */
+  scroll-margin-top: 84px;
 }
 
 .resultadoTitulo {

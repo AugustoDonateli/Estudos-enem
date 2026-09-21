@@ -157,6 +157,18 @@ const CLASSE_FAIXA: Record<Faixa, string> = {
 export function BarraDominio({ dominio, rotulo }: { dominio: number | null; rotulo?: string }) {
   const faixa = faixaDeDominio(dominio);
   const largura = dominio ?? 0;
+  // Domínio desconhecido não pode ser desenhado como barra cheia: em cinza,
+  // uma barra de 100% lê como "concluído". A trilha vazia tracejada comunica
+  // ausência de informação, que é o que de fato existe aqui.
+  if (dominio === null) {
+    return (
+      <div
+        className={`${s.barra} ${s.barraVazia}`}
+        role="img"
+        aria-label={`${rotulo ? rotulo + ': ' : ''}${ROTULO_FAIXA[faixa]}`}
+      />
+    );
+  }
   return (
     <div
       role="meter"
@@ -168,7 +180,7 @@ export function BarraDominio({ dominio, rotulo }: { dominio: number | null; rotu
     >
       <div
         className={`${s.barraPreenchida} ${CLASSE_FAIXA[faixa]}`}
-        style={{ width: `${Math.max(dominio === null ? 100 : largura, 2)}%` }}
+        style={{ width: `${Math.max(largura, 2)}%` }}
       />
     </div>
   );
