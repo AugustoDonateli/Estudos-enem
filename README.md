@@ -113,3 +113,4 @@ questões oficiais foram determinadas por resolução — ver
 - [Etapa 5 — Redesenho visual institucional](docs/ETAPA-5-REDESIGN.md)
 - [Etapa 6 — Personalidade visual](docs/ETAPA-6-PERSONALIDADE.md)
 - [Como adicionar questões oficiais](docs/ADICIONAR-QUESTOES.md)
+- [**O que depende de você**](docs/DEPENDE-DE-VOCE.md) — pendências abertas, em ordem de impacto
