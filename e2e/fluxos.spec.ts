@@ -136,7 +136,7 @@ test.describe('fluxo de estudo', () => {
     // Descer até a questão e responder.
     await page.locator('#b7').scrollIntoViewIfNeeded();
     await page.getByRole('button', { name: /Alternativa A/ }).first().click();
-    await page.getByRole('button', { name: /Confirmar resposta/ }).first().click();
+    await page.getByRole('button', { name: 'Tenho certeza' }).first().click();
 
     const correcao = page.getByRole('region', { name: 'Correção da questão' }).first();
     await expect(correcao).toBeVisible();
@@ -152,7 +152,7 @@ test.describe('fluxo de estudo', () => {
   test('o progresso sobrevive a um recarregamento', async ({ page }) => {
     await page.goto('/questao/mat-porc-q1');
     await page.getByRole('button', { name: /Alternativa B/ }).click();
-    await page.getByRole('button', { name: /Confirmar resposta/ }).click();
+    await page.getByRole('button', { name: 'Tenho certeza' }).click();
     await expect(page.getByRole('heading', { name: 'Você acertou' })).toBeVisible();
 
     await page.goto('/progresso');
@@ -165,6 +165,68 @@ test.describe('fluxo de estudo', () => {
     await page.goto('/assunto/mat-porcentagem');
     await page.getByRole('button', { name: 'Marcar como estudado' }).click();
     await expect(page.getByText(/Próxima revisão agendada/)).toBeVisible();
+  });
+});
+
+/**
+ * As seções de calibração e ritmo só existem depois de responder questões, e
+ * o teste de contraste carrega /progresso com armazenamento vazio. Sem semear
+ * o progresso, elas nunca seriam vistas por nenhum teste de navegador.
+ */
+test.describe('calibração e ritmo', () => {
+  const RESPOSTAS = Array.from({ length: 12 }, (_, i) => ({
+    questionId: `seed-${i}`,
+    topicId: 'mat-porcentagem',
+    conceito: 'Porcentagem',
+    letra: 'A',
+    // Erra a maior parte do que jura saber: dispara o alerta de certeza perigosa.
+    correta: i >= 8,
+    dificuldade: 'media',
+    confianca: i < 8 ? 'certeza' : 'chute',
+    segundos: 150 + i * 20,
+    em: '2026-09-21',
+    ts: i,
+  }));
+
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript((respostas) => {
+      localStorage.setItem(
+        'enem-study:v1',
+        JSON.stringify({
+          versao: 2,
+          assuntos: {},
+          respostas,
+          redacao: { secoesLidas: [], producoes: [] },
+          planoConcluido: {},
+          explicacoes: [],
+          config: { orcamentoDiario: 60, linguaEstrangeira: 'ingles', diagnosticoFeito: true },
+          criadoEm: '2026-09-01',
+        }),
+      );
+    }, RESPOSTAS);
+  });
+
+  test('mostra a calibração e alerta sobre certeza de coisa errada', async ({ page }) => {
+    await page.goto('/progresso');
+
+    await expect(page.getByRole('heading', { name: 'Você sabe quando não sabe?' })).toBeVisible();
+    await expect(page.getByText(/Você acerta 0% do que diz ter certeza/)).toBeVisible();
+    await expect(page.getByText(/certeza de coisa errada/i)).toBeVisible();
+    await expect(page.getByText(/equívoco instalado/i)).toBeVisible();
+  });
+
+  test('mostra o ritmo contra os 3min20 do 2º dia', async ({ page }) => {
+    await page.goto('/progresso');
+
+    await expect(page.getByRole('heading', { name: 'Ritmo', exact: true })).toBeVisible();
+    await expect(page.getByText('é o ritmo do 2º dia de prova')).toBeVisible();
+    await expect(page.getByText('3min20').first()).toBeVisible();
+  });
+
+  test('o texto continua legível nas seções novas', async ({ page }) => {
+    await page.goto('/progresso');
+    await expect(page.getByRole('heading', { name: 'Ritmo', exact: true })).toBeVisible();
+    expect(await elementosForaDaBorda(page)).toEqual([]);
   });
 });
 

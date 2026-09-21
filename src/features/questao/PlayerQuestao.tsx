@@ -6,6 +6,9 @@ import { useProgresso } from '@/lib/progresso';
 import { EXPLICACAO_TIPO_ERRO, ROTULO_TIPO_ERRO } from '@/engine/erros';
 import { Blocos, Botao, BotaoLink, SeloProcedencia, Tag } from '@/design/Primitivos';
 import { FaixaCaderno, Tarja } from '@/design/Caderno';
+import { useCronometro } from '@/lib/cronometro';
+import { RITMO_ALVO_SEGUNDOS, formatarDuracao } from '@/engine/tempo';
+import { ROTULO_CONFIANCA, type Confianca } from '@/storage/schema';
 import s from './PlayerQuestao.module.css';
 
 /**
@@ -28,13 +31,16 @@ export function PlayerQuestao({
   const { progresso, registrarResposta } = useProgresso();
   const [escolhida, setEscolhida] = useState<Letra | null>(null);
   const [respondida, setRespondida] = useState(false);
+  const [segundosGastos, setSegundosGastos] = useState<number | null>(null);
   const resultadoRef = useRef<HTMLDivElement>(null);
+  const cronometro = useCronometro(questao.id);
 
   // Trocar de questão reinicia o estado — sem isso, a resposta anterior vazaria
   // para a questão-irmã oferecida logo depois.
   useEffect(() => {
     setEscolhida(null);
     setRespondida(false);
+    setSegundosGastos(null);
   }, [questao.id]);
 
   const assunto = ASSUNTO_POR_ID.get(questao.topicId);
@@ -49,8 +55,10 @@ export function PlayerQuestao({
       )
     : undefined;
 
-  function responder() {
+  function responder(confianca: Confianca) {
     if (!escolhida || !alternativaEscolhida) return;
+    const segundos = cronometro.segundos();
+    setSegundosGastos(segundos);
     setRespondida(true);
     registrarResposta({
       questionId: questao.id,
@@ -59,6 +67,8 @@ export function PlayerQuestao({
       letra: escolhida,
       correta: alternativaEscolhida.correta,
       dificuldade: questao.dificuldade,
+      segundos,
+      confianca,
       ...(alternativaEscolhida.tipoErro ? { tipoErro: alternativaEscolhida.tipoErro } : {}),
     });
     // Leva o foco para a correção: sem isso, quem usa leitor de tela ou teclado
@@ -154,10 +164,35 @@ export function PlayerQuestao({
       </ul>
 
       {!respondida ? (
+        /*
+          Três botões no lugar de um "Confirmar resposta".
+          O número de toques é o mesmo, e a informação nova sai de graça: sem
+          ela, acertar por sorte e acertar por saber entram idênticos no
+          modelo de domínio. Um seletor separado com valor padrão não serviria
+          — todo mundo deixaria no padrão, que é justamente o que não se quer.
+        */
         <div className={s.rodape}>
-          <Botao onClick={responder} disabled={!escolhida}>
-            {escolhida ? 'Confirmar resposta' : 'Escolha uma alternativa'}
-          </Botao>
+          {escolhida ? (
+            <fieldset className={s.confianca}>
+              <legend className={s.confiancaRotulo}>
+                Confirmar a alternativa {escolhida} — com que confiança?
+              </legend>
+              <div className={s.confiancaBotoes}>
+                {(['certeza', 'duvida', 'chute'] as const).map((nivel) => (
+                  <button
+                    key={nivel}
+                    type="button"
+                    className={`${s.botaoConfianca} ${s[nivel]}`}
+                    onClick={() => responder(nivel)}
+                  >
+                    {ROTULO_CONFIANCA[nivel]}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+          ) : (
+            <p className={s.aguardando}>Escolha uma alternativa</p>
+          )}
         </div>
       ) : (
         <div
@@ -181,7 +216,17 @@ export function PlayerQuestao({
             >
               {acertou ? <path d="m4 12 5.5 5.5L20 7" /> : <path d="M18 6 6 18M6 6l12 12" />}
             </svg>
-            <h3 className={s.resultadoTitulo}>{acertou ? 'Você acertou' : 'Você errou'}</h3>
+            <div className={s.resultadoTexto}>
+              <h3 className={s.resultadoTitulo}>{acertou ? 'Você acertou' : 'Você errou'}</h3>
+              {segundosGastos !== null && segundosGastos > 0 && (
+                <p className={s.tempo}>
+                  {formatarDuracao(segundosGastos)}
+                  <span className={s.tempoAlvo}>
+                    {' · '}o ritmo do 2º dia é {formatarDuracao(RITMO_ALVO_SEGUNDOS)} por questão
+                  </span>
+                </p>
+              )}
+            </div>
           </div>
 
           <div className={s.resultadoCorpo}>

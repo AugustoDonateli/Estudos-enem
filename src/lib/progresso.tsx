@@ -13,6 +13,7 @@ import {
   estadoInicialAssunto,
   PRIOR_POR_NIVEL,
   progressoInicial,
+  type Confianca,
   type Config,
   type EstadoAssunto,
   type NivelDeclarado,
@@ -32,6 +33,9 @@ export interface RegistroResposta {
   correta: boolean;
   dificuldade: Dificuldade;
   tipoErro?: TipoErro;
+  /** Tempo ativo até confirmar, em segundos. */
+  segundos?: number;
+  confianca?: Confianca;
 }
 
 interface ContextoProgresso {
@@ -72,7 +76,7 @@ export function ProvedorProgresso({ children }: { children: ReactNode }) {
     const dia = hoje();
     setProgresso((p) => {
       const estado = comEstado(p, r.topicId);
-      const dominio = atualizarDominio(estado.dominio, r.correta, r.dificuldade);
+      const dominio = atualizarDominio(estado.dominio, r.correta, r.dificuldade, r.confianca);
       const ag = agendar(estado.caixa === 0 ? 1 : estado.caixa, r.correta, dia);
       return {
         ...p,

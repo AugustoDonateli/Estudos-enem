@@ -1,5 +1,5 @@
 import type { TipoErro } from '@/content/tipos';
-import type { Resposta } from '@/storage/schema';
+import type { Confianca, Resposta } from '@/storage/schema';
 
 /**
  * Leitura do padrão de erros.
@@ -105,4 +105,88 @@ export function conceitosFrageis(respostas: Resposta[]): ConceitoFragil[] {
   return [...mapa.values()]
     .filter((c) => c.erros > c.acertos)
     .sort((a, b) => b.erros - a.erros || a.acertos - b.acertos);
+}
+
+/* ==================================================================
+   CALIBRAÇÃO — o aluno sabe quando não sabe?
+   ================================================================== */
+
+/**
+ * Compara a confiança declarada com o resultado real.
+ *
+ * É o diagnóstico mais útil que o banco de respostas permite, e ele não fala
+ * sobre conteúdo: fala sobre autoconhecimento. Um aluno que acerta 85% do que
+ * diz ter certeza e 30% do que chuta está **bem calibrado** — sabe onde está
+ * pisando, e na prova vai administrar tempo direito, porque reconhece a
+ * questão que não vale a pena.
+ *
+ * O caso perigoso é o inverso: taxa baixa de acerto em "tenho certeza". Isso
+ * não é desconhecimento, é equívoco instalado — e quem erra com convicção não
+ * volta para conferir. É o único achado deste motor que merece alarme.
+ */
+
+/** Abaixo disto, "tenho certeza" virou um problema, não uma informação. */
+export const LIMITE_CERTEZA_PERIGOSA = 0.6;
+
+/** Poucas respostas produzem porcentagens que oscilam a cada questão. */
+export const MINIMO_PARA_CALIBRACAO = 8;
+
+export interface FaixaCalibracao {
+  confianca: Confianca;
+  total: number;
+  acertos: number;
+  /** 0 a 1, ou null quando ainda não há resposta nessa faixa. */
+  taxa: number | null;
+}
+
+export interface Calibracao {
+  faixas: FaixaCalibracao[];
+  /** Respostas que declararam confiança. As do schema 1 não declaram. */
+  total: number;
+  /** Verdadeiro quando há amostra suficiente para a leitura valer. */
+  confiavel: boolean;
+  /** Acerta pouco justamente onde tem certeza. */
+  certezaPerigosa: boolean;
+  /** Frase pronta, ou null quando ainda não dá para dizer nada. */
+  frase: string | null;
+}
+
+const ORDEM: Confianca[] = ['certeza', 'duvida', 'chute'];
+
+export function analisarCalibracao(respostas: Resposta[]): Calibracao {
+  const declaradas = respostas.filter(
+    (r): r is Resposta & { confianca: Confianca } => r.confianca !== undefined,
+  );
+
+  const faixas: FaixaCalibracao[] = ORDEM.map((confianca) => {
+    const daFaixa = declaradas.filter((r) => r.confianca === confianca);
+    const acertos = daFaixa.filter((r) => r.correta).length;
+    return {
+      confianca,
+      total: daFaixa.length,
+      acertos,
+      taxa: daFaixa.length > 0 ? acertos / daFaixa.length : null,
+    };
+  });
+
+  const confiavel = declaradas.length >= MINIMO_PARA_CALIBRACAO;
+  const certeza = faixas.find((f) => f.confianca === 'certeza')!;
+  const chute = faixas.find((f) => f.confianca === 'chute')!;
+
+  // Só acusa certeza perigosa com amostra própria: duas respostas erradas em
+  // três não dizem nada sobre calibração.
+  const certezaPerigosa =
+    confiavel &&
+    certeza.total >= MINIMO_PARA_CALIBRACAO / 2 &&
+    certeza.taxa !== null &&
+    certeza.taxa < LIMITE_CERTEZA_PERIGOSA;
+
+  let frase: string | null = null;
+  if (confiavel && certeza.taxa !== null && chute.taxa !== null) {
+    frase =
+      `Você acerta ${Math.round(certeza.taxa * 100)}% do que diz ter certeza ` +
+      `e ${Math.round(chute.taxa * 100)}% do que chuta.`;
+  }
+
+  return { faixas, total: declaradas.length, confiavel, certezaPerigosa, frase };
 }

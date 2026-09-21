@@ -38,8 +38,13 @@ export function limpar(): void {
 }
 
 /**
- * Migração de schema. Hoje só existe a versão 1; a função existe para que a
- * primeira mudança de formato não custe o histórico de ninguém.
+ * Migração de schema.
+ *
+ * O spread de `base` antes de `dados` faz o trabalho: todo campo novo entra
+ * com o valor inicial e todo campo antigo sobrevive. Foi assim que o schema 1
+ * virou 2 sem ninguém perder histórico — os campos novos de `Resposta`
+ * (tempo e confiança) são opcionais de propósito, então resposta velha
+ * continua válida e some apenas das estatísticas que dependem deles.
  */
 function migrar(dados: Partial<Progresso>): Progresso {
   const base = progressoInicial(dados.criadoEm ?? hoje());
@@ -55,6 +60,7 @@ function migrar(dados: Partial<Progresso>): Progresso {
       producoes: dados.redacao?.producoes ?? [],
     },
     planoConcluido: dados.planoConcluido ?? {},
+    explicacoes: Array.isArray(dados.explicacoes) ? dados.explicacoes : [],
     config: { ...base.config, ...dados.config },
   };
 }

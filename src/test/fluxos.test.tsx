@@ -110,7 +110,7 @@ describe('resolução de questão e correção', () => {
 
     // C é o distrator clássico: achar que +20% e −20% se anulam.
     await usuario.click(await screen.findByRole('button', { name: /Alternativa C/ }));
-    await usuario.click(screen.getByRole('button', { name: /Confirmar resposta/ }));
+    await usuario.click(screen.getByRole('button', { name: 'Tenho certeza' }));
 
     expect(await screen.findByRole('heading', { name: 'Você errou' })).toBeInTheDocument();
     expect(screen.getByText('Conceito cobrado')).toBeInTheDocument();
@@ -126,7 +126,7 @@ describe('resolução de questão e correção', () => {
     render(<App />);
 
     await usuario.click(await screen.findByRole('button', { name: /Alternativa C/ }));
-    await usuario.click(screen.getByRole('button', { name: /Confirmar resposta/ }));
+    await usuario.click(screen.getByRole('button', { name: 'Tenho certeza' }));
 
     expect(
       await screen.findByRole('link', { name: /Tentar uma questão parecida/ }),
@@ -139,7 +139,7 @@ describe('resolução de questão e correção', () => {
     render(<App />);
 
     await usuario.click(await screen.findByRole('button', { name: /Alternativa B/ }));
-    await usuario.click(screen.getByRole('button', { name: /Confirmar resposta/ }));
+    await usuario.click(screen.getByRole('button', { name: 'Tenho certeza' }));
 
     expect(await screen.findByRole('heading', { name: 'Você acertou' })).toBeInTheDocument();
     expect(screen.queryByText('Que tipo de erro foi este')).not.toBeInTheDocument();
@@ -151,18 +151,42 @@ describe('resolução de questão e correção', () => {
     render(<App />);
 
     await usuario.click(await screen.findByRole('button', { name: /Alternativa C/ }));
-    await usuario.click(screen.getByRole('button', { name: /Confirmar resposta/ }));
+    await usuario.click(screen.getByRole('button', { name: 'Tenho certeza' }));
 
     // Palavras, não só cor: leitor de tela e daltônico precisam do texto.
     expect(await screen.findByText('Correta')).toBeInTheDocument();
     expect(screen.getByText('Sua escolha')).toBeInTheDocument();
   });
 
-  it('exige escolher uma alternativa antes de confirmar', async () => {
+  it('só oferece confirmar depois de escolher uma alternativa', async () => {
+    const usuario = userEvent.setup();
     irPara('/questao/mat-porc-q1');
     render(<App />);
-    const botao = await screen.findByRole('button', { name: /Escolha uma alternativa/ });
-    expect(botao).toBeDisabled();
+
+    // Antes de escolher não há como confirmar: os três botões de confiança
+    // nem existem ainda.
+    expect(await screen.findByText('Escolha uma alternativa')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Tenho certeza' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Chutei' })).not.toBeInTheDocument();
+
+    await usuario.click(screen.getByRole('button', { name: /Alternativa B/ }));
+
+    expect(screen.getByRole('button', { name: 'Tenho certeza' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Estou na dúvida' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Chutei' })).toBeInTheDocument();
+  });
+
+  it('guarda a confiança declarada junto da resposta', async () => {
+    const usuario = userEvent.setup();
+    irPara('/questao/mat-porc-q1');
+    render(<App />);
+
+    await usuario.click(await screen.findByRole('button', { name: /Alternativa B/ }));
+    await usuario.click(screen.getByRole('button', { name: 'Chutei' }));
+
+    await screen.findByRole('heading', { name: 'Você acertou' });
+    const salvo = JSON.parse(localStorage.getItem('enem-study:v1')!);
+    expect(salvo.respostas.at(-1).confianca).toBe('chute');
   });
 });
 
@@ -173,7 +197,7 @@ describe('registro de progresso', () => {
     render(<App />);
 
     await usuario.click(await screen.findByRole('button', { name: /Alternativa B/ }));
-    await usuario.click(screen.getByRole('button', { name: /Confirmar resposta/ }));
+    await usuario.click(screen.getByRole('button', { name: 'Tenho certeza' }));
     await screen.findByRole('heading', { name: 'Você acertou' });
 
     const salvo = JSON.parse(localStorage.getItem(CHAVE_STORAGE)!);
@@ -189,7 +213,7 @@ describe('registro de progresso', () => {
     render(<App />);
 
     await usuario.click(await screen.findByRole('button', { name: /Alternativa C/ }));
-    await usuario.click(screen.getByRole('button', { name: /Confirmar resposta/ }));
+    await usuario.click(screen.getByRole('button', { name: 'Tenho certeza' }));
     await screen.findByRole('heading', { name: 'Você errou' });
 
     const salvo = JSON.parse(localStorage.getItem(CHAVE_STORAGE)!);
@@ -265,7 +289,7 @@ describe('procedência do conteúdo', () => {
     expect(await screen.findByText('Oficial ENEM')).toBeInTheDocument();
 
     await usuario.click(screen.getByRole('button', { name: /Alternativa D/ }));
-    await usuario.click(screen.getByRole('button', { name: /Confirmar resposta/ }));
+    await usuario.click(screen.getByRole('button', { name: 'Tenho certeza' }));
 
     // A referência só faz sentido com o caderno junto: o ENEM embaralha a
     // numeração entre cadernos.

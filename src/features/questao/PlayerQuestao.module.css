@@ -216,8 +216,114 @@
 
 .rodape {
   padding: var(--e-3x);
-  border-top: var(--borda) solid var(--cinza-10);
-  background: var(--cinza-3);
+  border-top: var(--borda) solid var(--papel-borda);
+  background: var(--papel-2);
+}
+
+.aguardando {
+  margin: 0;
+  text-align: center;
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+  padding-block: var(--e-baseh);
+}
+
+/* --- Confiança -------------------------------------------------------
+   Três botões no lugar de um. A ordem é deliberada — certeza à esquerda,
+   chute à direita — para que a leitura seja uma escala, não um menu. */
+.confianca {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.confiancaRotulo {
+  display: block;
+  padding: 0 0 var(--e-baseh);
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cinza-70);
+}
+
+.confiancaBotoes {
+  display: grid;
+  gap: var(--e-base);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 576px) {
+  .confiancaBotoes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.botaoConfianca {
+  min-height: 48px;
+  padding: var(--e-baseh) var(--e-2x);
+  border: var(--borda-forte) solid var(--cinza-20);
+  border-radius: 100em;
+  background: var(--branco);
+  font-family: var(--fonte);
+  font-size: var(--t-base);
+  font-weight: var(--peso-semibold);
+  color: var(--cinza-90);
+  cursor: pointer;
+  transition:
+    background var(--d-rapida) var(--curva),
+    border-color var(--d-rapida) var(--curva),
+    color var(--d-rapida) var(--curva);
+}
+
+/* A cor não carrega julgamento: chutar não é errado, é informação. O azul
+   marca a ponta de mais convicção e a escala esvazia até o cinza. */
+.certeza {
+  border-color: var(--azul-70);
+  color: var(--azul-80);
+}
+
+.certeza:hover {
+  background: var(--azul-70);
+  border-color: var(--azul-70);
+  color: var(--branco);
+}
+
+.duvida:hover {
+  background: var(--azul-5);
+  border-color: var(--azul-20);
+  color: var(--azul-80);
+}
+
+.chute {
+  color: var(--cinza-70);
+}
+
+.chute:hover {
+  background: var(--cinza-5);
+  border-color: var(--cinza-40);
+  color: var(--cinza-90);
+}
+
+/* --- Tempo gasto ------------------------------------------------------ */
+.resultadoTexto {
+  min-width: 0;
+}
+
+.tempo {
+  margin: var(--e-half) 0 0;
+  font-size: var(--t-down-01);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--peso-bold);
+  color: currentColor;
+  opacity: 0.92;
+  max-width: none;
+}
+
+.tempoAlvo {
+  font-weight: var(--peso-regular);
+  opacity: 0.82;
 }
 
 /* --- Correção ------------------------------------------------------- */

@@ -2,10 +2,16 @@ import { describe, it, expect } from 'vitest';
 import { atualizarDominio, faixaDeDominio, lacuna } from './dominio';
 import { agendar, revisoesVencidas, INTERVALOS } from './revisao';
 import { priorizar, prerequisitosPendentes } from './prioridade';
-import { analisarErros, conceitosFrageis } from './erros';
+import { analisarErros, analisarCalibracao, conceitosFrageis } from './erros';
 import { gerarPlano } from './planoDiario';
 import { diferencaEmDias, faseDoPlano, PROVA_DIA_1, somarDias } from './datas';
-import { estadoInicialAssunto, progressoInicial, type EstadoAssunto } from '@/storage/schema';
+import {
+  estadoInicialAssunto,
+  progressoInicial,
+  type Confianca,
+  type EstadoAssunto,
+  type Resposta,
+} from '@/storage/schema';
 import type { AssuntoMeta, Prioridade } from '@/content/tipos';
 
 function assuntoFake(
@@ -289,5 +295,121 @@ describe('fases do plano', () => {
     expect(faseDoPlano(somarDias(PROVA_DIA_1, -15))).toBe('consolidacao');
     expect(faseDoPlano(somarDias(PROVA_DIA_1, -5))).toBe('revisao-final');
     expect(faseDoPlano(PROVA_DIA_1)).toBe('prova');
+  });
+});
+
+/* ==================================================================
+   CONFIANÇA — o que ela muda no domínio e o que ela revela
+   ================================================================== */
+
+describe('atualizarDominio com confiança declarada', () => {
+  const base = 50;
+
+  it('acertar chutando quase não é evidência de domínio', () => {
+    const chutando = atualizarDominio(base, true, 'media', 'chute');
+    const sabendo = atualizarDominio(base, true, 'media', 'certeza');
+    expect(chutando).toBeGreaterThan(base);
+    expect(chutando - base).toBeLessThan((sabendo - base) / 2);
+  });
+
+  /*
+   * O caso que justifica a feature inteira. Errar tendo certeza não é
+   * desconhecimento: é um equívoco instalado, e quem está errado com
+   * convicção não procura a correção sozinho. Tem de doer mais.
+   */
+  it('errar com certeza derruba mais que errar chutando', () => {
+    const comCerteza = atualizarDominio(base, false, 'media', 'certeza');
+    const chutando = atualizarDominio(base, false, 'media', 'chute');
+    expect(comCerteza).toBeLessThan(chutando);
+    expect(base - comCerteza).toBeGreaterThan(2 * (base - chutando));
+  });
+
+  it('a dúvida é o meio-termo nos dois sentidos', () => {
+    const acertos = (['chute', 'duvida', 'certeza'] as const).map((c) =>
+      atualizarDominio(base, true, 'media', c),
+    );
+    expect(acertos[0]!).toBeLessThan(acertos[1]!);
+    expect(acertos[1]!).toBeLessThan(acertos[2]!);
+
+    const erros = (['chute', 'duvida', 'certeza'] as const).map((c) =>
+      atualizarDominio(base, false, 'media', c),
+    );
+    expect(erros[0]!).toBeGreaterThan(erros[1]!);
+    expect(erros[1]!).toBeGreaterThan(erros[2]!);
+  });
+
+  it('resposta sem confiança se comporta como dúvida', () => {
+    expect(atualizarDominio(base, true, 'media')).toBe(
+      atualizarDominio(base, true, 'media', 'duvida'),
+    );
+    expect(atualizarDominio(base, false, 'media')).toBe(
+      atualizarDominio(base, false, 'media', 'duvida'),
+    );
+  });
+
+  it('continua preso entre 0 e 100 no pior caso', () => {
+    expect(atualizarDominio(2, false, 'facil', 'certeza')).toBeGreaterThanOrEqual(0);
+    expect(atualizarDominio(99, true, 'dificil', 'certeza')).toBeLessThanOrEqual(100);
+  });
+});
+
+describe('analisarCalibracao', () => {
+  function r(confianca: Confianca, correta: boolean, i: number): Resposta {
+    return {
+      questionId: `q${i}`,
+      topicId: 'mat-porcentagem',
+      conceito: 'Porcentagem',
+      letra: 'A',
+      correta,
+      dificuldade: 'media',
+      confianca,
+      em: '2026-09-21',
+      ts: i,
+    };
+  }
+
+  it('ignora respostas sem confiança, que é como o schema 1 salvava', () => {
+    const semConfianca: Resposta = { ...r('certeza', true, 1) };
+    delete semConfianca.confianca;
+    expect(analisarCalibracao([semConfianca]).total).toBe(0);
+  });
+
+  it('não arrisca leitura com amostra pequena', () => {
+    const c = analisarCalibracao([r('certeza', true, 1), r('chute', false, 2)]);
+    expect(c.confiavel).toBe(false);
+    expect(c.frase).toBeNull();
+    expect(c.certezaPerigosa).toBe(false);
+  });
+
+  it('calcula a taxa por faixa e monta a frase', () => {
+    const respostas = [
+      ...Array.from({ length: 8 }, (_, i) => r('certeza', i < 6, i)),
+      ...Array.from({ length: 4 }, (_, i) => r('chute', i < 1, 100 + i)),
+    ];
+    const c = analisarCalibracao(respostas);
+    expect(c.confiavel).toBe(true);
+    expect(c.faixas.find((f) => f.confianca === 'certeza')!.taxa).toBeCloseTo(0.75);
+    expect(c.faixas.find((f) => f.confianca === 'chute')!.taxa).toBeCloseTo(0.25);
+    expect(c.frase).toContain('75%');
+    expect(c.frase).toContain('25%');
+  });
+
+  it('faixa sem nenhuma resposta tem taxa nula, não zero', () => {
+    const c = analisarCalibracao(Array.from({ length: 8 }, (_, i) => r('certeza', true, i)));
+    expect(c.faixas.find((f) => f.confianca === 'chute')!.taxa).toBeNull();
+  });
+
+  /* O achado que merece alarme: errar onde diz ter certeza. */
+  it('acusa certeza perigosa quando ele erra o que jura saber', () => {
+    const respostas = Array.from({ length: 10 }, (_, i) => r('certeza', i < 3, i));
+    expect(analisarCalibracao(respostas).certezaPerigosa).toBe(true);
+  });
+
+  it('não acusa quem está bem calibrado', () => {
+    const respostas = [
+      ...Array.from({ length: 8 }, (_, i) => r('certeza', i < 7, i)),
+      ...Array.from({ length: 4 }, (_, i) => r('chute', i < 1, 100 + i)),
+    ];
+    expect(analisarCalibracao(respostas).certezaPerigosa).toBe(false);
   });
 });

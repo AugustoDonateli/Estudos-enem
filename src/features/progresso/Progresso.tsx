@@ -3,7 +3,14 @@ import { Link } from 'react-router-dom';
 import { AREAS } from '@/content/areas';
 import { CATALOGO, assuntosDaArea } from '@/content/indice';
 import { useProgresso } from '@/lib/progresso';
-import { analisarErros, ROTULO_TIPO_ERRO, EXPLICACAO_TIPO_ERRO } from '@/engine/erros';
+import {
+  analisarErros,
+  analisarCalibracao,
+  ROTULO_TIPO_ERRO,
+  EXPLICACAO_TIPO_ERRO,
+} from '@/engine/erros';
+import { analisarTempo, formatarDuracao, RITMO_ALVO_SEGUNDOS } from '@/engine/tempo';
+import { ROTULO_CONFIANCA } from '@/storage/schema';
 import { faixaDeDominio, ROTULO_FAIXA } from '@/engine/dominio';
 import { exportarJSON, importarJSON } from '@/storage/persist';
 import { BarraDominio, Botao, BotaoLink, Destaque, Vazio } from '@/design/Primitivos';
@@ -21,6 +28,8 @@ export function Progresso() {
   }, []);
 
   const padrao = useMemo(() => analisarErros(progresso.respostas, 200), [progresso.respostas]);
+  const calibracao = useMemo(() => analisarCalibracao(progresso.respostas), [progresso.respostas]);
+  const tempo = useMemo(() => analisarTempo(progresso.respostas), [progresso.respostas]);
 
   const totais = useMemo(() => {
     const respostas = progresso.respostas;
@@ -82,6 +91,91 @@ export function Progresso() {
               <p style={{ marginTop: 'var(--e-base)' }}>{EXPLICACAO_TIPO_ERRO[padrao.dominante]}</p>
             </Destaque>
           </div>
+        )}
+
+        {/* Calibração: o aluno sabe quando não sabe? É o único diagnóstico
+            aqui que não fala de conteúdo, e sim de autoconhecimento. */}
+        {calibracao.total > 0 && (
+          <section className="secao" aria-labelledby="calibracao">
+            <div className="secao-cabecalho">
+              <h2 id="calibracao" className="secao-titulo">
+                Você sabe quando não sabe?
+              </h2>
+              <span className="secao-meta">{calibracao.total} respostas com confiança</span>
+            </div>
+
+            {calibracao.frase && <p className="subtitulo">{calibracao.frase}</p>}
+
+            {!calibracao.confiavel && (
+              <p className="subtitulo">
+                Responda mais algumas questões: com poucas respostas, estas porcentagens mudam a
+                cada questão e não dizem nada.
+              </p>
+            )}
+
+            <ul className={s.erros}>
+              {calibracao.faixas.map((faixa) => (
+                <li key={faixa.confianca} className={s.erroLinha}>
+                  <span className={s.erroNome}>{ROTULO_CONFIANCA[faixa.confianca]}</span>
+                  <span className={s.erroBarra} aria-hidden="true">
+                    <span
+                      className={s.erroPreenchida}
+                      style={{
+                        width: `${(faixa.taxa ?? 0) * 100}%`,
+                        background:
+                          faixa.confianca === 'certeza' ? 'var(--azul-70)' : 'var(--cinza-40)',
+                      }}
+                    />
+                  </span>
+                  <span className={s.erroValor}>
+                    {faixa.taxa === null
+                      ? '—'
+                      : `${Math.round(faixa.taxa * 100)}% de ${faixa.total}`}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            {calibracao.certezaPerigosa && (
+              <div style={{ marginTop: 'var(--e-3x)' }}>
+                <Destaque variante="atencao" titulo="Atenção: certeza de coisa errada">
+                  <p>
+                    Você erra com frequência justamente onde diz ter certeza. Isso não é
+                    desconhecimento — é um equívoco instalado, e é mais perigoso, porque quem
+                    está errado com convicção não volta para conferir. Nas questões que você
+                    marcou como certeza e errou, leia o diagnóstico da alternativa inteiro.
+                  </p>
+                </Destaque>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Ritmo: o ENEM reprova por tempo, não só por conteúdo. */}
+        {tempo.cronometradas > 0 && tempo.mediana !== null && (
+          <section className="secao" aria-labelledby="ritmo">
+            <div className="secao-cabecalho">
+              <h2 id="ritmo" className="secao-titulo">
+                Ritmo
+              </h2>
+              <span className="secao-meta">{tempo.cronometradas} questões cronometradas</span>
+            </div>
+            <Metricas
+              itens={[
+                { numero: formatarDuracao(tempo.mediana), rotulo: 'por questão, na mediana' },
+                {
+                  numero: formatarDuracao(RITMO_ALVO_SEGUNDOS),
+                  rotulo: 'é o ritmo do 2º dia de prova',
+                },
+                { numero: tempo.acimaDoAlvo, rotulo: 'questões acima desse ritmo' },
+              ]}
+            />
+            <p className="subtitulo" style={{ marginTop: 'var(--e-3x)' }}>
+              O 2º dia tem cinco horas para 90 questões, o que dá {formatarDuracao(RITMO_ALVO_SEGUNDOS)}{' '}
+              cada — está impresso na capa do caderno. O 1º dia não entra nesta conta porque suas
+              5h30 incluem a redação, e quanto reservar para ela é escolha sua.
+            </p>
+          </section>
         )}
 
         {padrao.porTipo.length > 0 && (
