@@ -1,0 +1,12 @@
+/* A marca herda a cor da área pelo mesmo [data-area] que governa o resto
+   do site: `currentColor` resolve para o acento, e o preenchimento claro
+   para o fundo do acento. Um componente, cinco cores.
+
+   Sem largura própria: quem usa decide o tamanho. Um `width: 100%` aqui
+   vencia a largura do consumidor por ordem de cascata e a marca estourava
+   o cartão. */
+.marca {
+  display: block;
+  height: auto;
+  color: var(--acento);
+}

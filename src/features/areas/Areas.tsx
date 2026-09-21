@@ -10,6 +10,7 @@ import { CabecalhoPagina } from '@/design/Pagina';
 import { FaixaCaderno } from '@/design/Caderno';
 import { GradeProva } from '@/design/GradeProva';
 import { Figura } from '@/design/Figura';
+import { MarcaArea } from '@/design/MarcaArea';
 import { definirTitulo } from '@/lib/titulo';
 import type { AreaId } from '@/content/tipos';
 import s from './Areas.module.css';
@@ -134,6 +135,10 @@ export function Areas() {
                   data-area={area.id}
                   style={{ animationDelay: `${i * 60}ms` }}
                 >
+                  {/* Marca-d'água: grande, cortada pela borda, no acento da
+                      área. É o que dá identidade ao cartão sem mais texto. */}
+                  <MarcaArea area={area.id} className={s.areaMarca} />
+
                   <div className={s.areaTopoCartao}>
                     <span className={s.areaSigla} aria-hidden="true">
                       {SIGLA[area.id]}

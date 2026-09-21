@@ -111,26 +111,50 @@ A moldura imita o caderno; **o conteúdo nunca se disfarça de oficial**.
 
 ---
 
-## 6. Sistema de imagem
+## 6. Marcas de área
 
-`Figura` (`src/design/Figura.tsx`) trata imagem como o site trata questão:
-nada entra sem procedência. O componente **recusa a renderizar** imagem sem
-autor, fonte e licença preenchidos, e some silenciosamente quando o arquivo
-não existe — o que permite versionar o código sem versionar fotos de acervo.
-O crédito fica sobre a imagem, não num rodapé que ninguém lê.
-
-Dois pontos de inserção estão prontos e vazios: o topo de **Áreas** e o topo
-de **Redação**, ambos em faixa que sangra de borda a borda.
-
-**Isto está pendente, e não por escolha.** O proxy de saída deste ambiente
-bloqueia `agenciabrasil.ebc.com.br`, `commons.wikimedia.org` e `gov.br` —
-testado por `curl` e por `WebFetch`, todos negados. Baixar as fotos é um
-passo manual. `public/imagens/README.md` diz exatamente o que procurar, onde
-procurar e como creditar.
+Cinco desenhos geométricos, um por área, em marca-d'água no alto do cartão —
+como o brasão de um papel timbrado. Foram **desenhados à mão, não gerados**, e
+a razão é técnica antes de estética: eles pintam com `currentColor` e
+`var(--acento-fundo)`, então cada um assume sozinho a cor da sua área pelo
+mesmo `[data-area]` que governa o resto do site. Ilustração gerada vem com
+hexadecimal cozido dentro e precisaria de cinco arquivos para fazer o que aqui
+um componente faz.
 
 ---
 
-## 7. Testes
+## 7. Sistema de imagem
+
+`Figura` (`src/design/Figura.tsx`) trata imagem como o site trata questão:
+nada entra sem procedência. Some silenciosamente quando o arquivo não existe,
+o que permite versionar o código sem versionar imagem. O crédito fica sobre a
+imagem, não num rodapé que ninguém lê.
+
+O registro distingue dois tipos, e eles não se confundem:
+
+| Tipo | Exige | Crédito impresso |
+|---|---|---|
+| Fotografia | autor, fonte e licença | `Autor · Acervo · Licença` |
+| Ilustração gerada (`gerada: true`) | a ferramenta em `fonte` | `Ilustração gerada por IA · ferramenta` |
+
+A distinção não é burocracia: uma ilustração gerada ocupando em silêncio o
+lugar de uma foto de dia de prova seria um documento falso — exatamente o que
+o projeto se proíbe de fazer com questão.
+
+Duas ilustrações foram geradas (Recraft V4.1 via Higgsfield, risografia
+chapada na paleta exata do site) para os dois pontos de inserção: o topo de
+**Áreas** e o topo de **Redação**.
+
+**Os arquivos não estão no repositório, e não por escolha.** O proxy de saída
+desta sessão bloqueia tanto os acervos de foto quanto o CDN que serve as
+ilustrações geradas — testado por `curl`, por `WebFetch` e por relay via
+sandbox, todos negados; o manual do próprio proxy manda reportar o host
+bloqueado em vez de contornar. Dá para gerar, não dá para baixar.
+`public/imagens/README.md` traz os links diretos e o que fazer com eles.
+
+---
+
+## 8. Testes
 
 - **71 unitários** (eram 51). Os 20 novos verificam a tabela do Code 39, que
   foi digitada à mão: cada caractere tem nove elementos e exatamente três
@@ -141,9 +165,10 @@ procurar e como creditar.
 
 ---
 
-## 8. Limitações
+## 9. Limitações
 
-- **As duas fotos não existem.** Ver a seção 6.
+- **Os dois arquivos de ilustração não estão no repositório.** Ver a seção 7.
+  O site roda sem eles.
 - **Fraunces é escolha discutível.** É uma serifa de alto contraste com
   personalidade forte, e personalidade forte divide. Trocá-la é um `@font-face`
   e um token.

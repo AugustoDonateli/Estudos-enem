@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IMAGENS, creditada, type ChaveImagem } from '@/content/imagens';
+import { IMAGENS, creditada, creditoDe, type ChaveImagem } from '@/content/imagens';
 import s from './Figura.module.css';
 
 /**
@@ -13,7 +13,10 @@ import s from './Figura.module.css';
  *    a página segue sem buraco — é o que permite versionar o código sem
  *    versionar fotos de acervo.
  * 3. O crédito incompleto também não renderiza, o que torna impossível
- *    publicar uma imagem sem dizer de quem ela é.
+ *    publicar uma imagem sem dizer de onde ela vem. Fotografia exige autor,
+ *    fonte e licença; ilustração gerada exige a ferramenta, e o rótulo diz
+ *    que é gerada — porque um desenho apresentado como registro seria um
+ *    documento falso.
  */
 export function Figura({
   nome,
@@ -41,9 +44,7 @@ export function Figura({
         decoding="async"
         onError={() => setFalhou(true)}
       />
-      <figcaption className={s.credito}>
-        {imagem.autor} · {imagem.fonte} · {imagem.licenca}
-      </figcaption>
+      <figcaption className={s.credito}>{creditoDe(imagem)}</figcaption>
     </figure>
   );
 }

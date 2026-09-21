@@ -152,6 +152,34 @@
   height: 10px;
 }
 
+/* A marca fica no alto, cortada pela borda direita, como o brasão de um
+   papel timbrado. No rodapé do cartão ela caía atrás do bloco de análise e
+   sumia; aqui ocupa a faixa que só tem a sigla e a contagem de questões. */
+.areaMarca {
+  position: absolute;
+  right: calc(var(--e-4x) * -1);
+  top: var(--e-2x);
+  width: 116px;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    opacity var(--d-moderada) var(--curva),
+    transform var(--d-moderada) var(--curva);
+}
+
+.cartaoArea:hover .areaMarca {
+  opacity: 0.34;
+  transform: translateX(-4px) rotate(-3deg);
+}
+
+/* O conteúdo passa por cima da marca. */
+.areaTopoCartao,
+.cartaoArea > *:not(.areaMarca) {
+  position: relative;
+  z-index: 1;
+}
+
 .areaTopoCartao {
   display: flex;
   align-items: center;
