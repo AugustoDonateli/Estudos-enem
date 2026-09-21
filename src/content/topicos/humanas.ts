@@ -270,7 +270,7 @@ export const CONTEUDOS_HUMANAS: Record<string, ConteudoAssunto> = {
           'Repertório errado prejudica mais do que ajuda. Use o que você tem certeza — princípios amplos são mais seguros que números de artigo.',
       },
     ],
-    questoes: ['hum-cid-q1', 'hum-cid-q2'],
+    questoes: ['hum-cid-q1', 'hum-cid-q2', 'of-2025-ch-076'],
     revisaoRapida: [
       'Civis (liberdade) · políticos (participação) · sociais (condições materiais).',
       'Direito social exige prestação do Estado.',
@@ -440,7 +440,7 @@ export const CONTEUDOS_HUMANAS: Record<string, ConteudoAssunto> = {
         porque: 'Importa o que se exporta. Volume grande de produto primário não equivale a captura alta de valor.',
       },
     ],
-    questoes: ['hum-glob-q1', 'hum-glob-q2'],
+    questoes: ['hum-glob-q1', 'hum-glob-q2', 'of-2024-ch-070'],
     revisaoRapida: [
       'Globalização = fluxos intensos e desiguais.',
       'Valor se concentra em tecnologia e marca, não em extração.',

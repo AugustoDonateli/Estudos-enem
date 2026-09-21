@@ -288,3 +288,37 @@
   color: var(--ink-3);
   margin-bottom: var(--s-3);
 }
+
+.habilidades {
+  margin-top: var(--s-6);
+  padding: var(--s-4);
+  border-left: 3px solid var(--ink);
+  background: var(--paper-2);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.rotuloOficial {
+  display: block;
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: var(--s-2);
+}
+
+.habilidadesIntro {
+  font-size: var(--t-14);
+  color: var(--ink-2);
+  margin-bottom: var(--s-3);
+}
+
+.listaHabilidades {
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: var(--t-14);
+}
+
+.listaHabilidades li + li {
+  margin-top: var(--s-2);
+}

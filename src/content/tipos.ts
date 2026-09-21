@@ -163,6 +163,12 @@ export interface AssuntoMeta {
   prerequisitos: string[];
   minutosEstimados: number;
   eixos: Eixo[];
+  /**
+   * Códigos das habilidades da Matriz de Referência do INEP que este assunto
+   * atende, dentro da própria área. O validador confere que cada código existe
+   * de fato na matriz oficial — ver src/content/matriz.ts.
+   */
+  habilidades: string[];
 }
 
 /** Metadados + os 9 blocos. Usado apenas nas telas que exibem o conteúdo. */

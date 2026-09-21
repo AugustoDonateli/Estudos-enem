@@ -25,6 +25,13 @@ Onde há priorização, ela é apresentada como `ANÁLISE` com o raciocínio exp
 
 ### Limitação técnica encontrada (e como foi contornada)
 
+> **Atualização (21/09/2026).** Esta limitação foi **resolvida depois**: os PDFs da Matriz de
+> Referência e de quatro cadernos de prova (2024 e 2025) foram fornecidos diretamente. O site
+> passou a reproduzir o texto oficial da matriz e a incluir 11 questões oficiais com referência
+> de prova. O registro abaixo é mantido como histórico da decisão. Ver
+> [`ETAPA-4-FONTES-OFICIAIS.md`](ETAPA-4-FONTES-OFICIAIS.md).
+
+
 O ambiente de execução desta sessão bloqueia, por política de rede da organização,
 o acesso direto a `gov.br` e `download.inep.gov.br` (retorno 403 do proxy de egress).
 Isso significa que **não foi possível baixar e transcrever os PDFs originais** da

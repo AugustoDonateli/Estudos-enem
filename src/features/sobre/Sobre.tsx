@@ -82,19 +82,32 @@ export function Sobre() {
           <span className="secao-meta">{contagem.total} questões no banco</span>
         </div>
 
-        <Destaque variante="atencao" titulo="Não há nenhuma questão oficial do ENEM neste banco">
+        <Destaque variante="oficial" titulo="O que é oficial e o que não é">
           <p>
-            As {contagem.total} questões do site foram escritas para ele, no formato do exame.
-            Nenhuma é, nem é apresentada como, uma questão aplicada em prova oficial. O selo de
-            procedência aparece no cabeçalho de toda questão, sem exceção.
+            Das {contagem.total} questões do banco, {contagem.oficial} foram aplicadas em provas
+            oficiais do ENEM e trazem a referência completa de ano, dia, caderno e número. As
+            demais foram escritas para este site no formato do exame. O selo de procedência
+            aparece no cabeçalho de toda questão, sem exceção.
           </p>
         </Destaque>
+
+        <div style={{ marginTop: 'var(--s-4)' }}>
+          <Destaque variante="atencao" titulo="Sobre o gabarito das questões oficiais">
+            <p>
+              Os cadernos de prova foram transcritos dos PDFs do INEP, mas os gabaritos oficiais
+              não estavam disponíveis no momento da transcrição. A alternativa marcada como
+              correta foi determinada por resolução, e só entraram no banco itens cuja resposta é
+              verificável por cálculo ou por leitura direta do texto-base. Ao conferir contra o
+              gabarito oficial, corrija aqui qualquer divergência.
+            </p>
+          </Destaque>
+        </div>
 
         <div className="prose" style={{ marginTop: 'var(--s-6)' }}>
           <p>
             <SeloProcedencia procedencia="oficial" /> — questão aplicada em prova oficial, com
-            referência de edição. O sistema aceita este tipo, mas o banco atual tem{' '}
-            <strong>{contagem.oficial}</strong> delas.
+            referência de ano, dia, caderno e número. Atualmente:{' '}
+            <strong>{contagem.oficial}</strong>, das provas de 2024 e 2025.
           </p>
           <p>
             <SeloProcedencia procedencia="adaptada" /> — questão construída a partir de uma
@@ -107,14 +120,37 @@ export function Sobre() {
         </div>
 
         <div style={{ marginTop: 'var(--s-6)' }}>
-          <Destaque variante="nota" titulo="Como incluir questões oficiais">
+          <Destaque variante="nota" titulo="Como incluir mais questões oficiais">
             <p>
-              Baixe a prova que você quiser na página de Provas e Gabaritos do INEP e siga o
-              passo a passo em <code>docs/ADICIONAR-QUESTOES.md</code>, no repositório do
-              projeto. O item entra no banco com selo oficial e a referência correta de prova,
-              ano e número — e o validador recusa o build se a referência faltar.
+              Baixe outras provas na página de Provas e Gabaritos do INEP e siga o passo a passo
+              em <code>docs/ADICIONAR-QUESTOES.md</code>, no repositório do projeto. O item entra
+              no banco com selo oficial e a referência correta — e o validador recusa o build se
+              a referência faltar. Questões que dependem de figura ou gráfico ficam de fora,
+              porque o texto sozinho não permitiria resolvê-las.
             </p>
           </Destaque>
+        </div>
+      </section>
+
+      <section className="secao" aria-labelledby="matriz">
+        <div className="secao-cabecalho">
+          <h2 id="matriz" className="secao-titulo">
+            Matriz de Referência
+          </h2>
+          <span className="secao-meta">120 habilidades oficiais</span>
+        </div>
+        <div className="prose">
+          <p>
+            O site reproduz o texto oficial da Matriz de Referência do ENEM: os cinco eixos
+            cognitivos e as 30 habilidades de cada uma das quatro áreas. Esse texto não é
+            reescrito nem resumido — ele aparece como está no documento do INEP.
+          </p>
+          <p>
+            A página de cada assunto mostra quais habilidades da matriz aquele conteúdo ajuda a
+            atender. Essa <strong>associação</strong> é análise deste site; as habilidades em si
+            são oficiais. O validador do projeto recusa o build se algum código citado não
+            existir de fato na matriz da área.
+          </p>
         </div>
       </section>
 

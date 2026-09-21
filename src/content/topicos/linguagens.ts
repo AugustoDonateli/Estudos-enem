@@ -294,7 +294,7 @@ export const CONTEUDOS_LINGUAGENS: Record<string, ConteudoAssunto> = {
           'Alternativas do tipo "toda forma serve em qualquer contexto" são exageros que o exame também rejeita.',
       },
     ],
-    questoes: ['ling-var-q1', 'ling-var-q2'],
+    questoes: ['ling-var-q1', 'ling-var-q2', 'of-2024-lc-014'],
     revisaoRapida: [
       'Variedade ≠ erro. O critério é adequação à situação.',
       'Diatópica (lugar) · diastrática (grupo) · diafásica (situação) · diacrônica (tempo).',

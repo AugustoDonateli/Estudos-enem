@@ -8,6 +8,7 @@ import { prerequisitosPendentes, priorizar } from '@/engine/prioridade';
 import { faixaDeDominio, ROTULO_FAIXA } from '@/engine/dominio';
 import { hoje } from '@/engine/datas';
 import { ROTULO_EIXO } from '@/lib/rotulos';
+import { habilidade } from '@/content/matriz';
 import {
   BarraDominio,
   Blocos,
@@ -75,6 +76,9 @@ export function Assunto() {
   const estado = progresso.assuntos[assunto.id];
   const c = assunto.conteudo;
   const pendentes = prerequisitosPendentes(assunto, progresso.assuntos);
+  const habilidades = assunto.habilidades
+    .map((codigo) => habilidade(assunto.areaId, codigo))
+    .filter((h): h is NonNullable<typeof h> => Boolean(h));
   const questoes = c.questoes.map((id) => QUESTAO_POR_ID.get(id)).filter(Boolean);
 
   function concluir() {
@@ -245,6 +249,29 @@ export function Assunto() {
             <Tag key={e}>Eixo: {ROTULO_EIXO[e]}</Tag>
           ))}
         </div>
+
+        {/*
+          As habilidades abaixo são texto oficial do INEP, reproduzido sem
+          reescrita. A associação entre assunto e habilidade é deste site, e o
+          validador confere que todo código citado existe mesmo na matriz.
+        */}
+        {habilidades.length > 0 && (
+          <div className={s.habilidades}>
+            <span className={s.rotuloOficial}>
+              Oficial · Matriz de Referência do ENEM (INEP)
+            </span>
+            <p className={s.habilidadesIntro}>
+              Habilidades da matriz que este assunto ajuda a atender:
+            </p>
+            <ul className={s.listaHabilidades}>
+              {habilidades.map((h) => (
+                <li key={h.codigo}>
+                  <strong>{h.codigo}</strong> — {h.texto}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className={s.sinais}>
           <p className={s.sinaisTitulo}>Sinais de que a questão é deste assunto</p>
           <ul>

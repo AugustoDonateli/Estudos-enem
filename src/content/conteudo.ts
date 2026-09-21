@@ -8,6 +8,7 @@ import { QUESTOES_MATEMATICA } from './questoes/matematica';
 import { QUESTOES_LINGUAGENS } from './questoes/linguagens';
 import { QUESTOES_HUMANAS } from './questoes/humanas';
 import { QUESTOES_NATUREZA } from './questoes/natureza';
+import { QUESTOES_OFICIAIS } from './questoes/oficiais';
 import { SECOES_REDACAO } from './redacao/secoes';
 
 /**
@@ -32,6 +33,7 @@ export const ASSUNTOS: Assunto[] = CATALOGO.filter((meta) => CONTEUDOS[meta.id])
 }));
 
 export const QUESTOES: Questao[] = [
+  ...QUESTOES_OFICIAIS,
   ...QUESTOES_LINGUAGENS,
   ...QUESTOES_HUMANAS,
   ...QUESTOES_NATUREZA,

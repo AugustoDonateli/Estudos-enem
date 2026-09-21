@@ -26,6 +26,7 @@ export function Praticar() {
   const assuntoFiltro = params.get('assunto');
   const conceitoFiltro = params.get('conceito');
   const soErradas = params.get('erradas') === '1';
+  const soOficiais = params.get('oficiais') === '1';
 
   useEffect(() => {
     definirTitulo('Praticar', 'Questões com correção explicada e questão-irmã do mesmo conceito.');
@@ -33,7 +34,7 @@ export function Praticar() {
 
   useEffect(() => {
     setIndice(0);
-  }, [areaFiltro, assuntoFiltro, conceitoFiltro, soErradas]);
+  }, [areaFiltro, assuntoFiltro, conceitoFiltro, soErradas, soOficiais]);
 
   const questoes = useMemo(() => {
     const frageis = new Set(conceitosFrageis(progresso.respostas).map((c) => c.conceito));
@@ -43,9 +44,10 @@ export function Praticar() {
       if (assuntoFiltro && q.topicId !== assuntoFiltro) return false;
       if (conceitoFiltro && q.conceito !== conceitoFiltro) return false;
       if (soErradas && !frageis.has(q.conceito)) return false;
+      if (soOficiais && q.procedencia !== 'oficial') return false;
       return true;
     });
-  }, [areaFiltro, assuntoFiltro, conceitoFiltro, soErradas, progresso.respostas]);
+  }, [areaFiltro, assuntoFiltro, conceitoFiltro, soErradas, soOficiais, progresso.respostas]);
 
   function alternarFiltro(chave: string, valor: string | null) {
     const proximos = new URLSearchParams(params);
@@ -70,7 +72,11 @@ export function Praticar() {
       <div className={s.filtros} role="group" aria-label="Filtros de questões">
         <button
           type="button"
-          className={`${s.filtro} ${!areaFiltro && !assuntoFiltro && !conceitoFiltro && !soErradas ? s.filtroAtivo : ''}`}
+          className={`${s.filtro} ${
+            !areaFiltro && !assuntoFiltro && !conceitoFiltro && !soErradas && !soOficiais
+              ? s.filtroAtivo
+              : ''
+          }`}
           onClick={() => setParams({}, { replace: true })}
         >
           Todas
@@ -94,6 +100,14 @@ export function Praticar() {
         >
           Só os conceitos que errei
         </button>
+        <button
+          type="button"
+          className={`${s.filtro} ${soOficiais ? s.filtroAtivo : ''}`}
+          aria-pressed={soOficiais}
+          onClick={() => alternarFiltro('oficiais', '1')}
+        >
+          Só questões oficiais
+        </button>
       </div>
 
       {(assuntoAtual || conceitoFiltro) && (
@@ -115,7 +129,9 @@ export function Praticar() {
           <p style={{ margin: '0 auto' }}>
             {soErradas
               ? 'Você não tem conceitos em que tenha errado mais do que acertado. Isso é uma boa notícia.'
-              : 'Tente remover algum filtro.'}
+              : soOficiais
+                ? 'Não há questão oficial com esses filtros. Tente ampliar a área selecionada.'
+                : 'Tente remover algum filtro.'}
           </p>
         </Vazio>
       ) : (

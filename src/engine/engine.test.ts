@@ -23,6 +23,7 @@ function assuntoFake(
     prerequisitos,
     minutosEstimados: 20,
     eixos: ['problemas'],
+    habilidades: ['H3'],
   };
 }
 

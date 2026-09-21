@@ -257,11 +257,66 @@ describe('procedência do conteúdo', () => {
     expect(await screen.findByText('Autoral')).toBeInTheDocument();
   });
 
-  it('declara na página de fontes que não há questão oficial no banco', async () => {
+  it('marca a questão oficial com o selo e mostra a referência da prova', async () => {
+    const usuario = userEvent.setup();
+    irPara('/questao/of-2025-mt-150');
+    render(<App />);
+
+    expect(await screen.findByText('Oficial ENEM')).toBeInTheDocument();
+
+    await usuario.click(screen.getByRole('button', { name: /Alternativa D/ }));
+    await usuario.click(screen.getByRole('button', { name: /Confirmar resposta/ }));
+
+    // A referência só faz sentido com o caderno junto: o ENEM embaralha a
+    // numeração entre cadernos.
+    expect(
+      await screen.findByText(/ENEM 2025 — 2º dia, 2025, questão 150/),
+    ).toBeInTheDocument();
+  });
+
+  it('explica na página de fontes o que é oficial e a ressalva do gabarito', async () => {
     irPara('/sobre');
     render(<App />);
+    expect(await screen.findByText('O que é oficial e o que não é')).toBeInTheDocument();
+    expect(screen.getByText('Sobre o gabarito das questões oficiais')).toBeInTheDocument();
+  });
+});
+
+describe('matriz de referência oficial', () => {
+  it('exibe as habilidades oficiais do INEP na página do assunto', async () => {
+    irPara('/assunto/mat-proporcao');
+    render(<App />);
+
     expect(
-      await screen.findByText('Não há nenhuma questão oficial do ENEM neste banco'),
+      await screen.findByText('Oficial · Matriz de Referência do ENEM (INEP)'),
     ).toBeInTheDocument();
+    // H16 é a habilidade de variação direta e inversa de grandezas.
+    expect(screen.getByText('H16')).toBeInTheDocument();
+    expect(
+      screen.getByText(/variação de grandezas, direta ou inversamente proporcionais/),
+    ).toBeInTheDocument();
+  });
+
+  it('todo código de habilidade citado existe na matriz oficial da área', async () => {
+    const { CATALOGO } = await import('@/content/indice');
+    const { habilidade } = await import('@/content/matriz');
+    const invalidos = CATALOGO.flatMap((a) =>
+      a.habilidades
+        .filter((codigo) => !habilidade(a.areaId, codigo))
+        .map((codigo) => `${a.id}:${codigo}`),
+    );
+    expect(invalidos).toEqual([]);
+  });
+});
+
+describe('prática com questões oficiais', () => {
+  it('filtra apenas questões aplicadas em prova', async () => {
+    const usuario = userEvent.setup();
+    irPara('/questoes');
+    render(<App />);
+
+    await usuario.click(await screen.findByRole('button', { name: 'Só questões oficiais' }));
+    expect(await screen.findByText('Oficial ENEM')).toBeInTheDocument();
+    expect(screen.queryByText('Autoral')).not.toBeInTheDocument();
   });
 });

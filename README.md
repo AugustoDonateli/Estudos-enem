@@ -28,7 +28,7 @@ npm run preview    # serve o build
 ```bash
 npm run validate   # regras editoriais do conteúdo
 npm run typecheck  # tipos
-npm run test       # 47 testes de motor e de fluxo (Vitest + Testing Library)
+npm run test       # 51 testes de motor e de fluxo (Vitest + Testing Library)
 npm run test:e2e   # 48 testes de navegador (Playwright, desktop e celular)
 npm run test:all   # tudo acima
 ```
@@ -53,7 +53,7 @@ src/
   app/          rotas, layout e navegação
   design/       tokens, primitivos visuais e diagramas SVG próprios
   content/      catalogo.ts (metadados, leve) · conteudo.ts (texto, pesado)
-                topicos/ · questoes/ · redacao/
+                matriz.ts (texto oficial do INEP) · topicos/ · questoes/ · redacao/
   engine/       funções puras: domínio, prioridade, revisão, plano diário, erros
   storage/      schema versionado e persistência local tolerante a falha
   features/     uma pasta por tela
@@ -78,12 +78,22 @@ Tudo é classificado em três níveis, e a classificação fica visível no site
 - **Análise** — julgamento pedagógico deste site, derivado do que é oficial.
 - **Autoral** — explicações, exemplos, diagramas e questões escritos para este site.
 
-**Nenhuma questão do banco é apresentada como questão oficial do ENEM.** As 58 questões são
-autorais, com selo de procedência visível em cada uma. Para incluir questões oficiais com
-referência de prova, veja [`docs/ADICIONAR-QUESTOES.md`](docs/ADICIONAR-QUESTOES.md).
+O banco tem **69 questões**: **11 oficiais**, aplicadas nas provas de 2024 e 2025 e transcritas
+com referência de ano, dia, caderno e número, e **58 autorais**, escritas para este site no
+formato do exame. O selo de procedência aparece no cabeçalho de toda questão, sem exceção.
+
+O site também reproduz o **texto oficial da Matriz de Referência** — os 5 eixos cognitivos e as
+120 habilidades — e mostra, na página de cada assunto, quais habilidades aquele conteúdo ajuda a
+atender. A habilidade é oficial; a associação é análise deste site, e o validador recusa o build
+se algum código citado não existir na matriz da área.
+
+**Ressalva:** os gabaritos oficiais não estavam disponíveis na transcrição. As respostas das
+questões oficiais foram determinadas por resolução — ver
+[`docs/ETAPA-4-FONTES-OFICIAIS.md`](docs/ETAPA-4-FONTES-OFICIAIS.md).
 
 ## Documentos
 
 - [Etapa 1 — Pesquisa, estratégia e especificação](docs/ETAPA-1-ESPECIFICACAO.md)
 - [Etapa 3 — Auditoria, testes e refinamento](docs/ETAPA-3-AUDITORIA.md)
+- [Etapa 4 — Incorporação das fontes oficiais](docs/ETAPA-4-FONTES-OFICIAIS.md)
 - [Como adicionar questões oficiais](docs/ADICIONAR-QUESTOES.md)

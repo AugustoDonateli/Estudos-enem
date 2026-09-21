@@ -352,7 +352,7 @@ export const CONTEUDOS_NATUREZA: Record<string, ConteudoAssunto> = {
           'Se o enunciado informa a massa dos DOIS reagentes, é sinal de que um deles limita — e o cálculo deve partir dele.',
       },
     ],
-    questoes: ['cn-est-q1', 'cn-est-q2'],
+    questoes: ['cn-est-q1', 'cn-est-q2', 'of-2025-cn-131'],
     revisaoRapida: [
       'n = m / M. A proporção da equação é em mol.',
       'Rotina: massa → mol → proporção → mol → massa.',
@@ -692,7 +692,7 @@ export const CONTEUDOS_NATUREZA: Record<string, ConteudoAssunto> = {
           'O comando quase sempre pede o valor mensal. Vale reler a pergunta depois de terminar a conta.',
       },
     ],
-    questoes: ['cn-elet-q1', 'cn-elet-q2'],
+    questoes: ['cn-elet-q1', 'cn-elet-q2', 'of-2025-cn-122'],
     revisaoRapida: [
       'P = U·i · E(kWh) = P(kW) × t(h).',
       '1 kW = 1 000 W; 30 min = 0,5 h.',

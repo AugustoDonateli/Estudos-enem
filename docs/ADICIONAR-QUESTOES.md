@@ -1,12 +1,32 @@
 # Como adicionar questões oficiais do ENEM
 
-O banco do site é entregue **sem nenhuma questão oficial**. O motivo está em
-`docs/ETAPA-1-ESPECIFICACAO.md` §0: a sessão em que o projeto foi construído não teve acesso
-de rede aos PDFs do INEP, e marcar como oficial um item não verificado seria exatamente o
-tipo de erro que o produto se propõe a não cometer.
+O banco já traz **11 questões oficiais** das provas de 2024 e 2025, em
+`src/content/questoes/oficiais.ts`. Este documento explica como acrescentar mais.
 
-O suporte a questões oficiais existe inteiro no código: tipo, selo visual, referência de prova
-e validação. Falta só o conteúdo — e você pode adicioná-lo com a prova na mão.
+## Extraindo o texto de um caderno de prova
+
+Os PDFs do INEP são cadernos escaneados com texto embutido. Para extrair:
+
+```bash
+npm i pdfjs-dist            # em uma pasta temporária, fora do repositório
+node extrair.mjs prova.pdf  # percorre as páginas e imprime o texto
+```
+
+Três armadilhas que já custaram tempo:
+
+1. Os cadernos de 2025 grafam o cabeçalho como **`QUESTãO`** (artefato de codificação de
+   fonte). Um filtro que procure `QUESTÃO` encontra zero itens.
+2. Quando o comando da questão vem **depois** da citação da fonte, a extração costuma fundi-lo
+   à alternativa A. É preciso separar na transcrição.
+3. Itens que dependem de figura, gráfico ou imagem **não devem entrar**: o texto sozinho não
+   permite resolvê-los, e uma questão irresolvível no site é pior que questão nenhuma.
+
+## Sobre o gabarito
+
+Confira a resposta contra o **gabarito oficial** do INEP, publicado junto com as provas. As
+respostas dos 11 itens atuais foram determinadas por resolução, porque os gabaritos não estavam
+disponíveis na transcrição — se você tiver o gabarito em mãos, conferi-las é a primeira coisa a
+fazer.
 
 ## Passo a passo
 

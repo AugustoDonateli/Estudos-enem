@@ -23,6 +23,7 @@ export const META_MATEMATICA: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 22,
     eixos: ['problemas', 'fenomenos'],
+    habilidades: ['H1', 'H3', 'H4'],
   },
   {
     id: 'mat-proporcao',
@@ -35,6 +36,7 @@ export const META_MATEMATICA: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 22,
     eixos: ['problemas'],
+    habilidades: ['H11', 'H15', 'H16'],
   },
   {
     id: 'mat-graficos',
@@ -47,6 +49,7 @@ export const META_MATEMATICA: AssuntoMeta[] = [
     prerequisitos: ['mat-porcentagem'],
     minutosEstimados: 20,
     eixos: ['fenomenos', 'argumentacao'],
+    habilidades: ['H24', 'H25', 'H26'],
   },
   {
     id: 'mat-media',
@@ -59,6 +62,7 @@ export const META_MATEMATICA: AssuntoMeta[] = [
     prerequisitos: ['mat-graficos'],
     minutosEstimados: 18,
     eixos: ['problemas', 'argumentacao'],
+    habilidades: ['H27', 'H28', 'H29'],
   },
   {
     id: 'mat-grandezas',
@@ -71,6 +75,7 @@ export const META_MATEMATICA: AssuntoMeta[] = [
     prerequisitos: ['mat-proporcao'],
     minutosEstimados: 20,
     eixos: ['problemas'],
+    habilidades: ['H10', 'H12', 'H13'],
   },
   {
     id: 'mat-funcao-afim',
@@ -83,6 +88,7 @@ export const META_MATEMATICA: AssuntoMeta[] = [
     prerequisitos: ['mat-proporcao'],
     minutosEstimados: 25,
     eixos: ['problemas', 'fenomenos'],
+    habilidades: ['H19', 'H20', 'H21'],
   },
   {
     id: 'mat-area',
@@ -95,6 +101,7 @@ export const META_MATEMATICA: AssuntoMeta[] = [
     prerequisitos: ['mat-grandezas'],
     minutosEstimados: 22,
     eixos: ['problemas'],
+    habilidades: ['H7', 'H8', 'H12'],
   },
   {
     id: 'mat-volume',
@@ -107,6 +114,7 @@ export const META_MATEMATICA: AssuntoMeta[] = [
     prerequisitos: ['mat-area'],
     minutosEstimados: 20,
     eixos: ['problemas'],
+    habilidades: ['H8', 'H12', 'H14'],
   },
 ];
 
@@ -122,6 +130,7 @@ export const META_LINGUAGENS: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 25,
     eixos: ['linguagens', 'argumentacao'],
+    habilidades: ['H18', 'H22', 'H23'],
   },
   {
     id: 'ling-funcoes',
@@ -134,6 +143,7 @@ export const META_LINGUAGENS: AssuntoMeta[] = [
     prerequisitos: ['ling-interpretacao'],
     minutosEstimados: 18,
     eixos: ['linguagens'],
+    habilidades: ['H19', 'H21', 'H23'],
   },
   {
     id: 'ling-variacao',
@@ -146,6 +156,7 @@ export const META_LINGUAGENS: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 20,
     eixos: ['linguagens', 'argumentacao'],
+    habilidades: ['H25', 'H26', 'H27'],
   },
   {
     id: 'ling-generos',
@@ -158,6 +169,7 @@ export const META_LINGUAGENS: AssuntoMeta[] = [
     prerequisitos: ['ling-interpretacao'],
     minutosEstimados: 20,
     eixos: ['linguagens'],
+    habilidades: ['H1', 'H21', 'H23'],
   },
   {
     id: 'ling-figuras',
@@ -170,6 +182,7 @@ export const META_LINGUAGENS: AssuntoMeta[] = [
     prerequisitos: ['ling-interpretacao'],
     minutosEstimados: 18,
     eixos: ['linguagens'],
+    habilidades: ['H16', 'H21', 'H24'],
   },
   {
     id: 'ling-estrangeira',
@@ -182,6 +195,7 @@ export const META_LINGUAGENS: AssuntoMeta[] = [
     prerequisitos: ['ling-interpretacao'],
     minutosEstimados: 20,
     eixos: ['linguagens'],
+    habilidades: ['H5', 'H6', 'H7'],
   },
 ];
 
@@ -197,6 +211,7 @@ export const META_HUMANAS: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 28,
     eixos: ['fenomenos', 'argumentacao'],
+    habilidades: ['H11', 'H16', 'H22'],
   },
   {
     id: 'hum-ditadura',
@@ -209,6 +224,7 @@ export const META_HUMANAS: AssuntoMeta[] = [
     prerequisitos: ['hum-vargas'],
     minutosEstimados: 28,
     eixos: ['fenomenos', 'argumentacao'],
+    habilidades: ['H13', 'H15', 'H23'],
   },
   {
     id: 'hum-cidadania',
@@ -221,6 +237,7 @@ export const META_HUMANAS: AssuntoMeta[] = [
     prerequisitos: ['hum-ditadura', 'hum-filosofia-politica'],
     minutosEstimados: 25,
     eixos: ['argumentacao', 'propostas'],
+    habilidades: ['H22', 'H24', 'H25'],
   },
   {
     id: 'hum-filosofia-politica',
@@ -233,6 +250,7 @@ export const META_HUMANAS: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 24,
     eixos: ['argumentacao'],
+    habilidades: ['H12', 'H23', 'H24'],
   },
   {
     id: 'hum-globalizacao',
@@ -245,6 +263,7 @@ export const META_HUMANAS: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 25,
     eixos: ['fenomenos', 'argumentacao'],
+    habilidades: ['H7', 'H17', 'H18'],
   },
   {
     id: 'hum-urbanizacao',
@@ -257,6 +276,7 @@ export const META_HUMANAS: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 25,
     eixos: ['fenomenos'],
+    habilidades: ['H8', 'H19', 'H26'],
   },
   {
     id: 'hum-trabalho',
@@ -269,6 +289,7 @@ export const META_HUMANAS: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 25,
     eixos: ['fenomenos', 'argumentacao'],
+    habilidades: ['H16', 'H18', 'H20'],
   },
 ];
 
@@ -284,6 +305,7 @@ export const META_NATUREZA: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 25,
     eixos: ['fenomenos'],
+    habilidades: ['H9', 'H10', 'H12'],
   },
   {
     id: 'cn-corpo-humano',
@@ -296,6 +318,7 @@ export const META_NATUREZA: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 25,
     eixos: ['fenomenos'],
+    habilidades: ['H14', 'H15', 'H30'],
   },
   {
     id: 'cn-genetica',
@@ -308,6 +331,7 @@ export const META_NATUREZA: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 28,
     eixos: ['problemas'],
+    habilidades: ['H11', 'H13', 'H15'],
   },
   {
     id: 'cn-estequiometria',
@@ -320,6 +344,7 @@ export const META_NATUREZA: AssuntoMeta[] = [
     prerequisitos: ['mat-proporcao'],
     minutosEstimados: 30,
     eixos: ['problemas'],
+    habilidades: ['H18', 'H24', 'H25'],
   },
   {
     id: 'cn-solucoes',
@@ -332,6 +357,7 @@ export const META_NATUREZA: AssuntoMeta[] = [
     prerequisitos: ['cn-estequiometria'],
     minutosEstimados: 22,
     eixos: ['problemas'],
+    habilidades: ['H18', 'H24', 'H25'],
   },
   {
     id: 'cn-organica',
@@ -344,6 +370,7 @@ export const META_NATUREZA: AssuntoMeta[] = [
     prerequisitos: [],
     minutosEstimados: 22,
     eixos: ['linguagens', 'fenomenos'],
+    habilidades: ['H7', 'H18', 'H24'],
   },
   {
     id: 'cn-energia',
@@ -356,6 +383,7 @@ export const META_NATUREZA: AssuntoMeta[] = [
     prerequisitos: ['mat-grandezas'],
     minutosEstimados: 25,
     eixos: ['fenomenos', 'problemas'],
+    habilidades: ['H20', 'H21', 'H23'],
   },
   {
     id: 'cn-eletricidade',
@@ -368,6 +396,7 @@ export const META_NATUREZA: AssuntoMeta[] = [
     prerequisitos: ['cn-energia'],
     minutosEstimados: 22,
     eixos: ['problemas', 'fenomenos'],
+    habilidades: ['H5', 'H6', 'H23'],
   },
 ];
 

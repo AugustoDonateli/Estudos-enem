@@ -18,6 +18,7 @@
  */
 import { ASSUNTOS, QUESTOES, SECOES_REDACAO } from '../src/content/conteudo';
 import { ASSUNTOS_PLANEJADOS, CATALOGO, SECOES_REDACAO_META } from '../src/content/indice';
+import { habilidade } from '../src/content/matriz';
 
 const erros: string[] = [];
 const avisos: string[] = [];
@@ -105,6 +106,17 @@ for (const a of ASSUNTOS) {
   if (!c.revisaoRapida.length) erros.push(`${onde}: sem bloco de revisão rápida.`);
   if (!c.noEnem.texto.trim()) erros.push(`${onde}: sem o bloco "como isso aparece no ENEM".`);
   if (!c.exemplo.passos.length) erros.push(`${onde}: exemplo sem passos de resolução.`);
+
+  // Habilidades precisam existir na matriz oficial da própria área. Sem esta
+  // checagem, uma citação errada da matriz passaria como se fosse oficial.
+  if (a.habilidades.length === 0) {
+    avisos.push(`${onde}: não declara nenhuma habilidade da matriz.`);
+  }
+  for (const codigo of a.habilidades) {
+    if (!habilidade(a.areaId, codigo)) {
+      erros.push(`${onde}: habilidade "${codigo}" não existe na matriz oficial de ${a.areaId}.`);
+    }
+  }
 
   if (a.prioridade === 'essencial' && c.questoes.length === 0) {
     erros.push(`${onde}: assunto essencial sem nenhuma questão.`);

@@ -186,7 +186,7 @@ Seguindo a regra de preferir a solução mais simples que preserve a utilidade:
 
 | Item | Situação |
 |---|---|
-| **Questões oficiais do ENEM** | O ambiente de construção não teve acesso de rede aos PDFs do INEP. O tipo, o selo, a referência de prova e a validação existem; o banco está com zero questões oficiais, e o site declara isso na página de fontes. O caminho para incluí-las está em `docs/ADICIONAR-QUESTOES.md` |
+| **Questões oficiais do ENEM** | **Resolvido.** Os PDFs foram fornecidos depois e o banco passou a ter 11 questões oficiais de 2024 e 2025, com referência de prova. Ver [`ETAPA-4-FONTES-OFICIAIS.md`](ETAPA-4-FONTES-OFICIAIS.md). Pendência remanescente: conferir as respostas contra o gabarito oficial |
 | **21 assuntos de prioridade "importante"** | Mapeados na especificação e listados na navegação com o estado "ainda não escrito". Escolha deliberada: melhor declarar a ausência do que criar páginas de três linhas |
 | **Simulado completo cronometrado** | Com 58 questões no banco, um simulado de 180 seria uma simulação falsa. Faz sentido depois que o banco crescer |
 | **Divisão do conteúdo por área em chunks separados** | Hoje abrir qualquer assunto baixa os 84 kB gzip de todo o conteúdo, uma vez. Dividir por área acrescentaria complexidade para economizar um download que o cache resolve |

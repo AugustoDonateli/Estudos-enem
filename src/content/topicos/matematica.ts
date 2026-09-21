@@ -98,7 +98,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
           'Se a taxa vai de 4% para 6%, subiu 2 pontos percentuais — mas isso é um aumento de 50% na taxa. As duas leituras são corretas e dizem coisas diferentes.',
       },
     ],
-    questoes: ['mat-porc-q1', 'mat-porc-q2'],
+    questoes: ['mat-porc-q1', 'mat-porc-q2', 'of-2025-mt-140', 'of-2025-mt-158'],
     revisaoRapida: [
       'Subir p% = × (1 + p/100). Cair p% = × (1 − p/100).',
       'Sucessivos: multiplique os fatores.',
@@ -189,7 +189,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
         porque: 'A conta da escala costuma estar certa; a conversão é o que derruba. 1 km = 100 000 cm.',
       },
     ],
-    questoes: ['mat-prop-q1', 'mat-prop-q2'],
+    questoes: ['mat-prop-q1', 'mat-prop-q2', 'of-2025-mt-150'],
     revisaoRapida: [
       'Direta: a razão se mantém. Inversa: o produto se mantém.',
       'Pergunte sempre antes: sobe ou desce?',
@@ -378,7 +378,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
         porque: 'Se nenhum valor se repete, não há moda. Se dois se repetem igualmente, há duas.',
       },
     ],
-    questoes: ['mat-med-q1', 'mat-med-q2'],
+    questoes: ['mat-med-q1', 'mat-med-q2', 'of-2025-mt-142'],
     revisaoRapida: [
       'Média: soma ÷ quantidade. Puxada por extremos.',
       'Mediana: ordene primeiro; é o centro. Resiste a extremos.',
@@ -550,7 +550,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
         porque: 'A raiz é −b/a. Em situações de depreciação (a negativo), o sinal trocado dá um valor sem sentido físico.',
       },
     ],
-    questoes: ['mat-afim-q1', 'mat-afim-q2'],
+    questoes: ['mat-afim-q1', 'mat-afim-q2', 'of-2024-mt-157'],
     revisaoRapida: [
       'f(x) = ax + b: b é o valor inicial, a é a taxa por unidade.',
       'Em tabela, a é a diferença constante entre linhas seguidas.',
@@ -633,7 +633,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
         porque: 'Dobrar o lado quadruplica a área. Confundir isso é o que gera as alternativas de 100% e 400%.',
       },
     ],
-    questoes: ['mat-area-q1', 'mat-area-q2'],
+    questoes: ['mat-area-q1', 'mat-area-q2', 'of-2024-mt-151'],
     revisaoRapida: [
       'Retângulo b×h · triângulo b×h/2 · círculo πr² · trapézio (B+b)h/2.',
       'Decomponha: some partes ou subtraia o que sai.',
