@@ -1,0 +1,85 @@
+/*
+ * Tokens do sistema visual.
+ * Princípio: papel e tinta. A tipografia carrega a hierarquia; a cor significa,
+ * não decora. Um único acento de marca + três cores semânticas restritas ao
+ * feedback de questão.
+ */
+:root {
+  /* --- Superfície e tinta --- */
+  --paper: #ffffff;
+  --paper-2: #faf9f7;
+  --paper-3: #f3f1ed;
+  --ink: #17161a;
+  --ink-2: #56545e;
+  --ink-3: #8a8792;
+  --line: #e6e3dd;
+  --line-strong: #d3cfc7;
+
+  /* --- Acento único: azul-tinta --- */
+  --accent: #1c4e80;
+  --accent-hover: #16406a;
+  --accent-soft: #eaf0f7;
+  --accent-line: #c3d4e6;
+
+  /* --- Semânticas: só em feedback de questão e estado de domínio --- */
+  --ok: #1b7a4b;
+  --ok-soft: #e8f4ed;
+  --warn: #8a5d0f;
+  --warn-soft: #fbf2e0;
+  --no: #b32a2a;
+  --no-soft: #fbeceb;
+
+  /* --- Tipografia --- */
+  --font-title: 'Source Serif 4 Variable', Georgia, 'Times New Roman', serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Escala modular 1.2 */
+  --t-12: 0.75rem;
+  --t-14: 0.875rem;
+  --t-16: 1rem;
+  --t-19: 1.1875rem;
+  --t-23: 1.4375rem;
+  --t-28: 1.75rem;
+  --t-33: 2.0625rem;
+
+  --lh-tight: 1.2;
+  --lh-snug: 1.35;
+  --lh-body: 1.65;
+
+  /* --- Espaço: grade de 4px --- */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+
+  /* --- Forma --- */
+  --radius: 6px;
+  --radius-sm: 4px;
+  --shadow: 0 1px 2px rgba(23, 22, 26, 0.05), 0 4px 12px rgba(23, 22, 26, 0.06);
+
+  /* --- Medida de leitura --- */
+  --measure: 68ch;
+  --page: 1080px;
+
+  /* --- Movimento --- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --fast: 120ms;
+  --normal: 180ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
