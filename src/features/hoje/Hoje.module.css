@@ -1,0 +1,236 @@
+.contexto {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2) var(--s-3);
+  margin-bottom: var(--s-2);
+}
+
+.fase {
+  font-size: var(--t-12);
+  font-weight: 640;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.faseTexto {
+  font-size: var(--t-14);
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+
+.titulo {
+  margin-bottom: var(--s-6);
+}
+
+/* --- Plano ------------------------------------------------------------- */
+.plano {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.item {
+  display: flex;
+  gap: var(--s-3);
+  align-items: flex-start;
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  transition: border-color var(--fast) var(--ease);
+}
+
+.item:hover {
+  border-color: var(--line-strong);
+}
+
+.itemPrincipal {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+
+.itemConcluido {
+  opacity: 0.55;
+}
+
+.marcar {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  margin-top: 2px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-strong);
+  background: var(--paper);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+}
+
+.marcar:hover {
+  border-color: var(--accent);
+}
+
+.marcarFeito {
+  background: var(--ok);
+  border-color: var(--ok);
+  color: #fff;
+}
+
+.corpo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemTopo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2);
+}
+
+.itemTipo {
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.itemTitulo {
+  font-family: var(--font-title);
+  font-size: var(--t-19);
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  display: block;
+  margin-top: 2px;
+}
+
+.itemTitulo:hover {
+  color: var(--accent);
+}
+
+.itemConcluido .itemTitulo {
+  text-decoration: line-through;
+}
+
+.motivo {
+  font-size: var(--t-14);
+  color: var(--ink-2);
+  margin-top: var(--s-1);
+}
+
+.minutos {
+  font-size: var(--t-12);
+  font-weight: 640;
+  color: var(--ink-3);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Orçamento ---------------------------------------------------------- */
+.orcamento {
+  display: inline-flex;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.orcamentoBotao {
+  min-height: 36px;
+  padding: var(--s-1) var(--s-3);
+  border: 0;
+  background: var(--paper);
+  font-size: var(--t-14);
+  font-weight: 560;
+  color: var(--ink-2);
+  cursor: pointer;
+  border-right: 1px solid var(--line);
+}
+
+.orcamentoBotao:last-child {
+  border-right: 0;
+}
+
+.orcamentoBotao:hover {
+  background: var(--paper-2);
+}
+
+.orcamentoAtivo {
+  background: var(--accent);
+  color: #fff;
+}
+
+.orcamentoAtivo:hover {
+  background: var(--accent-hover);
+}
+
+/* --- Domínio por área ---------------------------------------------------- */
+.areas {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.areaLinha {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.areaLinha:last-child {
+  border-bottom: 0;
+}
+
+.areaTopo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-bottom: var(--s-2);
+}
+
+.areaNome {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.areaLinha:hover .areaNome {
+  color: var(--accent);
+}
+
+.areaFaixa {
+  font-size: var(--t-12);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+/* --- Diagnóstico de erros ------------------------------------------------ */
+.diagnostico {
+  padding: var(--s-4);
+  border-left: 3px solid var(--warn);
+  background: var(--warn-soft);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.diagnosticoFrase {
+  font-family: var(--font-title);
+  font-size: var(--t-19);
+  color: var(--ink);
+  margin-bottom: var(--s-2);
+}
+
+
+.metaNumero {
+  font-size: var(--t-14);
+  color: var(--ink-3);
+  white-space: nowrap;
+}

@@ -1,0 +1,90 @@
+.progresso {
+  display: flex;
+  gap: var(--s-1);
+  margin-bottom: var(--s-6);
+}
+
+.etapa {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.etapaFeita {
+  background: var(--accent);
+}
+
+.assuntos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.assunto {
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.titulo {
+  font-weight: 600;
+  display: block;
+  margin-bottom: var(--s-1);
+}
+
+.resumo {
+  font-size: var(--t-14);
+  color: var(--ink-2);
+  margin-bottom: var(--s-3);
+}
+
+.opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.opcao {
+  min-height: 40px;
+  padding: var(--s-1) var(--s-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-size: var(--t-14);
+  font-weight: 540;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all var(--fast) var(--ease);
+}
+
+.opcao:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.opcaoAtiva {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.opcaoAtiva:hover {
+  background: var(--accent-hover);
+  color: #fff;
+}
+
+.rodape {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: center;
+  margin-top: var(--s-8);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+}
+
+.contagem {
+  font-size: var(--t-14);
+  color: var(--ink-3);
+  margin-right: auto;
+}

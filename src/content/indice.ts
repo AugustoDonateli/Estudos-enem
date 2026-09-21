@@ -1,38 +1,28 @@
-import type { Assunto, AssuntoPlanejado, AreaId, Questao } from './tipos';
-import { ASSUNTOS_MATEMATICA } from './topicos/matematica';
-import { ASSUNTOS_LINGUAGENS } from './topicos/linguagens';
-import { ASSUNTOS_HUMANAS } from './topicos/humanas';
-import { ASSUNTOS_NATUREZA } from './topicos/natureza';
-import { QUESTOES_MATEMATICA } from './questoes/matematica';
-import { QUESTOES_LINGUAGENS } from './questoes/linguagens';
-import { QUESTOES_HUMANAS } from './questoes/humanas';
-import { QUESTOES_NATUREZA } from './questoes/natureza';
-import { SECOES_REDACAO } from './redacao/secoes';
-
-export const ASSUNTOS: Assunto[] = [
-  ...ASSUNTOS_LINGUAGENS,
-  ...ASSUNTOS_HUMANAS,
-  ...ASSUNTOS_NATUREZA,
-  ...ASSUNTOS_MATEMATICA,
-];
-
-export const QUESTOES: Questao[] = [
-  ...QUESTOES_LINGUAGENS,
-  ...QUESTOES_HUMANAS,
-  ...QUESTOES_NATUREZA,
-  ...QUESTOES_MATEMATICA,
-];
-
-export { SECOES_REDACAO };
+import type { AreaId, AssuntoMeta, AssuntoPlanejado, SecaoRedacaoMeta } from './tipos';
+import { CATALOGO } from './catalogo';
+import { SECOES_REDACAO_META } from './redacao/indice';
 
 /**
- * Assuntos mapeados na especificação (docs/ETAPA-1-ESPECIFICACAO.md §3.2) e
- * ainda não escritos.
+ * Índice leve — o único módulo de conteúdo que o bundle inicial carrega.
  *
- * Eles aparecem na navegação com estado honesto — "ainda não escrito" — em vez
- * de virarem páginas de três linhas só para preencher o site. Esta lista é, ao
- * mesmo tempo, o roteiro de continuação do projeto.
+ * Traz metadados de assuntos e seções de redação, o suficiente para o motor de
+ * estudo priorizar, agendar revisão e montar o plano do dia. O conteúdo
+ * propriamente dito (texto dos assuntos, questões, seções de redação) mora em
+ * src/content/conteudo.ts e só é baixado nas telas que o exibem.
  */
+
+export { CATALOGO, SECOES_REDACAO_META };
+
+export const ASSUNTO_META_POR_ID = new Map(CATALOGO.map((a) => [a.id, a]));
+
+export function assuntosDaArea(areaId: AreaId): AssuntoMeta[] {
+  return CATALOGO.filter((a) => a.areaId === areaId);
+}
+
+export function secaoRedacaoMetaPorId(id: string): SecaoRedacaoMeta | undefined {
+  return SECOES_REDACAO_META.find((s) => s.id === id);
+}
+
 export const ASSUNTOS_PLANEJADOS: AssuntoPlanejado[] = [
   // Linguagens
   { id: 'ling-modernismo', areaId: 'linguagens', titulo: 'Modernismo brasileiro', prioridade: 'importante', resumo: 'Semana de 22, as três fases e a ruptura com o academicismo.' },
@@ -61,47 +51,6 @@ export const ASSUNTOS_PLANEJADOS: AssuntoPlanejado[] = [
   { id: 'mat-progressoes', areaId: 'matematica', titulo: 'Progressões aritméticas e geométricas', prioridade: 'importante', resumo: 'Reconhecer padrões de crescimento constante e proporcional.' },
 ];
 
-/* ------------------------------------------------------------------ */
-/* Índices                                                             */
-/* ------------------------------------------------------------------ */
-
-export const ASSUNTO_POR_ID = new Map(ASSUNTOS.map((a) => [a.id, a]));
-export const QUESTAO_POR_ID = new Map(QUESTOES.map((q) => [q.id, q]));
-export const SECAO_REDACAO_POR_ID = new Map(SECOES_REDACAO.map((s) => [s.id, s]));
-
-export function assuntosDaArea(areaId: AreaId): Assunto[] {
-  return ASSUNTOS.filter((a) => a.areaId === areaId);
-}
-
 export function planejadosDaArea(areaId: AreaId): AssuntoPlanejado[] {
   return ASSUNTOS_PLANEJADOS.filter((a) => a.areaId === areaId);
-}
-
-export function questoesDoAssunto(topicId: string): Questao[] {
-  return QUESTOES.filter((q) => q.topicId === topicId);
-}
-
-export function questoesDoConceito(conceito: string): Questao[] {
-  return QUESTOES.filter((q) => q.conceito === conceito);
-}
-
-/** Questão-irmã: mesmo conceito, contexto diferente, ainda não respondida. */
-export function proximaIrma(questao: Questao, jaRespondidas: string[]): Questao | undefined {
-  const candidatas = [
-    ...(questao.irmas ?? []).map((id) => QUESTAO_POR_ID.get(id)),
-    ...questoesDoConceito(questao.conceito).filter((q) => q.id !== questao.id),
-  ].filter((q): q is Questao => Boolean(q));
-
-  const inedita = candidatas.find((q) => !jaRespondidas.includes(q.id));
-  return inedita ?? candidatas[0];
-}
-
-/** Contagem por procedência — usada na página de fontes. */
-export function contagemPorProcedencia() {
-  return {
-    oficial: QUESTOES.filter((q) => q.procedencia === 'oficial').length,
-    adaptada: QUESTOES.filter((q) => q.procedencia === 'adaptada').length,
-    autoral: QUESTOES.filter((q) => q.procedencia === 'autoral').length,
-    total: QUESTOES.length,
-  };
 }

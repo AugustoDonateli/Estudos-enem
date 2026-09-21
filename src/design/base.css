@@ -150,3 +150,68 @@ hr {
   transform: translateY(0);
   color: var(--paper);
 }
+
+/* Estrutura de seção — usada por todas as telas, por isso global e não por módulo. */
+.secao {
+  margin-top: var(--s-12);
+}
+
+.secao-cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--s-4);
+}
+
+.secao-titulo {
+  font-size: var(--t-19);
+}
+
+.secao-meta {
+  font-size: var(--t-14);
+  color: var(--ink-3);
+}
+
+.cabecalho-pagina {
+  margin-bottom: var(--s-6);
+}
+
+.cabecalho-pagina h1 {
+  margin-bottom: var(--s-3);
+}
+
+.subtitulo {
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+
+.linha-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+  margin-bottom: var(--s-4);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+}
+
+.voltar {
+  display: inline-block;
+  font-size: var(--t-14);
+  color: var(--ink-2);
+  text-decoration: none;
+  margin-bottom: var(--s-4);
+}
+
+.voltar:hover {
+  color: var(--accent);
+}

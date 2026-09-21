@@ -144,7 +144,14 @@ export interface ConteudoAssunto {
   revisaoRapida: string[];
 }
 
-export interface Assunto {
+/**
+ * Metadados de um assunto — tudo de que o motor de estudo precisa para
+ * priorizar, agendar revisão e montar o plano do dia.
+ *
+ * Fica separado do conteúdo de propósito: o dashboard carrega os metadados dos
+ * 29 assuntos, mas o texto de um assunto só é baixado quando ele é aberto.
+ */
+export interface AssuntoMeta {
   id: string;
   areaId: AreaId;
   titulo: string;
@@ -156,8 +163,10 @@ export interface Assunto {
   prerequisitos: string[];
   minutosEstimados: number;
   eixos: Eixo[];
-  conteudo: ConteudoAssunto;
 }
+
+/** Metadados + os 9 blocos. Usado apenas nas telas que exibem o conteúdo. */
+export type Assunto = AssuntoMeta & { conteudo: ConteudoAssunto };
 
 /** Assunto mapeado mas ainda não escrito. Aparece na navegação com estado honesto. */
 export interface AssuntoPlanejado {
@@ -199,3 +208,9 @@ export interface SecaoRedacao {
   checklist?: string[];
   exercicio?: { titulo: string; instrucao: Inline; criterios: string[]; minutos: number };
 }
+
+/** Metadados de uma seção de redação, sem o conteúdo. */
+export type SecaoRedacaoMeta = Pick<
+  SecaoRedacao,
+  'id' | 'titulo' | 'tipo' | 'resumo' | 'minutosEstimados' | 'competencia'
+>;

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Estudos ENEM</title>
+    <script>
+      // Fallback de SPA para hospedagens estáticas que não reescrevem rotas
+      // (GitHub Pages). Guarda o caminho pedido e devolve para o index, que o
+      // React Router então resolve normalmente.
+      sessionStorage.setItem('rota-pendente', location.pathname + location.search);
+      location.replace(
+        location.pathname.split('/').slice(0, location.pathname.startsWith('/Estudos-enem') ? 2 : 1).join('/') + '/',
+      );
+    </script>
+  </head>
+  <body></body>
+</html>

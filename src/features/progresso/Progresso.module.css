@@ -1,0 +1,156 @@
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--s-6);
+  padding: var(--s-6) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.numero {
+  font-family: var(--font-title);
+  font-size: var(--t-33);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.rotulo {
+  font-size: var(--t-14);
+  color: var(--ink-2);
+  margin-top: var(--s-2);
+  display: block;
+}
+
+.areaBloco {
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.areaTopo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-3);
+  margin-bottom: var(--s-2);
+}
+
+.areaNome {
+  font-weight: 640;
+}
+
+.assuntos {
+  list-style: none;
+  margin: var(--s-4) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-3);
+}
+
+.assunto {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: var(--t-14);
+}
+
+.assuntoNome {
+  flex: 1;
+  min-width: 160px;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.assuntoNome:hover {
+  color: var(--accent);
+}
+
+.assuntoBarra {
+  width: 120px;
+}
+
+.assuntoFaixa {
+  font-size: var(--t-12);
+  color: var(--ink-3);
+  width: 110px;
+  text-align: right;
+}
+
+.erros {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.erroLinha {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.erroNome {
+  flex: 1;
+  min-width: 140px;
+}
+
+.erroBarra {
+  flex: 2;
+  height: 8px;
+  background: var(--paper-3);
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 80px;
+}
+
+.erroPreenchida {
+  height: 100%;
+  background: var(--warn);
+  border-radius: 4px;
+}
+
+.erroValor {
+  font-size: var(--t-14);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  width: 32px;
+  text-align: right;
+}
+
+.dados {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--s-4);
+}
+
+.area-texto {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--s-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: var(--t-12);
+  resize: vertical;
+}
+
+.perigo {
+  margin-top: var(--s-6);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+.mensagem {
+  font-size: var(--t-14);
+  margin-top: var(--s-3);
+}
+
+.mensagemOk {
+  color: var(--ok);
+}
+
+.mensagemErro {
+  color: var(--no);
+}

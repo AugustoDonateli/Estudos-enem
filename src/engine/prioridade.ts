@@ -1,4 +1,4 @@
-import type { Assunto, Prioridade } from '@/content/tipos';
+import type { AssuntoMeta, Prioridade } from '@/content/tipos';
 import type { EstadoAssunto } from '@/storage/schema';
 import { lacuna } from './dominio';
 import { diferencaEmDias, PROVA_DIA_1, type DiaISO } from './datas';
@@ -20,12 +20,12 @@ export const PESO_CURRICULAR: Record<Prioridade, number> = {
 };
 
 export interface EntradaPrioridade {
-  assunto: Assunto;
+  assunto: AssuntoMeta;
   estado: EstadoAssunto | undefined;
 }
 
 export interface AssuntoPriorizado {
-  assunto: Assunto;
+  assunto: AssuntoMeta;
   score: number;
   /** Uma frase curta dizendo por que este assunto está nessa posição. */
   motivo: string;
@@ -40,7 +40,7 @@ export interface AssuntoPriorizado {
 
 /** Bloqueio de pré-requisito: assunto cujo pré-requisito ainda está frágil. */
 export function prerequisitosPendentes(
-  assunto: Assunto,
+  assunto: AssuntoMeta,
   estados: Record<string, EstadoAssunto | undefined>,
 ): string[] {
   return assunto.prerequisitos.filter((id) => {
@@ -50,8 +50,8 @@ export function prerequisitosPendentes(
 }
 
 function fatorPrerequisito(
-  assunto: Assunto,
-  todos: Assunto[],
+  assunto: AssuntoMeta,
+  todos: AssuntoMeta[],
   estados: Record<string, EstadoAssunto | undefined>,
 ): number {
   // Quantos assuntos ainda não dominados dependem deste.
@@ -82,11 +82,11 @@ function fatorFrescor(estado: EstadoAssunto | undefined, dia: DiaISO): number {
 }
 
 function motivoDe(
-  assunto: Assunto,
+  assunto: AssuntoMeta,
   estado: EstadoAssunto | undefined,
   fatores: AssuntoPriorizado['fatores'],
   pendentes: string[],
-  todos: Assunto[],
+  todos: AssuntoMeta[],
 ): string {
   if (pendentes.length > 0) {
     const nomes = pendentes
@@ -104,7 +104,7 @@ function motivoDe(
 }
 
 export function priorizar(
-  assuntos: Assunto[],
+  assuntos: AssuntoMeta[],
   estados: Record<string, EstadoAssunto | undefined>,
   dia: DiaISO,
 ): AssuntoPriorizado[] {

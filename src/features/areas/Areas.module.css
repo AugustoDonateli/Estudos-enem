@@ -1,0 +1,158 @@
+.lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.area {
+  display: block;
+  padding: var(--s-6) 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+}
+
+.area:first-child {
+  padding-top: var(--s-3);
+}
+
+.areaTopo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+}
+
+.nome {
+  font-family: var(--font-title);
+  font-size: var(--t-23);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.area:hover .nome {
+  color: var(--accent);
+}
+
+.meta {
+  font-size: var(--t-14);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.descricao {
+  color: var(--ink-2);
+  margin-top: var(--s-2);
+}
+
+.comoCai {
+  margin-top: var(--s-3);
+  padding-left: var(--s-3);
+  border-left: 2px solid var(--accent-line);
+  font-size: var(--t-14);
+  color: var(--ink-2);
+}
+
+.barraArea {
+  margin-top: var(--s-4);
+  max-width: 420px;
+}
+
+.rotuloAnalise {
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: block;
+  margin-bottom: var(--s-1);
+}
+
+/* --- Página de uma área --------------------------------------------------- */
+.assuntos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.assunto {
+  border-bottom: 1px solid var(--line);
+}
+
+.assuntoLink {
+  display: block;
+  padding: var(--s-4) 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.assuntoTopo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2) var(--s-3);
+}
+
+.assuntoTitulo {
+  font-family: var(--font-title);
+  font-size: var(--t-19);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.assuntoLink:hover .assuntoTitulo {
+  color: var(--accent);
+}
+
+.assuntoResumo {
+  color: var(--ink-2);
+  font-size: var(--t-14);
+  margin-top: var(--s-1);
+}
+
+.assuntoRodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+}
+
+.barraAssunto {
+  flex: 1;
+  min-width: 140px;
+  max-width: 260px;
+}
+
+.faixa {
+  font-size: var(--t-12);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.aviso {
+  font-size: var(--t-12);
+  color: var(--warn);
+  font-weight: 560;
+}
+
+.planejado {
+  padding: var(--s-3) 0;
+  border-bottom: 1px dashed var(--line-strong);
+  color: var(--ink-3);
+}
+
+.planejadoTitulo {
+  font-family: var(--font-title);
+  font-size: var(--t-16);
+  color: var(--ink-2);
+}
+
+.planejadoEstado {
+  font-size: var(--t-12);
+  font-weight: 640;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-left: var(--s-2);
+}

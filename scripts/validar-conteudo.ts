@@ -16,7 +16,8 @@
  *
  * Erros quebram o build. Avisos apenas informam.
  */
-import { ASSUNTOS, ASSUNTOS_PLANEJADOS, QUESTOES, SECOES_REDACAO } from '../src/content/index';
+import { ASSUNTOS, QUESTOES, SECOES_REDACAO } from '../src/content/conteudo';
+import { ASSUNTOS_PLANEJADOS, CATALOGO, SECOES_REDACAO_META } from '../src/content/indice';
 
 const erros: string[] = [];
 const avisos: string[] = [];
@@ -158,6 +159,48 @@ const competencias = SECOES_REDACAO.filter((s) => s.tipo === 'competencia').map(
 for (const n of [1, 2, 3, 4, 5]) {
   if (!competencias.includes(n as 1 | 2 | 3 | 4 | 5)) {
     erros.push(`redação: falta a seção da Competência ${n}.`);
+  }
+}
+
+/* --- Catálogo x conteúdo ------------------------------------------------- */
+/*
+ * Metadados e conteúdo moram em arquivos separados para manter o bundle
+ * inicial pequeno. O preço dessa separação seria o risco de divergirem — e é
+ * exatamente isso que as duas checagens abaixo eliminam.
+ */
+for (const meta of CATALOGO) {
+  if (!idsAssuntos.has(meta.id)) {
+    erros.push(
+      `catálogo: o assunto "${meta.id}" está em catalogo.ts mas não tem conteúdo em topicos/.`,
+    );
+  }
+}
+for (const a of ASSUNTOS) {
+  if (!CATALOGO.some((m) => m.id === a.id)) {
+    erros.push(`conteúdo: o assunto "${a.id}" tem conteúdo mas não está no catálogo.`);
+  }
+}
+
+const metaPorId = new Map(SECOES_REDACAO_META.map((m) => [m.id, m]));
+for (const s of SECOES_REDACAO) {
+  const meta = metaPorId.get(s.id);
+  if (!meta) {
+    erros.push(`redação: a seção "${s.id}" não está no índice leve (redacao/indice.ts).`);
+    continue;
+  }
+  if (
+    meta.titulo !== s.titulo ||
+    meta.tipo !== s.tipo ||
+    meta.resumo !== s.resumo ||
+    meta.minutosEstimados !== s.minutosEstimados ||
+    meta.competencia !== s.competencia
+  ) {
+    erros.push(`redação: o índice leve divergiu do conteúdo na seção "${s.id}".`);
+  }
+}
+for (const meta of SECOES_REDACAO_META) {
+  if (!SECOES_REDACAO.some((s) => s.id === meta.id)) {
+    erros.push(`redação: o índice lista "${meta.id}", que não existe em secoes.ts.`);
   }
 }
 

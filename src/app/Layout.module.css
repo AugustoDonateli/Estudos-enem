@@ -1,0 +1,214 @@
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  /* Espaço para a tab bar no celular, respeitando a área segura do aparelho. */
+  padding-bottom: calc(60px + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 720px) {
+  .shell {
+    padding-bottom: 0;
+  }
+}
+
+/* --- Cabeçalho --------------------------------------------------------- */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.cabecalhoInterno {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: var(--s-3) var(--s-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+
+.marca {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  font-family: var(--font-title);
+  font-size: var(--t-19);
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.015em;
+}
+
+.marca:hover {
+  color: var(--ink);
+}
+
+.contador {
+  font-family: var(--font-body);
+  font-size: var(--t-12);
+  font-weight: 560;
+  color: var(--ink-3);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* --- Navegação desktop ------------------------------------------------- */
+.navDesktop {
+  display: none;
+  gap: var(--s-1);
+}
+
+@media (min-width: 720px) {
+  .navDesktop {
+    display: flex;
+  }
+}
+
+.link {
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--radius);
+  font-size: var(--t-14);
+  font-weight: 540;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+
+.link:hover {
+  background: var(--paper-3);
+  color: var(--ink);
+}
+
+.linkAtivo {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.linkAtivo:hover {
+  color: var(--accent);
+}
+
+.selo {
+  display: inline-block;
+  min-width: 18px;
+  margin-left: var(--s-1);
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+/* --- Tab bar (celular) -------------------------------------------------- */
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (min-width: 720px) {
+  .tabbar {
+    display: none;
+  }
+}
+
+.tab {
+  flex: 1;
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--s-1) 2px;
+  font-size: 11px;
+  font-weight: 560;
+  color: var(--ink-3);
+  text-decoration: none;
+  position: relative;
+}
+
+.tabAtiva {
+  color: var(--accent);
+}
+
+.tabIcone {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tabSelo {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  margin-left: 6px;
+  min-width: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+}
+
+/* --- Conteúdo e rodapé --------------------------------------------------- */
+.conteudo {
+  flex: 1;
+}
+
+.rodape {
+  border-top: 1px solid var(--line);
+  margin-top: var(--s-16);
+}
+
+.rodapeInterno {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: var(--s-6) var(--s-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--t-14);
+  color: var(--ink-3);
+}
+
+.rodapeLinks {
+  display: flex;
+  gap: var(--s-4);
+}
+
+.aviso {
+  background: var(--warn-soft);
+  border-bottom: 1px solid #e3cf9c;
+  color: var(--warn);
+  font-size: var(--t-14);
+}
+
+.avisoInterno {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: var(--s-2) var(--s-4);
+}

@@ -6,13 +6,13 @@ import { analisarErros, conceitosFrageis } from './erros';
 import { gerarPlano } from './planoDiario';
 import { diferencaEmDias, faseDoPlano, PROVA_DIA_1, somarDias } from './datas';
 import { estadoInicialAssunto, progressoInicial, type EstadoAssunto } from '@/storage/schema';
-import type { Assunto, Prioridade } from '@/content/tipos';
+import type { AssuntoMeta, Prioridade } from '@/content/tipos';
 
 function assuntoFake(
   id: string,
   prioridade: Prioridade = 'essencial',
   prerequisitos: string[] = [],
-): Assunto {
+): AssuntoMeta {
   return {
     id,
     areaId: 'matematica',
@@ -23,16 +23,6 @@ function assuntoFake(
     prerequisitos,
     minutosEstimados: 20,
     eixos: ['problemas'],
-    conteudo: {
-      precisaSaber: [],
-      explicacao: [],
-      conceitos: [],
-      exemplo: { enunciado: '', passos: [], conclusao: '' },
-      noEnem: { texto: '', eixos: ['problemas'], sinais: [] },
-      erros: [],
-      questoes: [],
-      revisaoRapida: [],
-    },
   };
 }
 

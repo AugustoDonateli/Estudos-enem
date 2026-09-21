@@ -1,0 +1,71 @@
+.lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: center;
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.corpo {
+  flex: 1;
+  min-width: 200px;
+}
+
+.titulo {
+  font-family: var(--font-title);
+  font-size: var(--t-19);
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.titulo:hover {
+  color: var(--accent);
+}
+
+.motivo {
+  font-size: var(--t-14);
+  color: var(--ink-2);
+  margin-top: 2px;
+}
+
+.area {
+  font-size: var(--t-12);
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 640;
+}
+
+.final {
+  color: var(--warn);
+  font-weight: 640;
+}
+
+.agenda {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.agendaItem {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--t-14);
+}
+
+.agendaData {
+  color: var(--ink-3);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}

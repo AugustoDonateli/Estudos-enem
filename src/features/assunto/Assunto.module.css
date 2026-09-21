@@ -1,0 +1,236 @@
+.cabecalho {
+  padding-bottom: var(--s-6);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--s-8);
+}
+
+.metaTopo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+  margin-bottom: var(--s-3);
+}
+
+.resumo {
+  color: var(--ink-2);
+  font-size: var(--t-19);
+  margin-top: var(--s-3);
+  max-width: var(--measure);
+}
+
+.barraTopo {
+  max-width: 320px;
+  margin-top: var(--s-4);
+}
+
+.faixaRotulo {
+  font-size: var(--t-12);
+  color: var(--ink-3);
+  margin-top: var(--s-2);
+  display: block;
+}
+
+/* --- Blocos -------------------------------------------------------------- */
+.bloco {
+  margin-top: var(--s-12);
+  scroll-margin-top: 72px;
+}
+
+.blocoNumero {
+  display: inline-block;
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: var(--s-2);
+}
+
+.blocoTitulo {
+  font-size: var(--t-23);
+  margin-bottom: var(--s-4);
+}
+
+.chaves {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.chave {
+  display: flex;
+  gap: var(--s-3);
+  align-items: flex-start;
+  padding-left: 0;
+}
+
+.chaveMarca {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 11px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.conceitos {
+  display: flex;
+  flex-direction: column;
+}
+
+.conceito {
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.conceito:last-child {
+  border-bottom: 0;
+}
+
+.conceitoTermo {
+  font-family: var(--font-title);
+  font-size: var(--t-19);
+  font-weight: 600;
+  display: block;
+  margin-bottom: var(--s-1);
+}
+
+.conceitoFormula {
+  margin-top: var(--s-3);
+}
+
+.exemplo {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.exemploEnunciado {
+  padding: var(--s-4);
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--line);
+  font-weight: 540;
+}
+
+.passos {
+  list-style: none;
+  counter-reset: passo;
+  margin: 0;
+  padding: 0;
+}
+
+.passo {
+  counter-increment: passo;
+  display: flex;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.passo::before {
+  content: counter(passo);
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: var(--t-12);
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.passoTitulo {
+  display: block;
+  font-weight: 640;
+  margin-bottom: 2px;
+}
+
+.exemploConclusao {
+  padding: var(--s-4);
+  background: var(--ok-soft);
+  border-top: 1px solid var(--line);
+}
+
+.eixos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: var(--s-4) 0;
+}
+
+.sinais {
+  margin-top: var(--s-4);
+}
+
+.sinaisTitulo {
+  font-size: var(--t-14);
+  font-weight: 640;
+  margin-bottom: var(--s-2);
+}
+
+.erros {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.erro {
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.erro:last-child {
+  border-bottom: 0;
+}
+
+.erroTitulo {
+  display: flex;
+  gap: var(--s-2);
+  align-items: baseline;
+  font-weight: 640;
+  color: var(--no);
+  margin-bottom: var(--s-1);
+}
+
+.questoes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-8);
+}
+
+.revisao {
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+  padding: var(--s-4);
+}
+
+.revisaoLista {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.revisaoLista li + li {
+  margin-top: var(--s-2);
+}
+
+.proximo {
+  margin-top: var(--s-12);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+}
+
+.modoRevisao {
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+  padding: var(--s-3) var(--s-4);
+  margin-bottom: var(--s-6);
+  font-size: var(--t-14);
+}

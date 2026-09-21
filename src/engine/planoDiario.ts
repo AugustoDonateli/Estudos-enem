@@ -1,4 +1,4 @@
-import type { Assunto } from '@/content/tipos';
+import type { AssuntoMeta } from '@/content/tipos';
 import type { Progresso } from '@/storage/schema';
 import { priorizar } from './prioridade';
 import { revisoesVencidas } from './revisao';
@@ -46,7 +46,7 @@ const TETO_REVISAO = 0.4;
 const TETO_ERROS = 0.25;
 
 export interface EntradaPlano {
-  assuntos: Assunto[];
+  assuntos: AssuntoMeta[];
   progresso: Progresso;
   dia: DiaISO;
   /** Seções de redação, na ordem pedagógica. */
