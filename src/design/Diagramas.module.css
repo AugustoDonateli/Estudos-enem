@@ -1,12 +1,25 @@
+/* ====================================================================
+   Diagramas
+   Desenhos técnicos, não ilustrações: traço fino, rótulos em versalete,
+   paleta institucional. O quadro é uma faixa com filete superior no
+   acento da área — não mais um cartão arredondado com sombra.
+   ==================================================================== */
+
 .figura {
   margin: 0;
 }
 
 .quadro {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--paper-2);
-  padding: var(--s-4);
+  background: var(--cinza-1);
+  border-top: 3px solid var(--acento, var(--azul-70));
+  border-bottom: var(--borda) solid var(--cinza-10);
+  padding: var(--e-3x) var(--e-2x);
+}
+
+@media (min-width: 768px) {
+  .quadro {
+    padding: var(--e-4x) var(--e-3x);
+  }
 }
 
 .svg {
@@ -18,63 +31,85 @@
 }
 
 .legenda {
-  margin-top: var(--s-2);
-  font-size: var(--t-14);
-  color: var(--ink-2);
-  max-width: var(--measure);
+  margin-top: var(--e-2x);
+  padding-top: var(--e-base);
+  border-top: var(--borda) solid var(--cinza-10);
+  font-size: var(--t-down-01);
+  color: var(--cinza-70);
+  max-width: var(--medida);
 }
 
+/* --- Traços ---------------------------------------------------------- */
 .eixo {
-  stroke: var(--ink-3);
+  stroke: var(--cinza-90);
   stroke-width: 1.5;
 }
+
 .grade {
-  stroke: var(--line);
+  stroke: var(--cinza-10);
   stroke-width: 1;
 }
+
 .curva {
-  stroke: var(--accent);
+  stroke: var(--acento, var(--azul-70));
   stroke-width: 2.5;
   fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
+
 .auxiliar {
-  stroke: var(--ink-3);
+  stroke: var(--cinza-60);
   stroke-width: 1.5;
   stroke-dasharray: 4 3;
   fill: none;
 }
-.rotulo {
-  font-family: var(--font-body);
-  font-size: 12px;
-  fill: var(--ink-2);
-}
-.rotuloForte {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 640;
-  fill: var(--ink);
-}
-.rotuloAcento {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 640;
-  fill: var(--accent);
-}
-.caixa {
-  fill: var(--paper);
-  stroke: var(--line-strong);
-  stroke-width: 1.5;
-}
-.caixaAcento {
-  fill: var(--accent-soft);
-  stroke: var(--accent-line);
-  stroke-width: 1.5;
-}
+
 .seta {
-  stroke: var(--ink-3);
+  stroke: var(--cinza-60);
   stroke-width: 1.5;
   fill: none;
 }
+
+/* --- Rótulos ---------------------------------------------------------
+   Versalete espaçado nos rótulos neutros: assinatura de desenho técnico,
+   e ajuda a distinguir texto do diagrama do texto corrido em volta. */
+.rotulo {
+  font-family: var(--fonte);
+  font-size: 11px;
+  font-weight: var(--peso-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  fill: var(--cinza-60);
+}
+
+.rotuloForte {
+  font-family: var(--fonte);
+  font-size: 12px;
+  font-weight: var(--peso-bold);
+  fill: var(--cinza-90);
+}
+
+.rotuloAcento {
+  font-family: var(--fonte);
+  font-size: 12px;
+  font-weight: var(--peso-bold);
+  fill: var(--acento, var(--azul-70));
+}
+
+/* --- Formas ----------------------------------------------------------- */
+.caixa {
+  fill: var(--branco);
+  stroke: var(--cinza-40);
+  stroke-width: 1.5;
+}
+
+.caixaAcento {
+  fill: var(--acento-fundo, var(--azul-5));
+  stroke: var(--acento, var(--azul-20));
+  stroke-width: 1.5;
+}
+
 .ponto {
-  fill: var(--accent);
+  fill: var(--acento, var(--azul-70));
 }

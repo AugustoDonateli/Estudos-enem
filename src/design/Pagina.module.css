@@ -1,0 +1,212 @@
+/* ==================================================================
+   HERO ESCURO — faixa institucional de abertura
+   ================================================================== */
+.heroEscuro {
+  position: relative;
+  background: var(--azul-90);
+  color: var(--branco);
+  overflow: hidden;
+}
+
+.heroEscuro::after {
+  /* Filete de acento na base: assina a área sem colorir a faixa inteira. */
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--acento);
+}
+
+.heroInterno {
+  position: relative;
+  /* No celular o hero precisa ceder espaço: o primeiro item do plano tem de
+     caber na primeira tela, que é o objetivo central do produto. */
+  padding-block: var(--e-3x) var(--e-4x);
+}
+
+@media (min-width: 576px) {
+  .heroInterno {
+    padding-block: var(--e-6x) var(--e-7x);
+  }
+}
+
+@media (min-width: 992px) {
+  .heroInterno {
+    padding-block: var(--e-8x) var(--e-10x);
+  }
+}
+
+.heroEscuro :global(.rotulo) {
+  color: var(--azul-30);
+}
+
+.heroEscuro h1 {
+  color: var(--branco);
+  max-width: 20ch;
+}
+
+.heroEscuro .descricao {
+  color: var(--azul-20);
+}
+
+.heroGrade {
+  display: grid;
+  gap: var(--e-4x);
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .heroGrade {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: var(--e-8x);
+  }
+}
+
+/* ==================================================================
+   CABEÇALHO CLARO — padrão das páginas internas
+   ================================================================== */
+.heroClaro {
+  position: relative;
+  border-bottom: var(--borda) solid var(--cinza-10);
+  background: var(--branco);
+}
+
+.heroClaroInterno {
+  padding-block: var(--e-4x) var(--e-5x);
+}
+
+.descricao {
+  margin-top: var(--e-baseh);
+  font-size: var(--t-up-01);
+  line-height: var(--lh-alta);
+  color: var(--cinza-70);
+  max-width: 62ch;
+}
+
+/* Respiro entre a descrição e o que vier depois (métricas, etiquetas,
+   escada de revisão). Sem ele o filete superior da primeira métrica
+   encostava na última linha do texto. */
+.abaixo {
+  margin-top: var(--e-4x);
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-baseh);
+}
+
+/* Barra de acento à esquerda do título nas páginas internas. */
+.tituloComAcento {
+  position: relative;
+  padding-left: var(--e-3x);
+}
+
+.tituloComAcento::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 5px;
+  border-radius: 100em;
+  background: var(--acento);
+}
+
+/* ==================================================================
+   MÉTRICAS EM FAIXA — números grandes, sem virar card
+   ================================================================== */
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--e-2x);
+}
+
+@media (min-width: 576px) {
+  .metricas {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--e-4x);
+  }
+
+  .metricaNumero {
+    font-size: var(--t-up-04);
+  }
+}
+
+.metrica {
+  border-top: var(--borda-forte) solid var(--cinza-90);
+  padding-top: var(--e-baseh);
+}
+
+.metricaEscura {
+  border-top-color: rgba(255, 255, 255, 0.35);
+}
+
+.metricaNumero {
+  display: block;
+  font-size: var(--t-up-03);
+  font-weight: var(--peso-extrabold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.metricaEscura .metricaNumero {
+  color: var(--branco);
+}
+
+.metricaRotulo {
+  display: block;
+  margin-top: var(--e-base);
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+  line-height: var(--lh-media);
+}
+
+.metricaEscura .metricaRotulo {
+  color: var(--azul-20);
+}
+
+/* Dentro do hero as métricas viram uma ficha de dados: número à esquerda,
+   rótulo à direita, uma por linha, separadas por filete. Em quatro colunas
+   os rótulos quebravam em três linhas no desktop (coluna estreita) e o
+   bloco 2×2 comia a primeira tela no celular, empurrando o plano do dia
+   para baixo da dobra — que é justamente o que o produto não pode fazer. */
+.aside .metricas {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.aside .metrica {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--e-2x);
+  padding-block: var(--e-base);
+  border-top-width: var(--borda);
+}
+
+.aside .metrica:first-child {
+  border-top-width: var(--borda-forte);
+}
+
+.aside .metricaNumero {
+  font-size: var(--t-up-02);
+  text-align: right;
+}
+
+.aside .metricaRotulo {
+  margin-top: 0;
+}
+
+@media (min-width: 576px) {
+  .aside .metrica {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+  }
+
+  .aside .metricaNumero {
+    font-size: var(--t-up-03);
+  }
+}

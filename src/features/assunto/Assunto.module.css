@@ -1,121 +1,333 @@
+/* ==================================================================
+   CABEÇALHO DO ASSUNTO
+   ================================================================== */
 .cabecalho {
-  max-width: 46rem;
-  padding-bottom: var(--s-6);
-  border-bottom: 1px solid var(--line);
-  margin-bottom: var(--s-8);
+  position: relative;
+  background: var(--branco);
+  border-bottom: var(--borda) solid var(--cinza-10);
+}
+
+.cabecalhoInterno {
+  padding-block: var(--e-3x) var(--e-4x);
+}
+
+@media (min-width: 768px) {
+  .cabecalhoInterno {
+    padding-block: var(--e-3x) var(--e-5x);
+  }
 }
 
 .metaTopo {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-2);
+  gap: var(--e-base);
   align-items: center;
-  margin-bottom: var(--s-3);
+  margin-bottom: var(--e-2x);
+  /* Cinco etiquetas quebravam em três linhas no celular e empurravam o
+     conteúdo inteiro para baixo da dobra. Numa faixa rolável nada se perde
+     e o título volta para a primeira tela. */
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: var(--e-half);
+}
+
+.metaTopo::-webkit-scrollbar {
+  display: none;
+}
+
+.metaTopo > * {
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .metaTopo {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+}
+
+.tituloBloco {
+  position: relative;
+  padding-left: var(--e-3x);
+}
+
+.tituloBloco::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 5px;
+  border-radius: 100em;
+  background: var(--acento);
 }
 
 .resumo {
-  color: var(--ink-2);
-  font-size: var(--t-19);
-  margin-top: var(--s-3);
-  max-width: var(--measure);
+  margin-top: var(--e-2x);
+  font-size: var(--t-up-02);
+  line-height: var(--lh-media);
+  color: var(--cinza-70);
+  max-width: 58ch;
 }
 
-.barraTopo {
-  max-width: 320px;
-  margin-top: var(--s-4);
+.progressoTopo {
+  margin-top: var(--e-3x);
+  max-width: 360px;
 }
 
 .faixaRotulo {
-  font-size: var(--t-12);
-  color: var(--ink-3);
-  margin-top: var(--s-2);
   display: block;
+  margin-top: var(--e-base);
+  font-size: var(--t-base);
+  color: var(--cinza-60);
 }
 
-/* --- Blocos -------------------------------------------------------------- */
+/* ==================================================================
+   LAYOUT DE DUAS COLUNAS
+   A coluna lateral existe para uma coisa: saber onde você está numa
+   página longa e pular direto para a prática.
+   ================================================================== */
+.layout {
+  display: grid;
+  /* Sem isto, o item da grade herda min-width:auto, cresce até caber o nav
+     horizontal e o celular renderiza a página inteira reduzida. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--e-4x);
+  padding-top: var(--e-4x);
+}
+
+@media (min-width: 992px) {
+  .layout {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: var(--e-8x);
+    padding-top: var(--e-6x);
+  }
+}
+
+.lateral {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .lateral {
+    display: block;
+    position: sticky;
+    top: var(--altura-cabecalho);
+    align-self: start;
+    max-height: calc(100dvh - 128px);
+    overflow-y: auto;
+  }
+}
+
+.lateralTitulo {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cinza-60);
+  padding-bottom: var(--e-base);
+  border-bottom: var(--borda) solid var(--cinza-10);
+  margin-bottom: var(--e-base);
+}
+
+.lateralLista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lateralLink {
+  display: flex;
+  align-items: center;
+  gap: var(--e-baseh);
+  padding: var(--e-base) var(--e-base) var(--e-base) 0;
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  padding-left: var(--e-baseh);
+  transition:
+    color var(--d-rapida) var(--curva),
+    border-color var(--d-rapida) var(--curva),
+    background var(--d-rapida) var(--curva);
+}
+
+.lateralLink:hover {
+  color: var(--acento);
+  border-left-color: var(--acento);
+  background: var(--cinza-3);
+}
+
+.lateralNum {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  color: var(--cinza-40);
+  font-variant-numeric: tabular-nums;
+  min-width: 14px;
+}
+
+.lateralLink:hover .lateralNum {
+  color: var(--acento);
+}
+
+/* Navegação entre blocos no celular: faixa horizontal rolável. */
+.navMobile {
+  display: flex;
+  min-width: 0;
+  gap: var(--e-base);
+  overflow-x: auto;
+  padding-bottom: var(--e-base);
+  margin-bottom: var(--e-2x);
+  scrollbar-width: none;
+}
+
+.navMobile::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .navMobile {
+    display: none;
+  }
+}
+
+.navMobileLink {
+  flex-shrink: 0;
+  padding: var(--e-base) var(--e-2x);
+  border: var(--borda) solid var(--cinza-20);
+  border-radius: 100em;
+  font-size: var(--t-base);
+  font-weight: var(--peso-medio);
+  color: var(--cinza-70);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navMobileLink:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+}
+
+/* ==================================================================
+   BLOCOS DE CONTEÚDO
+   ================================================================== */
 .bloco {
-  margin-top: var(--s-12);
-  max-width: 46rem;
+  max-width: var(--largura-leitura);
+  padding-top: var(--e-6x);
+}
+
+.bloco:first-of-type {
+  padding-top: 0;
+}
+
+.blocoCabecalho {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2x);
+  padding-bottom: var(--e-2x);
+  margin-bottom: var(--e-3x);
+  border-bottom: var(--borda-forte) solid var(--cinza-90);
 }
 
 .blocoNumero {
-  display: inline-block;
-  font-size: var(--t-12);
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--raio);
+  background: var(--azul-90);
+  color: var(--branco);
+  font-size: var(--t-base);
+  font-weight: var(--peso-extrabold);
+  font-variant-numeric: tabular-nums;
+}
+
+.blocoTexto {
+  min-width: 0;
+}
+
+.blocoRotulo {
+  display: block;
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-3);
-  margin-bottom: var(--s-2);
+  color: var(--acento);
 }
 
 .blocoTitulo {
-  font-size: var(--t-23);
-  margin-bottom: var(--s-4);
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-bold);
+  line-height: var(--lh-baixa);
+  letter-spacing: -0.014em;
 }
 
+/* Bloco 1 — o essencial, em destaque tipográfico */
 .chaves {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--s-3);
+  gap: var(--e-2x);
 }
 
 .chave {
   display: flex;
-  gap: var(--s-3);
+  gap: var(--e-2x);
   align-items: flex-start;
-  padding-left: 0;
+  font-size: var(--t-up-01);
+  line-height: var(--lh-media);
 }
 
 .chaveMarca {
   flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  margin-top: 11px;
-  border-radius: 50%;
-  background: var(--accent);
+  width: 8px;
+  height: 8px;
+  margin-top: 10px;
+  border-radius: 2px;
+  background: var(--acento);
 }
 
+/* Bloco 3 — conceitos */
 .conceitos {
-  display: flex;
-  flex-direction: column;
+  border-top: var(--borda) solid var(--cinza-10);
 }
 
 .conceito {
-  padding: var(--s-4) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.conceito:last-child {
-  border-bottom: 0;
+  padding: var(--e-3x) 0;
+  border-bottom: var(--borda) solid var(--cinza-10);
 }
 
 .conceitoTermo {
-  font-family: var(--font-title);
-  font-size: var(--t-19);
-  font-weight: 600;
   display: block;
-  margin-bottom: var(--s-1);
+  font-size: var(--t-up-01);
+  font-weight: var(--peso-semibold);
+  color: var(--azul-90);
+  margin-bottom: var(--e-half);
 }
 
 .conceitoFormula {
-  margin-top: var(--s-3);
+  margin-top: var(--e-2x);
 }
 
+/* Bloco 4 — exemplo resolvido */
 .exemplo {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border: var(--borda) solid var(--cinza-20);
+  border-radius: var(--raio-lg);
   overflow: hidden;
 }
 
 .exemploEnunciado {
   max-width: none;
-  padding: var(--s-4);
-  background: var(--paper-2);
-  border-bottom: 1px solid var(--line);
-  font-weight: 540;
+  padding: var(--e-3x);
+  background: var(--azul-90);
+  color: var(--branco);
+  font-weight: var(--peso-medio);
+  font-size: var(--t-up-01);
+  line-height: var(--lh-media);
 }
 
 .passos {
@@ -128,197 +340,186 @@
 .passo {
   counter-increment: passo;
   display: flex;
-  gap: var(--s-3);
-  padding: var(--s-4);
-  border-bottom: 1px solid var(--line);
+  gap: var(--e-2x);
+  padding: var(--e-3x);
+  border-bottom: var(--borda) solid var(--cinza-10);
 }
 
 .passo::before {
   content: counter(passo);
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: var(--t-12);
-  font-weight: 700;
+  border: var(--borda-forte) solid var(--acento);
+  color: var(--acento);
+  font-size: var(--t-base);
+  font-weight: var(--peso-bold);
   display: grid;
   place-items: center;
 }
 
 .passoTitulo {
   display: block;
-  font-weight: 640;
+  font-weight: var(--peso-semibold);
   margin-bottom: 2px;
 }
 
 .exemploConclusao {
   max-width: none;
-  padding: var(--s-4);
-  background: var(--ok-soft);
-  border-top: 1px solid var(--line);
+  padding: var(--e-3x);
+  background: var(--sucesso-fundo);
+  border-top: var(--borda-forte) solid var(--sucesso);
+  color: var(--sucesso-escuro);
+  font-weight: var(--peso-medio);
+}
+
+/* Bloco 5 — como cai */
+.marcaAnalise {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cinza-60);
+  margin-bottom: var(--e-2x);
 }
 
 .eixos {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-2);
-  margin: var(--s-4) 0;
+  gap: var(--e-base);
+  margin: var(--e-3x) 0;
 }
 
 .sinais {
-  margin-top: var(--s-4);
+  margin-top: var(--e-3x);
+  padding: var(--e-2x) var(--e-3x);
+  background: var(--cinza-3);
+  border-radius: var(--raio);
 }
 
 .sinaisTitulo {
-  font-size: var(--t-14);
-  font-weight: 640;
-  margin-bottom: var(--s-2);
-}
-
-.erros {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.erro {
-  padding: var(--s-4) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.erro:last-child {
-  border-bottom: 0;
-}
-
-.erroTitulo {
-  display: flex;
-  gap: var(--s-2);
-  align-items: baseline;
-  font-weight: 640;
-  color: var(--no);
-  margin-bottom: var(--s-1);
-}
-
-.questoes {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-8);
-}
-
-.revisao {
-  border: 1px solid var(--accent-line);
-  background: var(--accent-soft);
-  border-radius: var(--radius);
-  padding: var(--s-4);
-}
-
-.revisaoLista {
-  margin: 0;
-  padding-left: 1.2em;
-}
-
-.revisaoLista li + li {
-  margin-top: var(--s-2);
-}
-
-.proximo {
-  max-width: 46rem;
-  margin-top: var(--s-12);
-  padding-top: var(--s-6);
-  border-top: 1px solid var(--line);
-}
-
-.modoRevisao {
-  border: 1px solid var(--accent-line);
-  background: var(--accent-soft);
-  border-radius: var(--radius);
-  padding: var(--s-3) var(--s-4);
-  margin-bottom: var(--s-6);
-  font-size: var(--t-14);
-}
-
-.modoAcoes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-3);
-  margin-top: var(--s-3);
-}
-
-.atalho {
-  font-weight: 600;
-  font-size: var(--t-14);
-}
-
-.blocoNav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-2);
-  margin-top: var(--s-6);
-  padding-top: var(--s-4);
-  border-top: 1px solid var(--line);
-}
-
-.blocoLink {
-  padding: var(--s-1) var(--s-3);
-  min-height: 34px;
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  font-size: var(--t-14);
-  font-weight: 540;
-  color: var(--ink-2);
-  text-decoration: none;
-  transition: all var(--fast) var(--ease);
-}
-
-.blocoLink:hover {
-  border-color: var(--accent-line);
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
-.marcaAnalise {
-  font-size: var(--t-12);
-  font-weight: 640;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin-bottom: var(--s-3);
+  font-size: var(--t-base);
+  font-weight: var(--peso-semibold);
+  margin-bottom: var(--e-base);
 }
 
 .habilidades {
-  margin-top: var(--s-6);
-  padding: var(--s-4);
-  border-left: 3px solid var(--ink);
-  background: var(--paper-2);
-  border-radius: 0 var(--radius) var(--radius) 0;
+  margin-top: var(--e-3x);
+  padding: var(--e-3x);
+  border-left: var(--e-half) solid var(--azul-90);
+  background: var(--cinza-3);
+  border-radius: 0 var(--raio) var(--raio) 0;
 }
 
 .rotuloOficial {
   display: block;
-  font-size: var(--t-12);
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink);
-  margin-bottom: var(--s-2);
-}
-
-.habilidadesIntro {
-  font-size: var(--t-14);
-  color: var(--ink-2);
-  margin-bottom: var(--s-3);
+  color: var(--azul-90);
+  margin-bottom: var(--e-base);
 }
 
 .listaHabilidades {
   margin: 0;
   padding-left: 1.1em;
-  font-size: var(--t-14);
+  font-size: var(--t-base);
 }
 
 .listaHabilidades li + li {
-  margin-top: var(--s-2);
+  margin-top: var(--e-baseh);
+}
+
+/* Bloco 6 — erros */
+.erros {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: var(--borda) solid var(--cinza-10);
+}
+
+.erro {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--e-2x);
+  padding: var(--e-3x) 0;
+  border-bottom: var(--borda) solid var(--cinza-10);
+}
+
+.erroIcone {
+  width: 22px;
+  height: 22px;
+  color: var(--perigo);
+  margin-top: 3px;
+}
+
+.erroTitulo {
+  font-weight: var(--peso-semibold);
+  color: var(--perigo-escuro);
+  margin-bottom: var(--e-half);
+}
+
+/* Bloco 7 — questões */
+.questoes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-6x);
+}
+
+/* Bloco 9 — revisão rápida */
+.revisao {
+  border: var(--borda-forte) solid var(--azul-90);
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+}
+
+.revisaoTopo {
+  background: var(--azul-90);
+  color: var(--branco);
+  padding: var(--e-baseh) var(--e-3x);
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.revisaoLista {
+  margin: 0;
+  padding: var(--e-3x) var(--e-3x) var(--e-3x) calc(var(--e-3x) + 1.1em);
+}
+
+.revisaoLista li + li {
+  margin-top: var(--e-baseh);
+}
+
+/* Rodapé de ações */
+.proximo {
+  max-width: var(--largura-leitura);
+  margin-top: var(--e-8x);
+  padding-top: var(--e-4x);
+  border-top: var(--borda-forte) solid var(--cinza-90);
+}
+
+.modoRevisao {
+  border-left: var(--e-half) solid var(--azul-70);
+  background: var(--azul-5);
+  border-radius: 0 var(--raio) var(--raio) 0;
+  padding: var(--e-2x) var(--e-3x);
+  margin-bottom: var(--e-3x);
+  font-size: var(--t-base);
+  max-width: var(--largura-leitura);
+}
+
+.modoAcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-3x);
+  margin-top: var(--e-baseh);
+}
+
+.atalho {
+  font-weight: var(--peso-semibold);
+  font-size: var(--t-base);
 }

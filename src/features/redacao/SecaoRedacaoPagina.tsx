@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { SECAO_REDACAO_POR_ID, SECOES_REDACAO } from '@/content/conteudo';
 import { useProgresso } from '@/lib/progresso';
 import { hoje } from '@/engine/datas';
-import { Blocos, Botao, BotaoLink, Tag, Vazio } from '@/design/Primitivos';
+import { Blocos, Botao, BotaoLink, Tag, Trilha, Vazio } from '@/design/Primitivos';
+import { CabecalhoPagina } from '@/design/Pagina';
 import { definirTitulo } from '@/lib/titulo';
 import type { AutoavaliacaoRedacao } from '@/storage/schema';
 import s from './Redacao.module.css';
@@ -26,7 +27,14 @@ export function SecaoRedacaoPagina() {
   if (!secao) {
     return (
       <div className="page">
-        <Vazio titulo="Seção não encontrada" acao={<BotaoLink to="/redacao">Voltar para Redação</BotaoLink>} />
+        <div className="container">
+          <div className="secao">
+            <Vazio
+              titulo="Seção não encontrada"
+              acao={<BotaoLink to="/redacao">Voltar para Redação</BotaoLink>}
+            />
+          </div>
+        </div>
       </div>
     );
   }
@@ -34,93 +42,106 @@ export function SecaoRedacaoPagina() {
   const lida = progresso.redacao.secoesLidas.includes(secao.id);
 
   return (
-    <div className="page">
-      <Link to="/redacao" className="voltar">
-        ← Redação
-      </Link>
+    <div className="page" data-area="redacao">
+      <CabecalhoPagina
+        areaId="redacao"
+        rotulo={secao.competencia ? `Competência ${secao.competencia}` : 'Redação'}
+        titulo={secao.titulo}
+        descricao={secao.resumo}
+        acima={
+          <Trilha
+            itens={[
+              { rotulo: 'Início', para: '/' },
+              { rotulo: 'Redação', para: '/redacao' },
+              { rotulo: secao.titulo },
+            ]}
+          />
+        }
+        abaixo={
+          <div className="linha-meta" style={{ marginBottom: 0 }}>
+            {secao.competencia && <Tag>Competência {secao.competencia}</Tag>}
+            <Tag>{secao.minutosEstimados} min</Tag>
+            {lida && <Tag>Lida</Tag>}
+          </div>
+        }
+      />
 
-      <header className="cabecalho-pagina">
-        <div className="linha-meta">
-          {secao.competencia && <Tag>Competência {secao.competencia}</Tag>}
-          <Tag>{secao.minutosEstimados} min</Tag>
-          {lida && <Tag>Lida</Tag>}
+      <div className="container">
+        <div className="secao">
+          <div className={`${s.conteudo} prose`}>
+            <Blocos blocos={secao.conteudo} />
+          </div>
         </div>
-        <h1>{secao.titulo}</h1>
-        <p className="subtitulo">{secao.resumo}</p>
-      </header>
 
-      <div className={`${s.conteudo} prose`}>
-        <Blocos blocos={secao.conteudo} />
-      </div>
-
-      {secao.checklist && (
-        <section className="secao" aria-labelledby="checklist">
-          <div className="secao-cabecalho">
-            <h2 id="checklist" className="secao-titulo">
-              Checklist
-            </h2>
-            <span className="secao-meta">
-              {marcados.length}/{secao.checklist.length}
-            </span>
-          </div>
-          <div className={s.checklist}>
-            {secao.checklist.map((item, i) => (
-              <label key={i} className={s.checkItem}>
-                <input
-                  type="checkbox"
-                  checked={marcados.includes(i)}
-                  onChange={() =>
-                    setMarcados((atual) =>
-                      atual.includes(i) ? atual.filter((x) => x !== i) : [...atual, i],
-                    )
-                  }
-                />
-                <span>{item}</span>
-              </label>
-            ))}
-          </div>
-          <p className="secao-meta" style={{ marginTop: 'var(--s-3)' }}>
-            Este checklist é uma ferramenta de conferência da sessão — ele não é salvo entre
-            visitas, porque serve para o texto que você está escrevendo agora.
-          </p>
-        </section>
-      )}
-
-      {secao.exercicio && (
-        <section className="secao" aria-labelledby="exercicio">
-          <div className="secao-cabecalho">
-            <h2 id="exercicio" className="secao-titulo">
-              Exercício
-            </h2>
-            <span className="secao-meta">{secao.exercicio.minutos} min</span>
-          </div>
-          <div className={s.exercicio}>
-            <p className={s.exercicioTitulo}>{secao.exercicio.titulo}</p>
-            <p>{secao.exercicio.instrucao}</p>
-            <div className={s.criterios}>
-              <p style={{ fontWeight: 640, fontSize: 'var(--t-14)' }}>Critérios para conferir:</p>
-              <ul>
-                {secao.exercicio.criterios.map((crit, i) => (
-                  <li key={i}>{crit}</li>
-                ))}
-              </ul>
+        {secao.checklist && (
+          <section className="secao" aria-labelledby="checklist">
+            <div className="secao-cabecalho">
+              <h2 id="checklist" className="secao-titulo">
+                Checklist
+              </h2>
+              <span className="secao-meta">
+                {marcados.length}/{secao.checklist.length}
+              </span>
             </div>
-          </div>
-        </section>
-      )}
-
-      {secao.id === 'red-treino' && <RegistrarProducao />}
-
-      <div className="acoes">
-        {!lida && <Botao onClick={() => marcarSecaoRedacao(secao.id)}>Marcar como lida</Botao>}
-        {proxima && (
-          <BotaoLink to={`/redacao/${proxima.id}`} variante={lida ? 'primario' : 'secundario'}>
-            Próxima: {proxima.titulo}
-          </BotaoLink>
+            <div className={s.checklist}>
+              {secao.checklist.map((item, i) => (
+                <label key={i} className={s.checkItem}>
+                  <input
+                    type="checkbox"
+                    checked={marcados.includes(i)}
+                    onChange={() =>
+                      setMarcados((atual) =>
+                        atual.includes(i) ? atual.filter((x) => x !== i) : [...atual, i],
+                      )
+                    }
+                  />
+                  <span>{item}</span>
+                </label>
+              ))}
+            </div>
+            <p className={s.avisoChecklist}>
+              Este checklist é uma ferramenta de conferência da sessão — ele não é salvo entre
+              visitas, porque serve para o texto que você está escrevendo agora.
+            </p>
+          </section>
         )}
-        <BotaoLink to="/redacao" variante="discreto">
-          Voltar ao módulo
-        </BotaoLink>
+
+        {secao.exercicio && (
+          <section className="secao" aria-labelledby="exercicio">
+            <div className="secao-cabecalho">
+              <h2 id="exercicio" className="secao-titulo">
+                Exercício
+              </h2>
+              <span className="secao-meta">{secao.exercicio.minutos} min</span>
+            </div>
+            <div className={s.exercicio}>
+              <p className={s.exercicioTitulo}>{secao.exercicio.titulo}</p>
+              <p className={s.exercicioInstrucao}>{secao.exercicio.instrucao}</p>
+              <div className={s.criterios}>
+                <span className={s.criteriosRotulo}>Critérios para conferir</span>
+                <ul>
+                  {secao.exercicio.criterios.map((crit, i) => (
+                    <li key={i}>{crit}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {secao.id === 'red-treino' && <RegistrarProducao />}
+
+        <div className="acoes">
+          {!lida && <Botao onClick={() => marcarSecaoRedacao(secao.id)}>Marcar como lida</Botao>}
+          {proxima && (
+            <BotaoLink to={`/redacao/${proxima.id}`} variante={lida ? 'primario' : 'secundario'}>
+              Próxima: {proxima.titulo}
+            </BotaoLink>
+          )}
+          <BotaoLink to="/redacao" variante="terciario">
+            Voltar ao módulo
+          </BotaoLink>
+        </div>
       </div>
     </div>
   );
@@ -230,7 +251,7 @@ function RegistrarProducao() {
 
         <Botao type="submit">Registrar</Botao>
         {salvo && (
-          <p className={s.dica} role="status" style={{ marginTop: 'var(--s-3)' }}>
+          <p className={s.dica} role="status" style={{ marginTop: 'var(--e-baseh)' }}>
             Registrado. O histórico aparece na página de Redação.
           </p>
         )}

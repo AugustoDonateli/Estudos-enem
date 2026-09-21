@@ -29,7 +29,7 @@ function Marcador() {
   return (
     <defs>
       <marker id="ponta" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
-        <path d="M0 0 L8 4 L0 8 z" fill="var(--ink-3)" />
+        <path d="M0 0 L8 4 L0 8 z" fill="var(--cinza-60)" />
       </marker>
     </defs>
   );
@@ -150,7 +150,7 @@ function PropostaIntervencao() {
       {elementos.map(([nome, papel], i) => (
         <g key={nome}>
           <rect x="16" y={10 + i * 43} width="368" height="34" rx="5" className={i === 4 ? s.caixa : s.caixaAcento} />
-          <circle cx="36" cy={27 + i * 43} r="11" fill="var(--accent)" />
+          <circle cx="36" cy={27 + i * 43} r="11" fill="var(--acento, var(--azul-70))" />
           <text x="36" y={31 + i * 43} textAnchor="middle" fontSize="12" fontWeight="700" fill="#fff">
             {i + 1}
           </text>

@@ -5,6 +5,7 @@ import { assuntosDaArea } from '@/content/indice';
 import { useProgresso } from '@/lib/progresso';
 import { ROTULO_NIVEL, type NivelDeclarado } from '@/storage/schema';
 import { Botao, BotaoLink, Destaque } from '@/design/Primitivos';
+import { CabecalhoPagina } from '@/design/Pagina';
 import { definirTitulo } from '@/lib/titulo';
 import s from './Diagnostico.module.css';
 
@@ -57,79 +58,97 @@ export function Diagnostico() {
 
   return (
     <div className="page">
-      <header className="cabecalho-pagina">
-        <h1>Diagnóstico rápido</h1>
-        <p className="subtitulo">
-          Para cada assunto, diga o quanto você já sabe. São cerca de dois minutos, e é isso
-          que faz o plano diário parar de ser um chute razoável.
-        </p>
-      </header>
+      <CabecalhoPagina
+        rotulo="Ponto de partida"
+        titulo="Diagnóstico rápido"
+        descricao="Para cada assunto, diga o quanto você já sabe. São cerca de dois minutos, e é isso que faz o plano diário parar de ser um chute razoável."
+        abaixo={
+          <ol
+            className={s.passos}
+            aria-label={`Progresso do diagnóstico: área ${etapa + 1} de ${AREAS_DIAGNOSTICO.length}`}
+          >
+            {AREAS_DIAGNOSTICO.map((a, i) => (
+              <li
+                key={a.id}
+                data-area={a.id}
+                className={`${s.passo} ${i < etapa ? s.passoFeito : ''} ${i === etapa ? s.passoAtual : ''}`}
+                {...(i === etapa ? { 'aria-current': 'step' as const } : {})}
+              >
+                <span className={s.passoNumero} aria-hidden="true">
+                  {i + 1}
+                </span>
+                <span className={s.passoNome}>{a.nomeCurto}</span>
+              </li>
+            ))}
+          </ol>
+        }
+      />
 
-      <div className={s.progresso} role="progressbar" aria-valuenow={etapa + 1} aria-valuemin={1} aria-valuemax={AREAS_DIAGNOSTICO.length} aria-label="Progresso do diagnóstico">
-        {AREAS_DIAGNOSTICO.map((a, i) => (
-          <span key={a.id} className={`${s.etapa} ${i <= etapa ? s.etapaFeita : ''}`} />
-        ))}
-      </div>
-
-      {etapa === 0 && (
-        <Destaque variante="nota" titulo="Responda com honestidade, não com otimismo">
-          <p>
-            Marcar "sei bem" no que você só viu uma vez faz o sistema tirar esse assunto da
-            fila — e você perde justamente o que precisava estudar.
-          </p>
-        </Destaque>
-      )}
-
-      <section className="secao" aria-labelledby="area-diag">
-        <div className="secao-cabecalho">
-          <h2 id="area-diag" className="secao-titulo">
-            {area.nome}
-          </h2>
-          <span className="secao-meta">
-            {respondidos}/{assuntos.length}
-          </span>
-        </div>
-
-        <ul className={s.assuntos}>
-          {assuntos.map((assunto) => (
-            <li key={assunto.id} className={s.assunto}>
-              <span className={s.titulo}>{assunto.titulo}</span>
-              <p className={s.resumo}>{assunto.resumo}</p>
-              <div className={s.opcoes} role="group" aria-label={`Seu nível em ${assunto.titulo}`}>
-                {NIVEIS.map((nivel) => (
-                  <button
-                    key={nivel}
-                    type="button"
-                    className={`${s.opcao} ${niveis[assunto.id] === nivel ? s.opcaoAtiva : ''}`}
-                    aria-pressed={niveis[assunto.id] === nivel}
-                    onClick={() => setNiveis((atual) => ({ ...atual, [assunto.id]: nivel }))}
-                  >
-                    {ROTULO_NIVEL[nivel]}
-                  </button>
-                ))}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <div className={s.rodape}>
-        <span className={s.contagem}>
-          Área {etapa + 1} de {AREAS_DIAGNOSTICO.length}
-        </span>
-        {etapa > 0 && (
-          <Botao variante="secundario" onClick={() => setEtapa((e) => e - 1)}>
-            Voltar
-          </Botao>
+      <div className="container">
+        {etapa === 0 && (
+          <div className="secao">
+            <Destaque variante="nota" titulo="Responda com honestidade, não com otimismo">
+              <p>
+                Marcar "sei bem" no que você só viu uma vez faz o sistema tirar esse assunto da
+                fila — e você perde justamente o que precisava estudar.
+              </p>
+            </Destaque>
+          </div>
         )}
-        {ultima ? (
-          <Botao onClick={concluir}>Concluir diagnóstico</Botao>
-        ) : (
-          <Botao onClick={() => setEtapa((e) => e + 1)}>Próxima área</Botao>
-        )}
-        <BotaoLink to="/" variante="discreto">
-          Pular por enquanto
-        </BotaoLink>
+
+        <section className="secao" aria-labelledby="area-diag" data-area={area.id}>
+          <div className="secao-cabecalho">
+            <h2 id="area-diag" className="secao-titulo">
+              {area.nome}
+            </h2>
+            <span className="secao-meta">
+              {respondidos} de {assuntos.length} respondidos
+            </span>
+          </div>
+
+          <ul className={s.assuntos}>
+            {assuntos.map((assunto) => (
+              <li key={assunto.id} className={s.assunto}>
+                <div className={s.texto}>
+                  <span className={s.titulo}>{assunto.titulo}</span>
+                  <p className={s.resumo}>{assunto.resumo}</p>
+                </div>
+                <div className={s.opcoes} role="group" aria-label={`Seu nível em ${assunto.titulo}`}>
+                  {NIVEIS.map((nivel) => (
+                    <button
+                      key={nivel}
+                      type="button"
+                      className={`${s.opcao} ${niveis[assunto.id] === nivel ? s.opcaoAtiva : ''}`}
+                      aria-pressed={niveis[assunto.id] === nivel}
+                      onClick={() => setNiveis((atual) => ({ ...atual, [assunto.id]: nivel }))}
+                    >
+                      {ROTULO_NIVEL[nivel]}
+                    </button>
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div className={s.rodape}>
+            <span className={s.contagem}>
+              Área {etapa + 1} de {AREAS_DIAGNOSTICO.length}
+            </span>
+            {etapa > 0 && (
+              <Botao variante="secundario" onClick={() => setEtapa((e) => e - 1)}>
+                Voltar
+              </Botao>
+            )}
+            {ultima ? (
+              <Botao onClick={concluir}>Concluir diagnóstico</Botao>
+            ) : (
+              <Botao onClick={() => setEtapa((e) => e + 1)}>Próxima área</Botao>
+            )}
+            <BotaoLink to="/" variante="terciario">
+              Pular por enquanto
+            </BotaoLink>
+          </div>
+        </section>
       </div>
     </div>
   );

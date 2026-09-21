@@ -1,57 +1,144 @@
+/* --- Barra de filtros ------------------------------------------------
+   No celular a barra rola na horizontal em vez de quebrar em quatro
+   linhas: assim o topo da página continua sendo a questão, não o filtro. */
+.barraFiltros {
+  border-top: var(--borda) solid var(--cinza-10);
+  border-bottom: var(--borda) solid var(--cinza-10);
+  background: var(--cinza-1);
+}
+
+.filtrosInterno {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2x);
+  padding-block: var(--e-baseh);
+  /* O contêiner precisa poder encolher para o filho rolar em vez de esticar. */
+  min-width: 0;
+}
+
+.filtrosRotulo {
+  flex-shrink: 0;
+  font-size: var(--t-down-02);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cinza-60);
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .filtrosRotulo {
+    display: block;
+  }
+}
+
 .filtros {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-2);
-  padding-bottom: var(--s-4);
-  border-bottom: 1px solid var(--line);
-  margin-bottom: var(--s-6);
+  min-width: 0;
+  gap: var(--e-base);
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* A sombra do foco é cortada pelo overflow sem esta folga. */
+  padding: var(--e-half) var(--e-half);
+  margin: calc(var(--e-half) * -1) calc(var(--e-half) * -1);
+}
+
+.filtros::-webkit-scrollbar {
+  display: none;
 }
 
 .filtro {
+  flex-shrink: 0;
   min-height: 36px;
-  padding: var(--s-1) var(--s-3);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  background: var(--paper);
-  font-size: var(--t-14);
-  font-weight: 540;
-  color: var(--ink-2);
+  padding: var(--e-half) var(--e-2x);
+  border: var(--borda) solid var(--cinza-20);
+  border-radius: 100em;
+  background: var(--branco);
+  font-family: var(--fonte);
+  font-size: var(--t-base);
+  font-weight: var(--peso-semibold);
+  color: var(--cinza-70);
+  white-space: nowrap;
   cursor: pointer;
-  transition: all var(--fast) var(--ease);
+  transition:
+    background var(--d-rapida) var(--curva),
+    border-color var(--d-rapida) var(--curva),
+    color var(--d-rapida) var(--curva);
 }
 
 .filtro:hover {
-  background: var(--paper-2);
-  color: var(--ink);
+  background: var(--azul-5);
+  border-color: var(--azul-20);
+  color: var(--azul-80);
 }
 
-.filtroAtivo {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-
+.filtroAtivo,
 .filtroAtivo:hover {
-  background: var(--accent-hover);
-  color: #fff;
+  background: var(--azul-90);
+  border-color: var(--azul-90);
+  color: var(--branco);
 }
 
-.contador {
+/* --- Contador --------------------------------------------------------
+   Régua de posição: "questão 3 de 12" com um filete que preenche. Dá a
+   noção de fim da sessão, que uma lista rolável nunca dá. */
+.regua {
   display: flex;
-  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--s-3);
-  margin-bottom: var(--s-4);
-  font-size: var(--t-14);
-  color: var(--ink-3);
+  gap: var(--e-2x);
+  margin-bottom: var(--e-base);
 }
 
+.reguaTexto {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cinza-70);
+  font-variant-numeric: tabular-nums;
+}
+
+.reguaMeta {
+  font-size: var(--t-down-01);
+  color: var(--cinza-60);
+}
+
+.reguaTrilho {
+  height: 3px;
+  background: var(--cinza-10);
+  margin-bottom: var(--e-4x);
+}
+
+.reguaPreenchida {
+  display: block;
+  height: 100%;
+  background: var(--azul-70);
+  transform-origin: left center;
+  transition: width var(--d-moderada) var(--curva);
+}
+
+/* --- Filtro ativo ---------------------------------------------------- */
+.filtroAplicado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-base) var(--e-2x);
+  margin-bottom: var(--e-3x);
+  padding: var(--e-baseh) var(--e-2x);
+  background: var(--azul-5);
+  border-left: 4px solid var(--azul-70);
+  font-size: var(--t-base);
+  color: var(--azul-90);
+}
+
+/* --- Navegação -------------------------------------------------------- */
 .navegacao {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-3);
-  margin-top: var(--s-6);
-  padding-top: var(--s-6);
-  border-top: 1px solid var(--line);
+  gap: var(--e-baseh);
+  margin-top: var(--e-4x);
+  padding-top: var(--e-3x);
+  border-top: var(--borda) solid var(--cinza-10);
 }

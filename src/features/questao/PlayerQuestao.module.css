@@ -1,65 +1,81 @@
+/* ==================================================================
+   QUESTÃO — bloco institucional, com cabeçalho escuro identificando
+   conceito e procedência. Sem sombra: é conteúdo, não cartão flutuante.
+   ================================================================== */
 .questao {
-  max-width: 46rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  max-width: var(--largura-leitura);
+  border: var(--borda) solid var(--cinza-20);
+  border-radius: var(--raio-lg);
   overflow: hidden;
-  background: var(--paper);
+  background: var(--branco);
 }
 
 .cabecalho {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--s-2);
-  padding: var(--s-3) var(--s-4);
-  border-bottom: 1px solid var(--line);
-  background: var(--paper-2);
+  gap: var(--e-base);
+  padding: var(--e-2x) var(--e-3x);
+  background: var(--azul-90);
+  color: var(--branco);
 }
 
 .conceito {
-  font-size: var(--t-12);
-  font-weight: 640;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink-3);
   margin-right: auto;
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--azul-20);
 }
 
 .enunciado {
-  padding: var(--s-4);
+  padding: var(--e-3x);
+  font-size: var(--t-up-01);
+  line-height: var(--lh-alta);
 }
 
 .enunciado > * + * {
-  margin-top: var(--s-4);
+  margin-top: var(--e-2x);
 }
 
+/* --- Alternativas -------------------------------------------------- */
 .alternativas {
   list-style: none;
   margin: 0;
-  padding: 0 var(--s-4) var(--s-4);
+  padding: 0 var(--e-3x) var(--e-3x);
   display: flex;
   flex-direction: column;
-  gap: var(--s-2);
+  gap: var(--e-baseh);
 }
 
 .alternativa {
   width: 100%;
   display: flex;
-  gap: var(--s-3);
+  gap: var(--e-2x);
   align-items: flex-start;
   text-align: left;
-  padding: var(--s-3);
-  min-height: 44px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--paper);
+  padding: var(--e-2x);
+  min-height: 52px;
+  border: var(--borda-forte) solid var(--cinza-20);
+  border-radius: var(--raio);
+  background: var(--branco);
+  font-size: var(--t-up-01);
+  line-height: var(--lh-media);
   cursor: pointer;
-  transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+  transition:
+    border-color var(--d-rapida) var(--curva),
+    background var(--d-rapida) var(--curva),
+    transform var(--d-muito-rapida) var(--curva);
 }
 
 .alternativa:hover:not(:disabled) {
-  border-color: var(--accent-line);
-  background: var(--accent-soft);
+  border-color: var(--azul-40);
+  background: var(--azul-5);
+}
+
+.alternativa:active:not(:disabled) {
+  transform: scale(0.995);
 }
 
 .alternativa:disabled {
@@ -67,50 +83,55 @@
 }
 
 .selecionada {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: var(--azul-70);
+  background: var(--azul-5);
 }
 
 .certa {
-  border-color: var(--ok);
-  background: var(--ok-soft);
+  border-color: var(--sucesso);
+  background: var(--sucesso-fundo);
 }
 
 .errada {
-  border-color: var(--no);
-  background: var(--no-soft);
+  border-color: var(--perigo);
+  background: var(--perigo-fundo);
 }
 
+/* Letra em quadrado, não em círculo: mais próximo do cartão-resposta. */
 .letra {
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: 1.5px solid var(--line-strong);
+  width: 30px;
+  height: 30px;
+  border-radius: var(--raio);
+  border: var(--borda-forte) solid var(--cinza-30);
   display: grid;
   place-items: center;
-  font-size: var(--t-14);
-  font-weight: 700;
-  color: var(--ink-2);
-  background: var(--paper);
+  font-size: var(--t-base);
+  font-weight: var(--peso-extrabold);
+  color: var(--cinza-70);
+  background: var(--branco);
+  transition:
+    background var(--d-rapida) var(--curva),
+    border-color var(--d-rapida) var(--curva),
+    color var(--d-rapida) var(--curva);
 }
 
 .selecionada .letra {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: #fff;
+  border-color: var(--azul-70);
+  background: var(--azul-70);
+  color: var(--branco);
 }
 
 .certa .letra {
-  border-color: var(--ok);
-  background: var(--ok);
-  color: #fff;
+  border-color: var(--sucesso);
+  background: var(--sucesso);
+  color: var(--branco);
 }
 
 .errada .letra {
-  border-color: var(--no);
-  background: var(--no);
-  color: #fff;
+  border-color: var(--perigo);
+  background: var(--perigo);
+  color: var(--branco);
 }
 
 .textoAlternativa {
@@ -120,64 +141,85 @@
 
 .diagnostico {
   display: block;
-  margin-top: var(--s-2);
-  padding-top: var(--s-2);
-  border-top: 1px dashed var(--line-strong);
-  font-size: var(--t-14);
-  color: var(--ink-2);
+  margin-top: var(--e-baseh);
+  padding-top: var(--e-baseh);
+  border-top: var(--borda) dashed var(--cinza-30);
+  font-size: var(--t-base);
+  color: var(--cinza-80);
+  animation: surgir var(--d-moderada) var(--curva-saida) both;
 }
 
 .marcaResultado {
   flex-shrink: 0;
-  font-size: var(--t-12);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
   align-self: center;
+  padding: 2px var(--e-base);
+  border-radius: var(--raio);
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .marcaCerta {
-  color: var(--ok);
+  background: var(--sucesso);
+  color: var(--branco);
 }
 
 .marcaErrada {
-  color: var(--no);
+  background: var(--perigo);
+  color: var(--branco);
 }
 
 .rodape {
-  padding: var(--s-4);
-  border-top: 1px solid var(--line);
-  background: var(--paper-2);
+  padding: var(--e-3x);
+  border-top: var(--borda) solid var(--cinza-10);
+  background: var(--cinza-3);
 }
 
-/* --- Correção ------------------------------------------------------------ */
+/* --- Correção ------------------------------------------------------- */
 .resultado {
-  padding: var(--s-4);
-  border-top: 1px solid var(--line);
-  /* O cabeçalho é fixo: sem esta margem, o foco leva a correção para debaixo dele. */
-  scroll-margin-top: 84px;
+  border-top: var(--borda-forte) solid var(--cinza-90);
+  scroll-margin-top: var(--altura-cabecalho);
+  animation: revelar var(--d-moderada) var(--curva-saida) both;
 }
 
-.resultadoTitulo {
+.resultadoFaixa {
   display: flex;
   align-items: center;
-  gap: var(--s-2);
-  font-family: var(--font-title);
-  font-size: var(--t-23);
-  margin-bottom: var(--s-3);
+  gap: var(--e-2x);
+  padding: var(--e-2x) var(--e-3x);
+  color: var(--branco);
 }
 
 .resultadoCerto {
-  color: var(--ok);
+  background: var(--sucesso);
 }
 
 .resultadoErrado {
-  color: var(--no);
+  background: var(--perigo);
+}
+
+.resultadoTitulo {
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-bold);
+  color: var(--branco);
+  letter-spacing: -0.01em;
+}
+
+.resultadoIcone {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.resultadoCorpo {
+  padding: 0 var(--e-3x) var(--e-3x);
 }
 
 .passo {
-  padding: var(--s-3) 0;
-  border-bottom: 1px solid var(--line);
+  padding: var(--e-3x) 0;
+  border-bottom: var(--borda) solid var(--cinza-10);
 }
 
 .passo:last-of-type {
@@ -186,39 +228,45 @@
 
 .passoRotulo {
   display: block;
-  font-size: var(--t-12);
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: var(--ink-3);
-  margin-bottom: var(--s-1);
+  color: var(--azul-70);
+  margin-bottom: var(--e-base);
 }
 
 .explicacao > * + * {
-  margin-top: var(--s-3);
+  margin-top: var(--e-2x);
 }
 
 .tipoErro {
   display: inline-flex;
   align-items: center;
-  gap: var(--s-1);
-  padding: 2px var(--s-2);
-  border-radius: var(--radius-sm);
-  background: var(--warn-soft);
-  border: 1px solid #e3cf9c;
-  color: var(--warn);
-  font-size: var(--t-12);
-  font-weight: 640;
+  gap: var(--e-half);
+  padding: var(--e-half) var(--e-baseh);
+  border-radius: var(--raio);
+  background: var(--alerta-fundo);
+  border: var(--borda) solid #e0c56b;
+  color: var(--alerta-escuro);
+  font-size: var(--t-base);
+  font-weight: var(--peso-semibold);
 }
 
 .acoesResultado {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-3);
-  margin-top: var(--s-6);
+  gap: var(--e-baseh);
+  margin-top: var(--e-4x);
+  padding-top: var(--e-3x);
+  border-top: var(--borda) solid var(--cinza-10);
 }
 
 .referencia {
-  font-size: var(--t-12);
-  color: var(--ink-3);
+  margin-top: var(--e-2x);
+  padding: var(--e-baseh) var(--e-2x);
+  background: var(--cinza-3);
+  border-left: 3px solid var(--azul-90);
+  font-size: var(--t-base);
+  color: var(--cinza-70);
 }

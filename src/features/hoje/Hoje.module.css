@@ -1,116 +1,103 @@
-.topo {
-  margin-bottom: var(--s-6);
-}
-
-.contexto {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--s-2);
-  margin-bottom: var(--s-2);
-}
-
-.fase {
-  font-size: var(--t-12);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.contagem {
-  font-size: var(--t-14);
-  color: var(--ink-3);
-}
-
-.tituloLinha {
+/* Seletor de orçamento — segmentado, institucional */
+.barraOrcamento {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--s-3);
-  margin-top: var(--s-1);
+  gap: var(--e-2x);
+  padding-block: var(--e-3x);
 }
 
-.faseTexto {
-  font-size: var(--t-14);
-  color: var(--ink-3);
-  margin-top: var(--s-3);
-  max-width: var(--measure);
+.orcamentoRotulo {
+  font-size: var(--t-base);
+  font-weight: var(--peso-semibold);
+  color: var(--cinza-70);
 }
 
-/* Convite ao diagnóstico: banner compacto, não caixa grande — ele não pode
-   empurrar o plano do dia para fora da primeira tela no celular. */
-.convite {
-  border: 1px solid var(--accent-line);
-  background: var(--accent-soft);
-  border-radius: var(--radius);
-  padding: var(--s-4);
-  margin-bottom: var(--s-6);
+.orcamento {
+  display: inline-flex;
+  border: var(--borda) solid var(--cinza-20);
+  border-radius: 100em;
+  padding: 3px;
+  background: var(--cinza-3);
 }
 
-.conviteTitulo {
-  font-family: var(--font-title);
-  font-size: var(--t-19);
-  font-weight: 600;
-  margin-bottom: var(--s-2);
+.orcamentoBotao {
+  min-height: 38px;
+  padding: 0 var(--e-2x);
+  border: 0;
+  border-radius: 100em;
+  background: transparent;
+  font-size: var(--t-base);
+  font-weight: var(--peso-semibold);
+  color: var(--cinza-70);
+  cursor: pointer;
+  transition:
+    background var(--d-rapida) var(--curva),
+    color var(--d-rapida) var(--curva);
 }
 
-.conviteTexto {
-  font-size: var(--t-14);
-  color: var(--ink-2);
+.orcamentoBotao:hover {
+  color: var(--azul-70);
 }
 
-.conviteAcoes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-3);
-  margin-top: var(--s-4);
+.orcamentoAtivo {
+  background: var(--azul-70);
+  color: var(--branco);
+  box-shadow: var(--sombra-1);
 }
 
-/* --- Plano ------------------------------------------------------------- */
+.orcamentoAtivo:hover {
+  color: var(--branco);
+}
+
+/* ==================================================================
+   LISTA DO PLANO
+   Lista editorial com filete, não pilha de cards. O primeiro item em
+   aberto ganha faixa de acento à esquerda e fundo tingido.
+   ================================================================== */
 .plano {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-3);
+  border-top: var(--borda-forte) solid var(--cinza-90);
 }
 
 .item {
   display: flex;
-  gap: var(--s-3);
+  gap: var(--e-2x);
   align-items: flex-start;
-  padding: var(--s-4);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--paper);
-  transition: border-color var(--fast) var(--ease);
+  padding: var(--e-3x) var(--e-2x) var(--e-3x) var(--e-baseh);
+  border-bottom: var(--borda) solid var(--cinza-10);
+  border-left: 4px solid transparent;
+  transition:
+    background var(--d-rapida) var(--curva),
+    border-left-color var(--d-rapida) var(--curva);
+  animation: revelar var(--d-moderada) var(--curva-saida) both;
 }
 
 .item:hover {
-  border-color: var(--line-strong);
+  background: var(--cinza-3);
 }
 
 .itemPrincipal {
-  border-color: var(--accent-line);
-  background: var(--accent-soft);
+  border-left-color: var(--azul-70);
+  background: var(--azul-5);
+}
+
+.itemPrincipal:hover {
+  background: var(--azul-10);
 }
 
 .itemConcluido {
-  opacity: 0.55;
+  opacity: 0.6;
 }
 
-/*
- * O alvo tem 44px (mínimo acessível de toque) e o círculo visível tem 26px.
- * Antes, o botão inteiro media 26px: passava no olho e falhava no dedo.
- */
 .marcar {
   flex-shrink: 0;
   width: 44px;
   height: 44px;
-  margin: -9px 0 0 -9px;
+  margin: -6px 0 0 -8px;
   border: 0;
   background: none;
   cursor: pointer;
@@ -123,21 +110,25 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  border: 1.5px solid var(--line-strong);
-  background: var(--paper);
+  border: var(--borda-forte) solid var(--cinza-30);
+  background: var(--branco);
   display: grid;
   place-items: center;
-  transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+  color: var(--branco);
+  transition:
+    border-color var(--d-rapida) var(--curva),
+    background var(--d-rapida) var(--curva),
+    transform var(--d-rapida) var(--curva);
 }
 
 .marcar:hover .marcarCirculo {
-  border-color: var(--accent);
+  border-color: var(--azul-70);
+  transform: scale(1.08);
 }
 
 .marcarFeito .marcarCirculo {
-  background: var(--ok);
-  border-color: var(--ok);
-  color: #fff;
+  background: var(--sucesso);
+  border-color: var(--sucesso);
 }
 
 .corpo {
@@ -148,30 +139,36 @@
 .itemTopo {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--s-2);
+  align-items: center;
+  gap: var(--e-base);
+  margin-bottom: var(--e-half);
 }
 
 .itemTipo {
-  font-size: var(--t-12);
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--azul-70);
+}
+
+.itemSubtitulo {
+  font-size: var(--t-base);
+  color: var(--cinza-60);
 }
 
 .itemTitulo {
-  font-family: var(--font-title);
-  font-size: var(--t-19);
-  font-weight: 600;
-  color: var(--ink);
-  text-decoration: none;
   display: block;
-  margin-top: 2px;
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-semibold);
+  line-height: var(--lh-baixa);
+  color: var(--cinza-90);
+  text-decoration: none;
+  letter-spacing: -0.012em;
 }
 
 .itemTitulo:hover {
-  color: var(--accent);
+  color: var(--azul-70);
 }
 
 .itemConcluido .itemTitulo {
@@ -179,115 +176,169 @@
 }
 
 .motivo {
-  font-size: var(--t-14);
-  color: var(--ink-2);
-  margin-top: var(--s-1);
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  margin-top: var(--e-half);
+  line-height: var(--lh-media);
 }
 
 .minutos {
-  font-size: var(--t-12);
-  font-weight: 640;
-  color: var(--ink-3);
+  flex-shrink: 0;
+  align-self: center;
+  padding: var(--e-half) var(--e-baseh);
+  border: var(--borda) solid var(--cinza-20);
+  border-radius: 100em;
+  font-size: var(--t-base);
+  font-weight: var(--peso-semibold);
+  color: var(--cinza-70);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
-/* --- Orçamento ---------------------------------------------------------- */
-.orcamento {
-  display: inline-flex;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  overflow: hidden;
+.resumoPlano {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-base) var(--e-2x);
+  padding-top: var(--e-2x);
+  font-size: var(--t-base);
+  color: var(--cinza-60);
 }
 
-.orcamentoBotao {
-  min-height: 36px;
-  padding: var(--s-1) var(--s-3);
-  border: 0;
-  background: var(--paper);
-  font-size: var(--t-14);
-  font-weight: 560;
-  color: var(--ink-2);
-  cursor: pointer;
-  border-right: 1px solid var(--line);
+.faseTexto {
+  margin-top: var(--e-3x);
+  padding-left: var(--e-2x);
+  border-left: var(--borda-forte) solid var(--cinza-10);
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+  max-width: var(--medida);
 }
 
-.orcamentoBotao:last-child {
-  border-right: 0;
+/* ==================================================================
+   CONVITE AO DIAGNÓSTICO
+   ================================================================== */
+.convite {
+  display: grid;
+  gap: var(--e-2x);
+  padding: var(--e-3x);
+  border: var(--borda) solid var(--azul-20);
+  border-left: var(--e-half) solid var(--azul-70);
+  border-radius: 0 var(--raio-lg) var(--raio-lg) 0;
+  background: var(--azul-5);
+  margin-bottom: var(--e-4x);
 }
 
-.orcamentoBotao:hover {
-  background: var(--paper-2);
+@media (min-width: 992px) {
+  .convite {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--e-4x);
+  }
 }
 
-.orcamentoAtivo {
-  background: var(--accent);
-  color: #fff;
+.conviteTitulo {
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-semibold);
+  color: var(--azul-90);
+  margin-bottom: var(--e-half);
 }
 
-.orcamentoAtivo:hover {
-  background: var(--accent-hover);
+.conviteTexto {
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  max-width: 58ch;
 }
 
-/* --- Domínio por área ---------------------------------------------------- */
+.conviteAcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-baseh);
+}
+
+/* ==================================================================
+   DOMÍNIO POR ÁREA — lista com acento cromático próprio
+   ================================================================== */
 .areas {
   display: grid;
-  gap: var(--s-4);
+  gap: 0;
+  border-top: var(--borda) solid var(--cinza-10);
 }
 
 .areaLinha {
-  display: block;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--e-2x);
+  align-items: center;
+  padding: var(--e-3x) var(--e-base);
+  border-bottom: var(--borda) solid var(--cinza-10);
   text-decoration: none;
   color: inherit;
-  padding: var(--s-3) 0;
-  border-bottom: 1px solid var(--line);
+  transition: background var(--d-rapida) var(--curva);
 }
 
-.areaLinha:last-child {
-  border-bottom: 0;
+.areaLinha:hover {
+  background: var(--cinza-3);
+}
+
+.areaMarca {
+  width: 6px;
+  height: 40px;
+  border-radius: 100em;
+  background: var(--acento);
+}
+
+.areaCorpo {
+  min-width: 0;
 }
 
 .areaTopo {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--s-3);
-  margin-bottom: var(--s-2);
+  gap: var(--e-base) var(--e-2x);
+  margin-bottom: var(--e-base);
 }
 
 .areaNome {
-  font-weight: 600;
-  color: var(--ink);
+  font-size: var(--t-up-01);
+  font-weight: var(--peso-semibold);
+  color: var(--cinza-90);
 }
 
 .areaLinha:hover .areaNome {
-  color: var(--accent);
+  color: var(--acento);
 }
 
 .areaFaixa {
-  font-size: var(--t-12);
-  color: var(--ink-3);
+  font-size: var(--t-base);
+  color: var(--cinza-60);
   white-space: nowrap;
 }
 
-/* --- Diagnóstico de erros ------------------------------------------------ */
+/* ==================================================================
+   DIAGNÓSTICO DE ERROS
+   ================================================================== */
 .diagnostico {
-  padding: var(--s-4);
-  border-left: 3px solid var(--warn);
-  background: var(--warn-soft);
-  border-radius: 0 var(--radius) var(--radius) 0;
+  max-width: var(--largura-leitura);
+  padding: var(--e-3x);
+  border-left: var(--e-half) solid var(--alerta);
+  background: var(--alerta-fundo);
+  border-radius: 0 var(--raio-lg) var(--raio-lg) 0;
 }
 
 .diagnosticoFrase {
-  font-family: var(--font-title);
-  font-size: var(--t-19);
-  color: var(--ink);
-  margin-bottom: var(--s-2);
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-semibold);
+  color: var(--cinza-90);
+  margin-bottom: var(--e-base);
+  line-height: var(--lh-baixa);
 }
 
+.diagnosticoTexto {
+  color: var(--cinza-80);
+}
 
 .metaNumero {
-  font-size: var(--t-14);
-  color: var(--ink-3);
-  white-space: nowrap;
+  font-size: var(--t-base);
+  color: var(--cinza-60);
 }

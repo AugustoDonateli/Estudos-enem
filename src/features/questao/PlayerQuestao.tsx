@@ -142,12 +142,23 @@ export function PlayerQuestao({
           aria-live="polite"
           aria-label="Correção da questão"
         >
-          <h3
-            className={`${s.resultadoTitulo} ${acertou ? s.resultadoCerto : s.resultadoErrado}`}
-          >
-            {acertou ? 'Você acertou' : 'Você errou'}
-          </h3>
+          <div className={`${s.resultadoFaixa} ${acertou ? s.resultadoCerto : s.resultadoErrado}`}>
+            <svg
+              className={s.resultadoIcone}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              {acertou ? <path d="m4 12 5.5 5.5L20 7" /> : <path d="M18 6 6 18M6 6l12 12" />}
+            </svg>
+            <h3 className={s.resultadoTitulo}>{acertou ? 'Você acertou' : 'Você errou'}</h3>
+          </div>
 
+          <div className={s.resultadoCorpo}>
           {!acertou && (
             <>
               <div className={s.passo}>
@@ -170,7 +181,7 @@ export function PlayerQuestao({
                       Erro de {ROTULO_TIPO_ERRO[alternativaEscolhida.tipoErro]}
                     </span>
                   </p>
-                  <p style={{ marginTop: 'var(--s-2)' }}>
+                  <p style={{ marginTop: 'var(--e-base)' }}>
                     {EXPLICACAO_TIPO_ERRO[alternativaEscolhida.tipoErro]}
                   </p>
                 </div>
@@ -223,6 +234,7 @@ export function PlayerQuestao({
                 Rever o conteúdo
               </BotaoLink>
             )}
+          </div>
           </div>
         </div>
       )}

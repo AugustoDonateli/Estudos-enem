@@ -1,90 +1,196 @@
-.progresso {
+/* --- Passos ---------------------------------------------------------
+   Um stepper nomeado, não uma barra anônima: o aluno precisa saber que
+   são quatro áreas e em qual delas está, senão o diagnóstico parece não
+   ter fim. O filete corrido atrás dos números dá a ideia de percurso. */
+.passos {
   display: flex;
-  gap: var(--s-1);
-  margin-bottom: var(--s-6);
+  list-style: none;
+  margin: var(--e-3x) 0 0;
+  padding: 0;
+  position: relative;
 }
 
-.etapa {
+.passos::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
+  height: var(--borda);
+  background: var(--cinza-20);
+}
+
+.passo {
   flex: 1;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--line);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--e-base);
+  min-width: 0;
 }
 
-.etapaFeita {
-  background: var(--accent);
+.passoNumero {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--branco);
+  border: var(--borda-forte) solid var(--cinza-20);
+  color: var(--cinza-60);
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  font-variant-numeric: tabular-nums;
+  transition:
+    background var(--d-rapida) var(--curva),
+    border-color var(--d-rapida) var(--curva),
+    color var(--d-rapida) var(--curva);
 }
 
+.passoNome {
+  font-size: var(--t-down-02);
+  font-weight: var(--peso-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cinza-60);
+  text-align: center;
+  line-height: var(--lh-baixa);
+}
+
+.passoFeito .passoNumero {
+  background: var(--azul-70);
+  border-color: var(--azul-70);
+  color: var(--branco);
+}
+
+.passoAtual .passoNumero {
+  background: var(--acento, var(--azul-90));
+  border-color: var(--acento, var(--azul-90));
+  color: var(--branco);
+  box-shadow: 0 0 0 4px var(--branco);
+}
+
+.passoAtual .passoNome,
+.passoFeito .passoNome {
+  color: var(--cinza-90);
+}
+
+/* --- Lista de assuntos ---------------------------------------------- */
 .assuntos {
   list-style: none;
   margin: 0;
   padding: 0;
+  border-top: var(--borda-forte) solid var(--cinza-90);
 }
 
 .assunto {
-  padding: var(--s-4) 0;
-  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: var(--e-baseh);
+  padding: var(--e-3x) 0;
+  border-bottom: var(--borda) solid var(--cinza-10);
+}
+
+@media (min-width: 768px) {
+  .assunto {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: var(--e-4x);
+  }
+
+  .texto {
+    grid-row: span 1;
+  }
 }
 
 .titulo {
-  font-weight: 600;
   display: block;
-  margin-bottom: var(--s-1);
+  font-weight: var(--peso-semibold);
+  font-size: var(--t-up-01);
+  letter-spacing: -0.01em;
 }
 
 .resumo {
-  font-size: var(--t-14);
-  color: var(--ink-2);
-  margin-bottom: var(--s-3);
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  margin-top: var(--e-half);
+  max-width: var(--medida);
 }
 
+/* Grupo segmentado: uma peça só, com divisórias internas — mais próximo
+   de um formulário institucional do que de quatro botões soltos. */
 .opcoes {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-2);
+  border: var(--borda) solid var(--cinza-20);
+  border-radius: var(--raio);
+  overflow: hidden;
+  background: var(--branco);
 }
 
 .opcao {
-  min-height: 40px;
-  padding: var(--s-1) var(--s-3);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  background: var(--paper);
-  font-size: var(--t-14);
-  font-weight: 540;
-  color: var(--ink-2);
+  flex: 1;
+  min-height: 44px;
+  padding: var(--e-base) var(--e-baseh);
+  border: 0;
+  border-left: var(--borda) solid var(--cinza-20);
+  background: transparent;
+  font-family: var(--fonte);
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-semibold);
+  color: var(--cinza-70);
   cursor: pointer;
-  transition: all var(--fast) var(--ease);
+  white-space: nowrap;
+  transition:
+    background var(--d-rapida) var(--curva),
+    color var(--d-rapida) var(--curva);
+}
+
+.opcao:first-child {
+  border-left: 0;
 }
 
 .opcao:hover {
-  background: var(--paper-2);
-  color: var(--ink);
+  background: var(--cinza-2);
+  color: var(--cinza-90);
 }
 
-.opcaoAtiva {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-
+.opcaoAtiva,
 .opcaoAtiva:hover {
-  background: var(--accent-hover);
-  color: #fff;
+  background: var(--acento, var(--azul-70));
+  color: var(--branco);
 }
 
+@media (min-width: 768px) {
+  .opcoes {
+    min-width: 320px;
+  }
+
+  .opcao {
+    font-size: var(--t-base);
+  }
+}
+
+/* --- Rodapé de navegação -------------------------------------------- */
 .rodape {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-3);
+  gap: var(--e-base) var(--e-baseh);
   align-items: center;
-  margin-top: var(--s-8);
-  padding-top: var(--s-6);
-  border-top: 1px solid var(--line);
+  margin-top: var(--e-4x);
+  padding-top: var(--e-3x);
+  border-top: var(--borda) solid var(--cinza-10);
 }
 
 .contagem {
-  font-size: var(--t-14);
-  color: var(--ink-3);
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+  font-variant-numeric: tabular-nums;
   margin-right: auto;
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .contagem {
+    width: auto;
+  }
 }

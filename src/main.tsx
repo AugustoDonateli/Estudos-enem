@@ -1,6 +1,25 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import '@fontsource-variable/source-serif-4';
+
+/*
+ * Tipografia institucional: Rawline como fonte principal e Raleway como
+ * reserva — o par definido pelo GovBR Design System. Ambas sob SIL OFL e
+ * auto-hospedadas, então não há requisição a serviço externo.
+ *
+ * Só os pesos realmente usados, no subconjunto latino: 400 para corpo, 500 e
+ * 600 para interface e títulos, 700 e 800 para a assinatura e os números
+ * grandes. Cada peso custa cerca de 28 KB.
+ *
+ * Raleway fica declarada no stack de fontes mas não é baixada: como Rawline
+ * cobre tudo, a reserva só entraria em cena se a principal falhasse, e enviar
+ * uma fonte variável inteira para esse caso custaria mais do que resolve.
+ */
+import 'rawline-webfont/latin-400.css';
+import 'rawline-webfont/latin-500.css';
+import 'rawline-webfont/latin-600.css';
+import 'rawline-webfont/latin-700.css';
+import 'rawline-webfont/latin-800.css';
+
 import './design/tokens.css';
 import './design/base.css';
 import { App } from './app/App';

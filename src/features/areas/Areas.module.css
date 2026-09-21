@@ -1,158 +1,358 @@
-.lista {
+/* ==================================================================
+   DIAS DE PROVA — composição editorial em duas colunas
+   ================================================================== */
+.dias {
+  display: grid;
+  gap: var(--e-4x);
+}
+
+@media (min-width: 992px) {
+  .dias {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--e-6x);
+  }
+}
+
+.dia {
+  border-top: var(--borda-forte) solid var(--azul-90);
+  padding-top: var(--e-2x);
+}
+
+.diaTopo {
   display: flex;
-  flex-direction: column;
-}
-
-.area {
-  display: block;
-  padding: var(--s-6) 0;
-  border-bottom: 1px solid var(--line);
-  text-decoration: none;
-  color: inherit;
-}
-
-.area:first-child {
-  padding-top: var(--s-3);
-}
-
-.areaTopo {
-  display: flex;
-  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--s-2) var(--s-4);
+  gap: var(--e-2x);
+  margin-bottom: var(--e-2x);
 }
 
-.nome {
-  font-family: var(--font-title);
-  font-size: var(--t-23);
-  font-weight: 600;
-  color: var(--ink);
+.diaNumero {
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-extrabold);
+  letter-spacing: -0.01em;
+  color: var(--azul-90);
 }
 
-.area:hover .nome {
-  color: var(--accent);
+.diaData {
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+  font-variant-numeric: tabular-nums;
 }
 
-.meta {
-  font-size: var(--t-14);
-  color: var(--ink-3);
+.diaLista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.diaItem {
+  display: flex;
+  align-items: center;
+  gap: var(--e-baseh);
+  padding: var(--e-baseh) 0;
+  border-bottom: var(--borda) solid var(--cinza-10);
+  font-size: var(--t-up-01);
+}
+
+.diaMarca {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--acento);
+  flex-shrink: 0;
+}
+
+.diaNome {
+  flex: 1;
+  color: var(--cinza-80);
+}
+
+.diaQtd {
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
+.diaTotal {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--e-baseh);
+  font-size: var(--t-base);
+  font-weight: var(--peso-semibold);
+  color: var(--azul-90);
+}
+
+/* ==================================================================
+   CARTÕES DE ÁREA
+   Aqui o card se justifica: cada um é uma unidade clicável independente.
+   ================================================================== */
+.grelha {
+  display: grid;
+  gap: var(--e-3x);
+}
+
+@media (min-width: 576px) {
+  .grelha {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .grelha {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cartaoArea {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-baseh);
+  padding: var(--e-3x);
+  padding-top: var(--e-4x);
+  background: var(--branco);
+  border: var(--borda) solid var(--cinza-20);
+  border-radius: var(--raio-lg);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition:
+    border-color var(--d-rapida) var(--curva),
+    box-shadow var(--d-rapida) var(--curva);
+  animation: revelar var(--d-moderada) var(--curva-saida) both;
+}
+
+.cartaoArea::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--acento);
+  transition: height var(--d-rapida) var(--curva);
+}
+
+/* Sem levitar: o cartão que sobe com sombra funda é o gesto de produto de
+   assinatura, não de site institucional. O retorno visual aqui é a borda
+   assumir o acento da área e o filete do topo engrossar. */
+.cartaoArea:hover {
+  border-color: var(--acento);
+  box-shadow: var(--sombra-1);
+}
+
+.cartaoArea:hover::before {
+  height: 10px;
+}
+
+.areaTopoCartao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-base);
+}
+
+.areaSigla {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--raio);
+  background: var(--acento-fundo);
+  color: var(--acento);
+  font-size: var(--t-base);
+  font-weight: var(--peso-extrabold);
+  letter-spacing: 0.02em;
+}
+
+.areaMeta {
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+  text-align: right;
+  line-height: var(--lh-media);
+}
+
+.nome {
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-semibold);
+  line-height: var(--lh-baixa);
+  letter-spacing: -0.012em;
+  color: var(--cinza-90);
+}
+
+.cartaoArea:hover .nome {
+  color: var(--acento);
+}
+
 .descricao {
-  color: var(--ink-2);
-  margin-top: var(--s-2);
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  line-height: var(--lh-media);
+  flex: 1;
 }
 
 .comoCai {
-  margin-top: var(--s-3);
-  padding-left: var(--s-3);
-  border-left: 2px solid var(--accent-line);
-  font-size: var(--t-14);
-  color: var(--ink-2);
-}
-
-.barraArea {
-  margin-top: var(--s-4);
-  max-width: 420px;
+  margin-top: var(--e-base);
+  padding: var(--e-baseh) var(--e-2x);
+  border-left: 3px solid var(--acento);
+  background: var(--cinza-3);
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  line-height: var(--lh-media);
 }
 
 .rotuloAnalise {
-  font-size: var(--t-12);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--ink-3);
   display: block;
-  margin-bottom: var(--s-1);
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cinza-60);
+  margin-bottom: var(--e-half);
 }
 
-/* --- Página de uma área --------------------------------------------------- */
+.progressoArea {
+  margin-top: var(--e-base);
+}
+
+.faixaRotulo {
+  display: block;
+  margin-top: var(--e-base);
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+}
+
+/* ==================================================================
+   PÁGINA DE UMA ÁREA — lista de assuntos
+   ================================================================== */
 .assuntos {
   list-style: none;
   margin: 0;
   padding: 0;
+  border-top: var(--borda-forte) solid var(--cinza-90);
 }
 
 .assunto {
-  border-bottom: 1px solid var(--line);
+  border-bottom: var(--borda) solid var(--cinza-10);
+  animation: revelar var(--d-moderada) var(--curva-saida) both;
 }
 
 .assuntoLink {
-  display: block;
-  padding: var(--s-4) 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--e-2x);
+  align-items: start;
+  padding: var(--e-3x) var(--e-base);
   text-decoration: none;
   color: inherit;
+  transition: background var(--d-rapida) var(--curva);
+}
+
+.assuntoLink:hover {
+  background: var(--cinza-3);
+}
+
+.ordem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--raio);
+  background: var(--acento-fundo);
+  color: var(--acento);
+  font-size: var(--t-base);
+  font-weight: var(--peso-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.assuntoCorpo {
+  min-width: 0;
 }
 
 .assuntoTopo {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--s-2) var(--s-3);
+  align-items: center;
+  gap: var(--e-base);
+  margin-bottom: var(--e-half);
 }
 
 .assuntoTitulo {
-  font-family: var(--font-title);
-  font-size: var(--t-19);
-  font-weight: 600;
-  color: var(--ink);
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-semibold);
+  line-height: var(--lh-baixa);
+  letter-spacing: -0.012em;
+  color: var(--cinza-90);
 }
 
 .assuntoLink:hover .assuntoTitulo {
-  color: var(--accent);
+  color: var(--acento);
 }
 
 .assuntoResumo {
-  color: var(--ink-2);
-  font-size: var(--t-14);
-  margin-top: var(--s-1);
+  color: var(--cinza-70);
+  font-size: var(--t-base);
+  line-height: var(--lh-media);
+  margin-top: var(--e-half);
 }
 
 .assuntoRodape {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--s-3);
-  margin-top: var(--s-3);
+  gap: var(--e-baseh) var(--e-2x);
+  margin-top: var(--e-2x);
 }
 
 .barraAssunto {
   flex: 1;
   min-width: 140px;
-  max-width: 260px;
+  max-width: 220px;
 }
 
 .faixa {
-  font-size: var(--t-12);
-  color: var(--ink-3);
-  white-space: nowrap;
+  font-size: var(--t-base);
+  color: var(--cinza-60);
 }
 
 .aviso {
-  font-size: var(--t-12);
-  color: var(--warn);
-  font-weight: 560;
+  font-size: var(--t-base);
+  color: var(--alerta-escuro);
+  font-weight: var(--peso-medio);
 }
 
+/* Assuntos mapeados e ainda não escritos */
 .planejado {
-  padding: var(--s-3) 0;
-  border-bottom: 1px dashed var(--line-strong);
-  color: var(--ink-3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--e-base) var(--e-2x);
+  padding: var(--e-2x) var(--e-base);
+  border-bottom: var(--borda) dashed var(--cinza-20);
 }
 
 .planejadoTitulo {
-  font-family: var(--font-title);
-  font-size: var(--t-16);
-  color: var(--ink-2);
+  font-size: var(--t-up-01);
+  font-weight: var(--peso-medio);
+  color: var(--cinza-70);
 }
 
 .planejadoEstado {
-  font-size: var(--t-12);
-  font-weight: 640;
-  letter-spacing: 0.04em;
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-3);
-  margin-left: var(--s-2);
+  color: var(--cinza-50);
+  border: var(--borda) solid var(--cinza-20);
+  border-radius: var(--raio);
+  padding: 2px var(--e-base);
+}
+
+.planejadoResumo {
+  flex-basis: 100%;
+  font-size: var(--t-base);
+  color: var(--cinza-60);
 }

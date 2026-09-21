@@ -1,71 +1,169 @@
+/* --- Escada de intervalos -------------------------------------------
+   Os quatro intervalos desenhados como degraus. O aluno entende em um
+   olhar por que um assunto some da fila e volta dias depois — o que a
+   frase equivalente em texto corrido nunca conseguiu explicar. */
+.escada {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--e-base);
+  align-items: end;
+  margin-top: var(--e-3x);
+  padding-top: var(--e-3x);
+  border-top: var(--borda) solid var(--cinza-10);
+}
+
+.degrau {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-base);
+  min-width: 0;
+}
+
+.degrauBarra {
+  height: 6px;
+  background: var(--azul-70);
+  opacity: 0.35;
+}
+
+.degrau:nth-child(2) .degrauBarra {
+  opacity: 0.55;
+}
+
+.degrau:nth-child(3) .degrauBarra {
+  opacity: 0.75;
+}
+
+.degrau:nth-child(4) .degrauBarra {
+  opacity: 1;
+}
+
+.degrauNumero {
+  font-size: var(--t-up-01);
+  font-weight: var(--peso-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--lh-baixa);
+}
+
+.degrauRotulo {
+  font-size: var(--t-down-02);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cinza-60);
+  font-weight: var(--peso-semibold);
+}
+
+.nota {
+  margin-top: var(--e-2x);
+  font-size: var(--t-down-01);
+  color: var(--cinza-70);
+}
+
+/* --- Fila de revisão -------------------------------------------------
+   Linhas com filete e barra de acento da área à esquerda: é uma fila de
+   trabalho, não uma galeria de cards. */
 .lista {
   list-style: none;
   margin: 0;
   padding: 0;
+  border-top: var(--borda-forte) solid var(--cinza-90);
 }
 
 .item {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-3);
-  align-items: center;
-  padding: var(--s-4) 0;
-  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--e-2x);
+  padding: var(--e-3x) 0 var(--e-3x) var(--e-2x);
+  border-bottom: var(--borda) solid var(--cinza-10);
+  border-left: 4px solid var(--acento, var(--azul-70));
+  transition: background var(--d-rapida) var(--curva);
 }
 
-.corpo {
-  flex: 1;
-  min-width: 200px;
+.item:hover {
+  background: var(--cinza-1);
+}
+
+@media (min-width: 576px) {
+  .item {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: var(--e-3x);
+  }
+}
+
+.area {
+  display: block;
+  font-size: var(--t-down-02);
+  color: var(--acento, var(--azul-80));
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: var(--peso-bold);
+  margin-bottom: var(--e-half);
 }
 
 .titulo {
-  font-family: var(--font-title);
-  font-size: var(--t-19);
-  font-weight: 600;
-  color: var(--ink);
+  font-family: var(--fonte);
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-bold);
+  letter-spacing: -0.01em;
+  color: var(--cinza-90);
   text-decoration: none;
 }
 
 .titulo:hover {
-  color: var(--accent);
+  color: var(--azul-70);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .motivo {
-  font-size: var(--t-14);
-  color: var(--ink-2);
-  margin-top: 2px;
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  margin-top: var(--e-half);
+  max-width: var(--medida);
 }
 
-.area {
-  font-size: var(--t-12);
-  color: var(--ink-3);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-weight: 640;
-}
-
+/* Revisão final tem urgência real: é a última passada antes da prova. */
 .final {
-  color: var(--warn);
-  font-weight: 640;
+  display: inline-block;
+  color: var(--alerta-escuro);
+  font-weight: var(--peso-semibold);
+  padding-left: var(--e-base);
+  border-left: 3px solid var(--alerta);
 }
 
+/* --- Agenda ---------------------------------------------------------- */
 .agenda {
   list-style: none;
   margin: 0;
   padding: 0;
+  border-top: var(--borda-forte) solid var(--cinza-90);
 }
 
 .agendaItem {
   display: flex;
   justify-content: space-between;
-  gap: var(--s-3);
-  padding: var(--s-3) 0;
-  border-bottom: 1px solid var(--line);
-  font-size: var(--t-14);
+  align-items: baseline;
+  gap: var(--e-2x);
+  padding: var(--e-2x) 0;
+  border-bottom: var(--borda) solid var(--cinza-5);
+  font-size: var(--t-base);
+}
+
+.agendaItem a {
+  color: var(--cinza-90);
+  text-decoration: none;
+  font-weight: var(--peso-medio);
+}
+
+.agendaItem a:hover {
+  color: var(--azul-70);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .agendaData {
-  color: var(--ink-3);
+  color: var(--cinza-60);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
+  font-size: var(--t-down-01);
 }

@@ -9,6 +9,7 @@ import { revisoesVencidas } from '@/engine/revisao';
 import { DESCRICAO_FASE, diasAteProva, hoje as hojeISO } from '@/engine/datas';
 import { faixaDeDominio, ROTULO_FAIXA } from '@/engine/dominio';
 import { BarraDominio, BotaoLink, Vazio } from '@/design/Primitivos';
+import { HeroEscuro, Metricas } from '@/design/Pagina';
 import { definirTitulo } from '@/lib/titulo';
 import s from './Hoje.module.css';
 
@@ -59,212 +60,239 @@ export function Hoje() {
 
   return (
     <div className="page">
-      {/*
-        Ordem deliberada: no celular, o plano precisa estar na primeira tela.
-        Contexto (fase e contagem regressiva) vem como uma linha curta, o título
-        é a própria ação, e a explicação da fase desce para depois do plano.
-      */}
-      <header className={s.topo}>
-        <p className={s.contexto}>
-          <span className={s.fase}>{fase.rotulo}</span>
-          <span className={s.contagem}>
-            {dias > 0
-              ? `faltam ${dias} ${dias === 1 ? 'dia' : 'dias'} para o 1º dia de prova`
-              : 'semana de prova'}
-          </span>
-        </p>
-        <div className={s.tituloLinha}>
-          <h1>Plano de hoje</h1>
-          <div className={s.orcamento} role="group" aria-label="Tempo disponível hoje">
-            {([30, 60, 90] as const).map((m) => (
-              <button
-                key={m}
-                type="button"
-                className={`${s.orcamentoBotao} ${
-                  progresso.config.orcamentoDiario === m ? s.orcamentoAtivo : ''
-                }`}
-                aria-pressed={progresso.config.orcamentoDiario === m}
-                onClick={() => atualizarConfig({ orcamentoDiario: m })}
-              >
-                {m} min
-              </button>
-            ))}
-          </div>
-        </div>
-      </header>
+      <HeroEscuro
+        rotulo={`Fase de ${fase.rotulo.toLowerCase()}`}
+        titulo="Plano de hoje"
+        descricao={
+          comecou
+            ? 'Cada item abaixo diz por que está aí. Comece pelo primeiro.'
+            : 'Faça o diagnóstico rápido e o plano passa a priorizar o que você realmente não domina.'
+        }
+        aside={
+          <Metricas
+            escuro
+            itens={[
+              { numero: dias > 0 ? dias : '—', rotulo: dias === 1 ? 'dia até a prova' : 'dias até a prova' },
+              { numero: restantes.length, rotulo: 'itens no plano de hoje' },
+              { numero: `${plano.minutosPlanejados}`, rotulo: 'minutos planejados' },
+              { numero: pendentes.length, rotulo: 'revisões vencidas' },
+            ]}
+          />
+        }
+      />
 
-      {!comecou && (
-        <div className={s.convite}>
-          <p className={s.conviteTitulo}>Ainda não sei o que você já sabe</p>
-          <p className={s.conviteTexto}>
-            Sem o diagnóstico, o plano abaixo é um chute razoável. São cerca de 2 minutos, e
-            depois dele a fila passa a priorizar o que você realmente não domina.
-          </p>
-          <div className={s.conviteAcoes}>
-            <BotaoLink to="/diagnostico">Fazer o diagnóstico</BotaoLink>
-            <BotaoLink to="/areas" variante="secundario">
-              Prefiro escolher sozinho
+      <div className="container">
+        <section className="secao" aria-label="Itens do plano de hoje">
+          <div className={s.barraOrcamento}>
+            <span className={s.orcamentoRotulo}>Quanto tempo você tem hoje?</span>
+            <div className={s.orcamento} role="group" aria-label="Tempo disponível hoje">
+              {([30, 60, 90] as const).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  className={`${s.orcamentoBotao} ${
+                    progresso.config.orcamentoDiario === m ? s.orcamentoAtivo : ''
+                  }`}
+                  aria-pressed={progresso.config.orcamentoDiario === m}
+                  onClick={() => atualizarConfig({ orcamentoDiario: m })}
+                >
+                  {m} min
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {!comecou && (
+            <div className={s.convite}>
+              <div>
+                <p className={s.conviteTitulo}>Ainda não sei o que você já sabe</p>
+                <p className={s.conviteTexto}>
+                  Sem o diagnóstico, o plano abaixo é um chute razoável. São cerca de 2 minutos,
+                  e depois dele a fila passa a priorizar o que você realmente não domina.
+                </p>
+              </div>
+              <div className={s.conviteAcoes}>
+                <BotaoLink to="/diagnostico">Fazer o diagnóstico</BotaoLink>
+                <BotaoLink to="/areas" variante="secundario">
+                  Escolher sozinho
+                </BotaoLink>
+              </div>
+            </div>
+          )}
+
+          {plano.itens.length === 0 ? (
+            <Vazio
+              titulo="Nada planejado para hoje"
+              acao={<BotaoLink to="/areas">Escolher um assunto</BotaoLink>}
+            >
+              <p>
+                Você já cobriu o que estava na fila. Escolher um assunto novo por conta própria
+                é uma boa alternativa.
+              </p>
+            </Vazio>
+          ) : (
+            <>
+              <ul className={s.plano}>
+                {plano.itens.map((item, i) => (
+                  <li
+                    key={item.id}
+                    className={`${s.item} ${i === 0 && !item.concluido ? s.itemPrincipal : ''} ${
+                      item.concluido ? s.itemConcluido : ''
+                    }`}
+                    style={{ animationDelay: `${Math.min(i, 5) * 50}ms` }}
+                  >
+                    <button
+                      type="button"
+                      className={`${s.marcar} ${item.concluido ? s.marcarFeito : ''}`}
+                      onClick={() => concluirItemPlano(item.id)}
+                      aria-pressed={item.concluido}
+                      aria-label={
+                        item.concluido
+                          ? `Desmarcar ${item.titulo} como concluído`
+                          : `Marcar ${item.titulo} como concluído`
+                      }
+                    >
+                      <span className={s.marcarCirculo} aria-hidden="true">
+                        {item.concluido && (
+                          <svg viewBox="0 0 16 16" width="14" height="14">
+                            <path
+                              d="M3 8.5l3.5 3.5L13 5"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.4"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        )}
+                      </span>
+                    </button>
+
+                    <div className={s.corpo}>
+                      <div className={s.itemTopo}>
+                        <span className={s.itemTipo}>{ROTULO_TIPO[item.tipo]}</span>
+                        {item.subtitulo && (
+                          <span className={s.itemSubtitulo}>{item.subtitulo}</span>
+                        )}
+                      </div>
+                      <Link to={item.href} className={s.itemTitulo}>
+                        {item.titulo}
+                      </Link>
+                      <p className={s.motivo}>{item.motivo}</p>
+                    </div>
+
+                    <span className={s.minutos}>{item.minutos} min</span>
+                  </li>
+                ))}
+              </ul>
+
+              <p className={s.resumoPlano}>
+                <span>
+                  {restantes.length > 0
+                    ? `${plano.minutosPlanejados} de ${plano.orcamento} min planejados · ${restantes.length} ${
+                        restantes.length === 1 ? 'item restante' : 'itens restantes'
+                      }`
+                    : 'Tudo concluído hoje. Bom trabalho.'}
+                </span>
+                {plano.revisoesAdiadas > 0 && (
+                  <span>
+                    {plano.revisoesAdiadas}{' '}
+                    {plano.revisoesAdiadas === 1 ? 'revisão adiada' : 'revisões adiadas'} para
+                    caber no seu tempo
+                  </span>
+                )}
+              </p>
+
+              <p className={s.faseTexto}>{fase.explicacao}</p>
+            </>
+          )}
+        </section>
+
+        {pendentes.length > 0 && (
+          <section className="secao" aria-labelledby="revisao-titulo">
+            <div className="secao-cabecalho">
+              <h2 id="revisao-titulo" className="secao-titulo">
+                Revisão pendente
+              </h2>
+              <span className="secao-meta">
+                {pendentes.length} {pendentes.length === 1 ? 'assunto' : 'assuntos'}
+              </span>
+            </div>
+            <p className="subtitulo">
+              Revisar no dia certo é o que impede que o estudo desta semana evapore em duas.
+            </p>
+            <div className="acoes">
+              <BotaoLink to="/revisao">Ver a fila de revisão</BotaoLink>
+            </div>
+          </section>
+        )}
+
+        {padrao.frase && padrao.dominante && (
+          <section className="secao" aria-labelledby="erros-titulo">
+            <div className="secao-cabecalho">
+              <h2 id="erros-titulo" className="secao-titulo">
+                Padrão nos seus erros
+              </h2>
+            </div>
+            <div className={s.diagnostico}>
+              <p className={s.diagnosticoFrase}>{padrao.frase}</p>
+              <p className={s.diagnosticoTexto}>{EXPLICACAO_TIPO_ERRO[padrao.dominante]}</p>
+            </div>
+          </section>
+        )}
+
+        <section className="secao" aria-labelledby="dominio-titulo">
+          <div className="secao-cabecalho">
+            <h2 id="dominio-titulo" className="secao-titulo">
+              Seu domínio por área
+            </h2>
+            <Link to="/progresso" className="secao-meta">
+              Ver detalhes
+            </Link>
+          </div>
+          <div className={s.areas}>
+            {AREAS.filter((a) => a.id !== 'redacao').map((area) => {
+              const assuntos = assuntosDaArea(area.id);
+              const avaliados = assuntos
+                .map((a) => progresso.assuntos[a.id]?.dominio)
+                .filter((d): d is number => typeof d === 'number');
+              const media =
+                avaliados.length > 0
+                  ? avaliados.reduce((acc, d) => acc + d, 0) / assuntos.length
+                  : null;
+              return (
+                <Link
+                  key={area.id}
+                  to={`/area/${area.id}`}
+                  className={s.areaLinha}
+                  data-area={area.id}
+                >
+                  <span className={s.areaMarca} aria-hidden="true" />
+                  <span className={s.areaCorpo}>
+                    <span className={s.areaTopo}>
+                      <span className={s.areaNome}>{area.nomeCurto}</span>
+                      <span className={s.areaFaixa}>
+                        {media === null
+                          ? 'Não avaliado'
+                          : `${ROTULO_FAIXA[faixaDeDominio(media)]} · ${avaliados.length}/${assuntos.length} assuntos`}
+                      </span>
+                    </span>
+                    <BarraDominio dominio={media} rotulo={area.nomeCurto} />
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        {comecou && (
+          <div className="acoes">
+            <BotaoLink to="/diagnostico" variante="secundario">
+              Refazer diagnóstico
             </BotaoLink>
           </div>
-        </div>
-      )}
-
-      {/* O h1 acima já nomeia esta região; um h2 oculto seria só duplicação. */}
-      <section aria-label="Itens do plano de hoje">
-        {plano.itens.length === 0 ? (
-          <Vazio titulo="Nada planejado para hoje" acao={<BotaoLink to="/areas">Escolher um assunto</BotaoLink>}>
-            <p style={{ margin: '0 auto' }}>
-              Você já cobriu o que estava na fila. Escolher um assunto novo por conta própria
-              é uma boa alternativa.
-            </p>
-          </Vazio>
-        ) : (
-          <>
-            <ul className={s.plano}>
-              {plano.itens.map((item, i) => (
-                <li
-                  key={item.id}
-                  className={`${s.item} ${
-                    i === 0 && !item.concluido ? s.itemPrincipal : ''
-                  } ${item.concluido ? s.itemConcluido : ''}`}
-                >
-                  <button
-                    type="button"
-                    className={`${s.marcar} ${item.concluido ? s.marcarFeito : ''}`}
-                    onClick={() => concluirItemPlano(item.id)}
-                    aria-pressed={item.concluido}
-                    aria-label={
-                      item.concluido
-                        ? `Desmarcar ${item.titulo} como concluído`
-                        : `Marcar ${item.titulo} como concluído`
-                    }
-                  >
-                    <span className={s.marcarCirculo} aria-hidden="true">
-                      {item.concluido && (
-                        <svg viewBox="0 0 16 16" width="14" height="14">
-                          <path
-                            d="M3 8.5l3.5 3.5L13 5"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      )}
-                    </span>
-                  </button>
-
-                  <div className={s.corpo}>
-                    <div className={s.itemTopo}>
-                      <span className={s.itemTipo}>{ROTULO_TIPO[item.tipo]}</span>
-                      {item.subtitulo && <span className={s.areaFaixa}>{item.subtitulo}</span>}
-                    </div>
-                    <Link to={item.href} className={s.itemTitulo}>
-                      {item.titulo}
-                    </Link>
-                    <p className={s.motivo}>{item.motivo}</p>
-                  </div>
-
-                  <span className={s.minutos}>{item.minutos} min</span>
-                </li>
-              ))}
-            </ul>
-
-            <p className={s.metaNumero} style={{ marginTop: 'var(--s-4)' }}>
-              {restantes.length > 0
-                ? `${plano.minutosPlanejados} de ${plano.orcamento} min planejados · ${restantes.length} ${
-                    restantes.length === 1 ? 'item restante' : 'itens restantes'
-                  }`
-                : 'Tudo concluído hoje. Bom trabalho.'}
-              {plano.revisoesAdiadas > 0 &&
-                ` · ${plano.revisoesAdiadas} ${
-                  plano.revisoesAdiadas === 1 ? 'revisão adiada' : 'revisões adiadas'
-                } para caber no seu tempo`}
-            </p>
-
-            <p className={s.faseTexto}>{fase.explicacao}</p>
-          </>
         )}
-      </section>
-
-      {pendentes.length > 0 && (
-        <section className="secao" aria-labelledby="revisao-titulo">
-          <div className="secao-cabecalho">
-            <h2 id="revisao-titulo" className="secao-titulo">
-              Revisão pendente
-            </h2>
-            <span className="secao-meta">
-              {pendentes.length} {pendentes.length === 1 ? 'assunto' : 'assuntos'}
-            </span>
-          </div>
-          <p style={{ color: 'var(--ink-2)' }}>
-            Revisar no dia certo é o que impede que o estudo de hoje evapore em duas semanas.
-          </p>
-          <div className="acoes">
-            <BotaoLink to="/revisao">Ver a fila de revisão</BotaoLink>
-          </div>
-        </section>
-      )}
-
-      {padrao.frase && padrao.dominante && (
-        <section className="secao" aria-labelledby="erros-titulo">
-          <div className="secao-cabecalho">
-            <h2 id="erros-titulo" className="secao-titulo">
-              Padrão nos seus erros
-            </h2>
-          </div>
-          <div className={s.diagnostico}>
-            <p className={s.diagnosticoFrase}>{padrao.frase}</p>
-            <p>{EXPLICACAO_TIPO_ERRO[padrao.dominante]}</p>
-          </div>
-        </section>
-      )}
-
-      <section className="secao" aria-labelledby="dominio-titulo">
-        <div className="secao-cabecalho">
-          <h2 id="dominio-titulo" className="secao-titulo">
-            Seu domínio por área
-          </h2>
-          <Link to="/progresso" className="secao-meta">
-            Ver detalhes
-          </Link>
-        </div>
-        <div className={s.areas}>
-          {AREAS.filter((a) => a.id !== 'redacao').map((area) => {
-            const assuntos = assuntosDaArea(area.id);
-            const avaliados = assuntos
-              .map((a) => progresso.assuntos[a.id]?.dominio)
-              .filter((d): d is number => typeof d === 'number');
-            const media =
-              avaliados.length > 0
-                ? avaliados.reduce((acc, d) => acc + d, 0) / assuntos.length
-                : null;
-            return (
-              <Link key={area.id} to={`/area/${area.id}`} className={s.areaLinha}>
-                <div className={s.areaTopo}>
-                  <span className={s.areaNome}>{area.nomeCurto}</span>
-                  <span className={s.areaFaixa}>
-                    {media === null
-                      ? 'Não avaliado'
-                      : `${ROTULO_FAIXA[faixaDeDominio(media)]} · ${avaliados.length}/${assuntos.length} assuntos`}
-                  </span>
-                </div>
-                <BarraDominio dominio={media} rotulo={area.nomeCurto} />
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {comecou && (
-        <div className="acoes">
-          {/* Navegação por rota: window.location recarregaria a aplicação inteira. */}
-          <BotaoLink to="/diagnostico" variante="secundario">
-            Refazer diagnóstico
-          </BotaoLink>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -29,7 +29,7 @@ npm run preview    # serve o build
 npm run validate   # regras editoriais do conteúdo
 npm run typecheck  # tipos
 npm run test       # 51 testes de motor e de fluxo (Vitest + Testing Library)
-npm run test:e2e   # 48 testes de navegador (Playwright, desktop e celular)
+npm run test:e2e   # 62 testes de navegador (Playwright, desktop e celular)
 npm run test:all   # tudo acima
 ```
 
@@ -51,7 +51,7 @@ BASE_PATH=/Estudos-enem/ npm run build
 ```
 src/
   app/          rotas, layout e navegação
-  design/       tokens, primitivos visuais e diagramas SVG próprios
+  design/       tokens.css · base.css · Marca · Pagina · Primitivos · Diagramas
   content/      catalogo.ts (metadados, leve) · conteudo.ts (texto, pesado)
                 matriz.ts (texto oficial do INEP) · topicos/ · questoes/ · redacao/
   engine/       funções puras: domínio, prioridade, revisão, plano diário, erros
@@ -69,6 +69,20 @@ Duas decisões que explicam o resto:
 - **Metadados e conteúdo são separados.** O dashboard carrega só os metadados dos assuntos;
   o texto de um assunto só é baixado quando ele é aberto. O bundle inicial fica em ~77 kB
   gzip, e o validador impede que catálogo e conteúdo divirjam.
+
+## Identidade visual
+
+O sistema de design é derivado do [GovBR Design System](https://www.gov.br/ds/) 3.7 — rampa de
+azul e cinza, cores de feedback, tipografia Rawline, escala de espaçamento de 8px, breakpoints de
+grid e o anel de foco dourado vêm de lá, lidos do pacote `@govbr-ds/core` no npm.
+
+A identidade construída sobre essa base é própria: a assinatura *ENEM Estudos*, o símbolo de
+cartão-resposta, os grafismos geométricos e os acentos por área não existem no gov.br. **O site
+não é uma publicação do governo, não usa o logotipo do ENEM ou do INEP e não se apresenta como
+material oficial** — é um projeto pessoal de estudo que cita fontes oficiais.
+
+O raciocínio de cada decisão, os achados da auditoria visual e as limitações estão em
+[`docs/ETAPA-5-REDESIGN.md`](docs/ETAPA-5-REDESIGN.md).
 
 ## Procedência do conteúdo
 
@@ -96,4 +110,5 @@ questões oficiais foram determinadas por resolução — ver
 - [Etapa 1 — Pesquisa, estratégia e especificação](docs/ETAPA-1-ESPECIFICACAO.md)
 - [Etapa 3 — Auditoria, testes e refinamento](docs/ETAPA-3-AUDITORIA.md)
 - [Etapa 4 — Incorporação das fontes oficiais](docs/ETAPA-4-FONTES-OFICIAIS.md)
+- [Etapa 5 — Redesenho visual institucional](docs/ETAPA-5-REDESIGN.md)
 - [Como adicionar questões oficiais](docs/ADICIONAR-QUESTOES.md)

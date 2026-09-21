@@ -5,6 +5,7 @@ import { ASSUNTO_POR_ID, QUESTOES } from '@/content/conteudo';
 import { useProgresso } from '@/lib/progresso';
 import { conceitosFrageis } from '@/engine/erros';
 import { Botao, BotaoLink, Vazio } from '@/design/Primitivos';
+import { CabecalhoPagina } from '@/design/Pagina';
 import { PlayerQuestao } from './PlayerQuestao';
 import { definirTitulo } from '@/lib/titulo';
 import type { AreaId } from '@/content/tipos';
@@ -59,120 +60,145 @@ export function Praticar() {
   const questao = questoes[indice];
   const assuntoAtual = assuntoFiltro ? ASSUNTO_POR_ID.get(assuntoFiltro) : undefined;
 
+  const oficiais = questoes.filter((q) => q.procedencia === 'oficial').length;
+
   return (
     <div className="page">
-      <header className="cabecalho-pagina">
-        <h1>Praticar</h1>
-        <p className="subtitulo">
-          Uma questão por vez, com correção explicada. Errar aqui é barato — é exatamente
-          para isso que serve.
-        </p>
-      </header>
+      <CabecalhoPagina
+        rotulo="Prática dirigida"
+        titulo="Praticar"
+        descricao="Uma questão por vez, com correção explicada. Errar aqui é barato — é exatamente para isso que serve."
+      />
 
-      <div className={s.filtros} role="group" aria-label="Filtros de questões">
-        <button
-          type="button"
-          className={`${s.filtro} ${
-            !areaFiltro && !assuntoFiltro && !conceitoFiltro && !soErradas && !soOficiais
-              ? s.filtroAtivo
-              : ''
-          }`}
-          onClick={() => setParams({}, { replace: true })}
-        >
-          Todas
-        </button>
-        {AREAS.filter((a) => a.id !== 'redacao').map((area) => (
-          <button
-            key={area.id}
-            type="button"
-            className={`${s.filtro} ${areaFiltro === area.id ? s.filtroAtivo : ''}`}
-            aria-pressed={areaFiltro === area.id}
-            onClick={() => alternarFiltro('area', area.id)}
-          >
-            {area.nomeCurto}
-          </button>
-        ))}
-        <button
-          type="button"
-          className={`${s.filtro} ${soErradas ? s.filtroAtivo : ''}`}
-          aria-pressed={soErradas}
-          onClick={() => alternarFiltro('erradas', '1')}
-        >
-          Só os conceitos que errei
-        </button>
-        <button
-          type="button"
-          className={`${s.filtro} ${soOficiais ? s.filtroAtivo : ''}`}
-          aria-pressed={soOficiais}
-          onClick={() => alternarFiltro('oficiais', '1')}
-        >
-          Só questões oficiais
-        </button>
+      <div className={s.barraFiltros}>
+        <div className={`container ${s.filtrosInterno}`}>
+          <span className={s.filtrosRotulo} aria-hidden="true">
+            Filtrar
+          </span>
+          <div className={s.filtros} role="group" aria-label="Filtros de questões">
+            <button
+              type="button"
+              className={`${s.filtro} ${
+                !areaFiltro && !assuntoFiltro && !conceitoFiltro && !soErradas && !soOficiais
+                  ? s.filtroAtivo
+                  : ''
+              }`}
+              onClick={() => setParams({}, { replace: true })}
+            >
+              Todas
+            </button>
+            {AREAS.filter((a) => a.id !== 'redacao').map((area) => (
+              <button
+                key={area.id}
+                type="button"
+                className={`${s.filtro} ${areaFiltro === area.id ? s.filtroAtivo : ''}`}
+                aria-pressed={areaFiltro === area.id}
+                onClick={() => alternarFiltro('area', area.id)}
+              >
+                {area.nomeCurto}
+              </button>
+            ))}
+            <button
+              type="button"
+              className={`${s.filtro} ${soErradas ? s.filtroAtivo : ''}`}
+              aria-pressed={soErradas}
+              onClick={() => alternarFiltro('erradas', '1')}
+            >
+              Só os conceitos que errei
+            </button>
+            <button
+              type="button"
+              className={`${s.filtro} ${soOficiais ? s.filtroAtivo : ''}`}
+              aria-pressed={soOficiais}
+              onClick={() => alternarFiltro('oficiais', '1')}
+            >
+              Só questões oficiais
+            </button>
+          </div>
+        </div>
       </div>
 
-      {(assuntoAtual || conceitoFiltro) && (
-        <p className={s.contador}>
-          <span>
-            Filtrando por {assuntoAtual ? `assunto: ${assuntoAtual.titulo}` : `conceito: ${conceitoFiltro}`}
-          </span>
-          <Botao variante="discreto" onClick={() => setParams({}, { replace: true })}>
-            Limpar filtro
-          </Botao>
-        </p>
-      )}
-
-      {questoes.length === 0 ? (
-        <Vazio
-          titulo={soErradas ? 'Nenhum conceito pendente' : 'Nenhuma questão com esses filtros'}
-          acao={<Botao onClick={() => setParams({}, { replace: true })}>Ver todas as questões</Botao>}
-        >
-          <p style={{ margin: '0 auto' }}>
-            {soErradas
-              ? 'Você não tem conceitos em que tenha errado mais do que acertado. Isso é uma boa notícia.'
-              : soOficiais
-                ? 'Não há questão oficial com esses filtros. Tente ampliar a área selecionada.'
-                : 'Tente remover algum filtro.'}
-          </p>
-        </Vazio>
-      ) : (
-        <>
-          <p className={s.contador}>
-            <span>
-              Questão {indice + 1} de {questoes.length}
-            </span>
-          </p>
-
-          {questao && (
-            <PlayerQuestao
-              questao={questao}
-              rotuloAvancar="Próxima questão"
-              {...(indice < questoes.length - 1
-                ? { aoAvancar: () => setIndice((i) => i + 1) }
-                : {})}
-            />
+      <div className="container">
+        <div className="secao">
+          {(assuntoAtual || conceitoFiltro) && (
+            <p className={s.filtroAplicado}>
+              <span>
+                Filtrando por{' '}
+                {assuntoAtual ? `assunto: ${assuntoAtual.titulo}` : `conceito: ${conceitoFiltro}`}
+              </span>
+              <Botao variante="terciario" onClick={() => setParams({}, { replace: true })}>
+                Limpar filtro
+              </Botao>
+            </p>
           )}
 
-          <div className={s.navegacao}>
-            <Botao
-              variante="secundario"
-              onClick={() => setIndice((i) => Math.max(0, i - 1))}
-              disabled={indice === 0}
+          {questoes.length === 0 ? (
+            <Vazio
+              titulo={soErradas ? 'Nenhum conceito pendente' : 'Nenhuma questão com esses filtros'}
+              acao={
+                <Botao onClick={() => setParams({}, { replace: true })}>Ver todas as questões</Botao>
+              }
             >
-              Anterior
-            </Botao>
-            <Botao
-              variante="secundario"
-              onClick={() => setIndice((i) => Math.min(questoes.length - 1, i + 1))}
-              disabled={indice >= questoes.length - 1}
-            >
-              Pular para a próxima
-            </Botao>
-            <BotaoLink to="/" variante="discreto">
-              Voltar ao plano de hoje
-            </BotaoLink>
-          </div>
-        </>
-      )}
+              <p>
+                {soErradas
+                  ? 'Você não tem conceitos em que tenha errado mais do que acertado. Isso é uma boa notícia.'
+                  : soOficiais
+                    ? 'Não há questão oficial com esses filtros. Tente ampliar a área selecionada.'
+                    : 'Tente remover algum filtro.'}
+              </p>
+            </Vazio>
+          ) : (
+            <>
+              <div className={s.regua}>
+                <span className={s.reguaTexto}>
+                  Questão {indice + 1} de {questoes.length}
+                </span>
+                <span className={s.reguaMeta}>
+                  {oficiais > 0
+                    ? `${oficiais} ${oficiais > 1 ? 'oficiais' : 'oficial'} nesta seleção`
+                    : 'seleção sem questão oficial'}
+                </span>
+              </div>
+              <div className={s.reguaTrilho} aria-hidden="true">
+                <span
+                  className={s.reguaPreenchida}
+                  style={{ width: `${((indice + 1) / questoes.length) * 100}%` }}
+                />
+              </div>
+
+              {questao && (
+                <PlayerQuestao
+                  questao={questao}
+                  rotuloAvancar="Próxima questão"
+                  {...(indice < questoes.length - 1
+                    ? { aoAvancar: () => setIndice((i) => i + 1) }
+                    : {})}
+                />
+              )}
+
+              <div className={s.navegacao}>
+                <Botao
+                  variante="secundario"
+                  onClick={() => setIndice((i) => Math.max(0, i - 1))}
+                  disabled={indice === 0}
+                >
+                  Anterior
+                </Botao>
+                <Botao
+                  variante="secundario"
+                  onClick={() => setIndice((i) => Math.min(questoes.length - 1, i + 1))}
+                  disabled={indice >= questoes.length - 1}
+                >
+                  Pular para a próxima
+                </Botao>
+                <BotaoLink to="/" variante="terciario">
+                  Voltar ao plano de hoje
+                </BotaoLink>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

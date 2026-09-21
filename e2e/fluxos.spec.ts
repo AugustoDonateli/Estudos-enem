@@ -27,12 +27,48 @@ async function temRolagemHorizontal(pagina: Page) {
   return pagina.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
 }
 
+/**
+ * Elementos que ultrapassam a borda do viewport de layout.
+ *
+ * Só medir rolagem horizontal não basta: na emulação de celular, o Chrome
+ * alarga o viewport de layout e reduz a página inteira quando algo não cabe.
+ * O resultado é um site que abre "com zoom para fora" no telefone, sem nunca
+ * produzir barra de rolagem — foi exatamente assim que a faixa de filtros e a
+ * navegação de blocos passaram despercebidas. Aqui a conta é feita contra a
+ * largura real do documento, e filhos de faixas roláveis são ignorados porque
+ * passam da borda de propósito.
+ */
+async function elementosForaDaBorda(pagina: Page) {
+  return pagina.evaluate(() => {
+    const limite = document.documentElement.clientWidth;
+    const fora: string[] = [];
+    for (const el of document.querySelectorAll('body *')) {
+      const r = el.getBoundingClientRect();
+      if (r.width === 0) continue;
+      let rolavel = false;
+      for (let a = el.parentElement; a; a = a.parentElement) {
+        const ox = getComputedStyle(a).overflowX;
+        if (ox === 'auto' || ox === 'scroll' || ox === 'hidden') {
+          rolavel = true;
+          break;
+        }
+      }
+      if (rolavel) continue;
+      if (r.right > limite + 1 || r.left < -1) {
+        fora.push(`${el.tagName}.${el.className} (${Math.round(r.left)}…${Math.round(r.right)})`);
+      }
+    }
+    return fora.slice(0, 5);
+  });
+}
+
 test.describe('responsividade', () => {
   for (const rota of ROTAS) {
     test(`sem rolagem horizontal em ${rota}`, async ({ page }) => {
       await page.goto(rota);
       await expect(page.locator('h1').first()).toBeVisible();
       expect(await temRolagemHorizontal(page)).toBe(false);
+      expect(await elementosForaDaBorda(page)).toEqual([]);
     });
   }
 
@@ -40,7 +76,7 @@ test.describe('responsividade', () => {
     await page.goto('/assunto/mat-porcentagem');
     const largura = await page
       .locator('#b2')
-      .locator('xpath=following-sibling::div//p')
+      .locator('xpath=ancestor::section[1]//p')
       .first()
       .evaluate((el) => el.getBoundingClientRect().width);
     // 68ch em ~17px fica em torno de 620px; o teto evita linha cansativa no desktop.
@@ -138,7 +174,7 @@ test.describe('contraste', () => {
    * A regra do projeto é 4.5:1 para texto normal e 3:1 para texto grande
    * (≥ 24px, ou ≥ 18.66px em negrito), conforme a WCAG AA.
    */
-  for (const rota of ['/', '/assunto/mat-porcentagem', '/questoes', '/redacao', '/progresso']) {
+  for (const rota of ROTAS) {
     test(`texto legível em ${rota}`, async ({ page }) => {
       await page.goto(rota);
       const falhas = await page.evaluate(() => {

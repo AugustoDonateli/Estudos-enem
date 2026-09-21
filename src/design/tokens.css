@@ -1,79 +1,187 @@
 /*
- * Tokens do sistema visual.
- * Princípio: papel e tinta. A tipografia carrega a hierarquia; a cor significa,
- * não decora. Um único acento de marca + três cores semânticas restritas ao
- * feedback de questão.
+ * Tokens do sistema visual — ENEM Estudos.
+ *
+ * Derivados do GovBR Design System (Padrão Digital de Governo), versão 3.7.
+ * Os valores de cor, a escala tipográfica (base 14px, razão 1,2), a escala de
+ * espaçamento (base 8px), os breakpoints de grid e os tempos de animação são
+ * os oficiais. A identidade construída sobre eles é própria: a assinatura
+ * ENEM Estudos, os grafismos geométricos e o sistema de acentos por área não
+ * existem no gov.br.
+ *
+ * Referência: @govbr-ds/core — src/partial/scss/configs/
  */
+
 :root {
-  /* --- Superfície e tinta --- */
-  --paper: #ffffff;
-  --paper-2: #faf9f7;
-  --paper-3: #f3f1ed;
-  --ink: #17161a;
-  /* Medidos contra --paper e contra os fundos tingidos (--accent-soft,
-     --warn-soft): todos acima de 4.5:1. O valor anterior de --ink-3 (#8a8792)
-     ficava em 3.3:1 e reprovava em texto de metadado. */
-  --ink-2: #4a4852;
-  --ink-3: #6b6875;
-  --line: #e6e3dd;
-  --line-strong: #d3cfc7;
+  /* ================================================================
+     1. PALETA INSTITUCIONAL
+     Azul quente vívido é a cor interativa do governo federal.
+     ================================================================ */
+  --azul-90: #071d41; /* estrutura: faixas, rodapé, cabeçalho institucional */
+  --azul-80: #0c326f; /* hover de superfícies escuras */
+  --azul-70: #1351b4; /* PRIMÁRIA: ações, links, estado ativo */
+  --azul-60: #155bcb;
+  --azul-50: #2670e8;
+  --azul-40: #5992ed;
+  --azul-30: #81aefc;
+  --azul-20: #adcdff;
+  --azul-10: #d4e5ff; /* bordas de destaque */
+  --azul-5: #edf5ff; /* fundo de destaque */
 
-  /* --- Acento único: azul-tinta --- */
-  --accent: #1c4e80;
-  --accent-hover: #16406a;
-  --accent-soft: #eaf0f7;
-  --accent-line: #c3d4e6;
+  /* Neutros --------------------------------------------------------- */
+  --cinza-90: #1b1b1b; /* texto principal */
+  --cinza-80: #333333;
+  --cinza-70: #555555;
+  --cinza-60: #636363; /* texto secundário — 5,9:1 em branco */
+  --cinza-50: #757575; /* limite inferior aceitável: 4,6:1 */
+  --cinza-40: #888888;
+  --cinza-30: #adadad;
+  --cinza-20: #cccccc; /* bordas de contorno */
+  --cinza-10: #e6e6e6; /* divisores */
+  --cinza-5: #f0f0f0;
+  --cinza-3: #f6f6f6; /* superfície alternada */
+  --cinza-2: #f8f8f8;
+  --cinza-1: #fcfcfc;
+  --branco: #ffffff;
 
-  /* --- Semânticas: só em feedback de questão e estado de domínio --- */
-  --ok: #1b7a4b;
-  --ok-soft: #e8f4ed;
-  --warn: #8a5d0f;
-  --warn-soft: #fbf2e0;
-  --no: #b32a2a;
-  --no-soft: #fbeceb;
+  /* Funcionais — usadas só para significar estado, nunca para decorar */
+  --sucesso: #168821;
+  --sucesso-fundo: #e3f5e1;
+  --sucesso-escuro: #154c21;
+  --alerta: #ffcd07;
+  --alerta-fundo: #fef0c8;
+  --alerta-escuro: #7a591a; /* texto sobre fundo claro: 5,8:1 */
+  --perigo: #e52207;
+  --perigo-fundo: #fde0db;
+  --perigo-escuro: #8b0a03;
+  --info: #155bcb;
+  --info-fundo: #edf5ff;
 
-  /* --- Tipografia --- */
-  --font-title: 'Source Serif 4 Variable', Georgia, 'Times New Roman', serif;
-  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-    Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  /* Foco: anel dourado tracejado, assinatura de acessibilidade do gov.br */
+  --foco: #c2850c;
+  --foco-largura: 4px;
 
-  /* Escala modular 1.2 */
-  --t-12: 0.75rem;
-  --t-14: 0.875rem;
-  --t-16: 1rem;
-  --t-19: 1.1875rem;
-  --t-23: 1.4375rem;
-  --t-28: 1.75rem;
-  --t-33: 2.0625rem;
+  /* ================================================================
+     2. ACENTOS POR ÁREA
+     Todos vêm da paleta oficial e todos passam de 6,5:1 em branco.
+     Servem para orientação, não para hierarquia: a cor da marca continua
+     sendo o azul institucional.
+     ================================================================ */
+  --area-linguagens: #864381;
+  --area-linguagens-fundo: #f6dff8;
+  --area-humanas: #a72f10;
+  --area-humanas-fundo: #ffe2d1;
+  --area-natureza: #0f6460;
+  --area-natureza-fundo: #d5fbf3;
+  --area-matematica: #07648d;
+  --area-matematica-fundo: #c3ebfa;
+  --area-redacao: #ab2165;
+  --area-redacao-fundo: #ffddea;
 
-  --lh-tight: 1.2;
-  --lh-snug: 1.35;
-  --lh-body: 1.65;
+  /* Acento em uso: cada página de área redefine estas duas variáveis. */
+  --acento: var(--azul-70);
+  --acento-fundo: var(--azul-5);
 
-  /* --- Espaço: grade de 4px --- */
-  --s-1: 0.25rem;
-  --s-2: 0.5rem;
-  --s-3: 0.75rem;
-  --s-4: 1rem;
-  --s-6: 1.5rem;
-  --s-8: 2rem;
-  --s-12: 3rem;
-  --s-16: 4rem;
+  /* ================================================================
+     3. TIPOGRAFIA
+     Rawline com Raleway de reserva — o par oficial do governo federal.
+     ================================================================ */
+  --fonte: 'Rawline', 'Raleway Variable', 'Raleway', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --fonte-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
-  /* --- Forma --- */
-  --radius: 6px;
-  --radius-sm: 4px;
-  --shadow: 0 1px 2px rgba(23, 22, 26, 0.05), 0 4px 12px rgba(23, 22, 26, 0.06);
+  /* Escala 1,2 sobre base de 14px, como no DS oficial */
+  --t-down-02: 0.607rem; /* 9,7px  — apenas metadados muito secundários */
+  --t-down-01: 0.729rem; /* 11,7px */
+  --t-base: 0.875rem; /*   14px  — interface */
+  --t-up-01: 1.05rem; /*   16,8px — corpo de texto */
+  --t-up-02: 1.26rem; /*   20,2px */
+  --t-up-03: 1.512rem; /*  24,2px */
+  --t-up-04: 1.814rem; /*  29,0px */
+  --t-up-05: 2.177rem; /*  34,8px */
+  --t-up-06: 2.613rem; /*  41,8px */
 
-  /* --- Medida de leitura --- */
-  --measure: 68ch;
-  --page: 1080px;
+  --peso-regular: 400;
+  --peso-medio: 500;
+  --peso-semibold: 600;
+  --peso-bold: 700;
+  --peso-extrabold: 800;
 
-  /* --- Movimento --- */
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --fast: 120ms;
-  --normal: 180ms;
+  --lh-baixa: 1.15;
+  --lh-media: 1.45;
+  --lh-alta: 1.65;
+
+  /* ================================================================
+     4. ESPAÇAMENTO — base 8px
+     ================================================================ */
+  --e-half: 4px;
+  --e-base: 8px;
+  --e-baseh: 12px;
+  --e-2x: 16px;
+  --e-3x: 24px;
+  --e-4x: 32px;
+  --e-5x: 40px;
+  --e-6x: 48px;
+  --e-7x: 56px;
+  --e-8x: 64px;
+  --e-10x: 80px;
+  --e-12x: 96px;
+
+  /* ================================================================
+     5. GRID — breakpoints e larguras máximas oficiais
+     ================================================================ */
+  --bp-sm: 576px;
+  --bp-md: 992px;
+  --bp-lg: 1280px;
+  --largura-container: 1200px;
+  /* Faixa institucional + cabeçalho fixo. Quem rola até uma âncora precisa
+     desta folga, e quem gruda algo no topo precisa deste offset. */
+  --altura-cabecalho: 104px;
+  --largura-leitura: 46rem; /* coluna de texto corrido */
+  --medida: 68ch;
+
+  /* ================================================================
+     6. SUPERFÍCIE
+     Cantos discretos e sombras rasas: institucional, não "app".
+     ================================================================ */
+  --raio: 4px;
+  --raio-lg: 8px;
+  --borda: 1px;
+  --borda-forte: 2px;
+  --sombra-1: 0 1px 2px rgba(7, 29, 65, 0.08);
+  --sombra-2: 0 2px 6px rgba(7, 29, 65, 0.1);
+
+  /* ================================================================
+     7. MOVIMENTO — durações e curva oficiais
+     ================================================================ */
+  --d-muito-rapida: 100ms;
+  --d-rapida: 200ms;
+  --d-moderada: 320ms;
+  --d-lenta: 500ms;
+  --curva: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --curva-saida: cubic-bezier(0, 0, 0.58, 1);
+  --curva-entrada: cubic-bezier(0.42, 0, 1, 1);
+}
+
+/* Acentos por área — aplicados via data-area em qualquer contêiner. */
+[data-area='linguagens'] {
+  --acento: var(--area-linguagens);
+  --acento-fundo: var(--area-linguagens-fundo);
+}
+[data-area='humanas'] {
+  --acento: var(--area-humanas);
+  --acento-fundo: var(--area-humanas-fundo);
+}
+[data-area='natureza'] {
+  --acento: var(--area-natureza);
+  --acento-fundo: var(--area-natureza-fundo);
+}
+[data-area='matematica'] {
+  --acento: var(--area-matematica);
+  --acento-fundo: var(--area-matematica-fundo);
+}
+[data-area='redacao'] {
+  --acento: var(--area-redacao);
+  --acento-fundo: var(--area-redacao-fundo);
 }
 
 @media (prefers-reduced-motion: reduce) {

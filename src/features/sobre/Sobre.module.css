@@ -1,0 +1,173 @@
+/* --- Os três níveis --------------------------------------------------
+   Três colunas com numeração e filete no topo. A distinção entre oficial,
+   análise e autoral é a regra editorial mais importante do projeto —
+   merece composição própria, não três parágrafos empilhados. */
+.niveis {
+  display: grid;
+  gap: var(--e-4x);
+  counter-reset: nivel;
+}
+
+@media (min-width: 768px) {
+  .niveis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--e-4x);
+  }
+}
+
+.nivel {
+  padding-top: var(--e-2x);
+  border-top: 4px solid var(--cinza-90);
+}
+
+.nivel:nth-child(1) {
+  border-top-color: var(--sucesso);
+}
+
+.nivel:nth-child(2) {
+  border-top-color: var(--azul-70);
+}
+
+.nivel:nth-child(3) {
+  border-top-color: var(--cinza-60);
+}
+
+.nivelRotulo {
+  display: block;
+  font-size: var(--t-down-02);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cinza-60);
+  margin-bottom: var(--e-base);
+}
+
+.nivelTitulo {
+  display: block;
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-bold);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--e-base);
+}
+
+.nivel p {
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  max-width: var(--medida);
+}
+
+/* --- Contagem por procedência ---------------------------------------- */
+.contagens {
+  list-style: none;
+  margin: var(--e-4x) 0 0;
+  padding: 0;
+  border-top: var(--borda-forte) solid var(--cinza-90);
+}
+
+.contagem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--e-base) var(--e-2x);
+  padding: var(--e-2x) 0;
+  border-bottom: var(--borda) solid var(--cinza-10);
+}
+
+.contagemTexto {
+  flex: 1;
+  min-width: 220px;
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+}
+
+.contagemNumero {
+  font-size: var(--t-up-03);
+  font-weight: var(--peso-extrabold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--cinza-90);
+}
+
+/* --- Fontes oficiais -------------------------------------------------
+   Lista de referências, no espírito de uma bibliografia institucional. */
+.fontes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--borda-forte) solid var(--cinza-90);
+  counter-reset: fonte;
+}
+
+.fonte {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: var(--e-2x);
+  padding: var(--e-3x) 0;
+  border-bottom: var(--borda) solid var(--cinza-10);
+}
+
+.fonte::before {
+  counter-increment: fonte;
+  content: counter(fonte, decimal-leading-zero);
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  color: var(--cinza-40);
+  font-variant-numeric: tabular-nums;
+  padding-top: 2px;
+}
+
+.fonteNome {
+  font-size: var(--t-up-01);
+  font-weight: var(--peso-semibold);
+  color: var(--azul-70);
+  text-decoration: none;
+}
+
+.fonteNome:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Marcador de link externo: o aluno sai do site ao clicar. */
+.fonteNome::after {
+  content: '↗';
+  display: inline-block;
+  margin-left: var(--e-half);
+  font-size: 0.85em;
+  color: var(--cinza-60);
+}
+
+.fonteDescricao {
+  display: block;
+  margin-top: var(--e-half);
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  max-width: var(--medida);
+}
+
+/* --- Limites conhecidos ---------------------------------------------- */
+.limites {
+  display: grid;
+  gap: 0;
+  border-top: var(--borda-forte) solid var(--cinza-90);
+}
+
+.limite {
+  padding: var(--e-3x) 0 var(--e-3x) var(--e-3x);
+  border-bottom: var(--borda) solid var(--cinza-10);
+  border-left: 4px solid var(--alerta);
+}
+
+.limiteTitulo {
+  display: block;
+  font-size: var(--t-up-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--e-base);
+}
+
+.limite p {
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  max-width: var(--medida);
+}

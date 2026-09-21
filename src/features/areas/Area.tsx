@@ -6,7 +6,8 @@ import { useProgresso } from '@/lib/progresso';
 import { priorizar, prerequisitosPendentes } from '@/engine/prioridade';
 import { faixaDeDominio, ROTULO_FAIXA } from '@/engine/dominio';
 import { hoje } from '@/engine/datas';
-import { BarraDominio, TagPrioridade, Vazio, BotaoLink } from '@/design/Primitivos';
+import { BarraDominio, TagPrioridade, Tag, Trilha, Vazio, BotaoLink } from '@/design/Primitivos';
+import { HeroEscuro, Metricas } from '@/design/Pagina';
 import { definirTitulo } from '@/lib/titulo';
 import type { AreaId } from '@/content/tipos';
 import s from './Areas.module.css';
@@ -25,102 +26,128 @@ export function Area() {
     const daArea = new Set(assuntosDaArea(area.id).map((a) => a.id));
     // A priorização considera o grafo inteiro (pré-requisitos cruzam áreas),
     // mas a lista exibida é filtrada para a área aberta.
-    return priorizar(CATALOGO, progresso.assuntos, hoje()).filter((p) =>
-      daArea.has(p.assunto.id),
-    );
+    return priorizar(CATALOGO, progresso.assuntos, hoje()).filter((p) => daArea.has(p.assunto.id));
   }, [area, progresso.assuntos]);
 
   if (!area) {
     return (
-      <div className="page">
+      <div className="page container" style={{ paddingTop: 'var(--e-6x)' }}>
         <Vazio titulo="Área não encontrada" acao={<BotaoLink to="/areas">Ver todas as áreas</BotaoLink>} />
       </div>
     );
   }
 
   const planejados = planejadosDaArea(area.id);
+  const avaliados = ordenados
+    .map((p) => progresso.assuntos[p.assunto.id]?.dominio)
+    .filter((d): d is number => typeof d === 'number');
+  const media =
+    avaliados.length > 0 ? avaliados.reduce((a, d) => a + d, 0) / ordenados.length : null;
+  const estudados = ordenados.filter((p) => progresso.assuntos[p.assunto.id]?.lido).length;
 
   return (
     <div className="page">
-      <Link to="/areas" className="voltar">
-        ← Todas as áreas
-      </Link>
+      <HeroEscuro
+        areaId={area.id}
+        rotulo={`${area.dia}º dia de prova${area.questoes ? ` · ${area.questoes} questões` : ''}`}
+        titulo={area.nome}
+        descricao={area.descricao}
+        aside={
+          <Metricas
+            escuro
+            itens={[
+              { numero: ordenados.length, rotulo: 'assuntos escritos' },
+              { numero: estudados, rotulo: 'já estudados' },
+              { numero: media === null ? '—' : ROTULO_FAIXA[faixaDeDominio(media)], rotulo: 'domínio na área' },
+              { numero: planejados.length, rotulo: 'mapeados a escrever' },
+            ]}
+          />
+        }
+      />
 
-      <header className="cabecalho-pagina">
-        <h1>{area.nome}</h1>
-        <p className="subtitulo">{area.descricao}</p>
-      </header>
-
-      <div className={s.comoCai}>
-        <span className={s.rotuloAnalise}>Análise · como essa prova cobra</span>
-        {area.comoCai}
-      </div>
-
-      <section className="secao" aria-labelledby="assuntos-titulo">
-        <div className="secao-cabecalho">
-          <h2 id="assuntos-titulo" className="secao-titulo">
-            Assuntos, na ordem recomendada para você
-          </h2>
-          <span className="secao-meta">{ordenados.length} escritos</span>
+      <div className="container" data-area={area.id}>
+        <div style={{ paddingTop: 'var(--e-4x)' }}>
+          <Trilha itens={[{ rotulo: 'Áreas', para: '/areas' }, { rotulo: area.nomeCurto }]} />
         </div>
 
-        <ul className={s.assuntos}>
-          {ordenados.map(({ assunto, motivo }) => {
-            const estado = progresso.assuntos[assunto.id];
-            const pendentes = prerequisitosPendentes(assunto, progresso.assuntos);
-            return (
-              <li key={assunto.id} className={s.assunto}>
-                <Link to={`/assunto/${assunto.id}`} className={s.assuntoLink}>
-                  <div className={s.assuntoTopo}>
-                    <span className={s.assuntoTitulo}>{assunto.titulo}</span>
-                    <TagPrioridade prioridade={assunto.prioridade} />
-                    <span className={s.faixa}>{assunto.minutosEstimados} min</span>
-                  </div>
-                  <p className={s.assuntoResumo}>{assunto.resumo}</p>
-                  <div className={s.assuntoRodape}>
-                    <div className={s.barraAssunto}>
-                      <BarraDominio dominio={estado?.dominio ?? null} rotulo={assunto.titulo} />
-                    </div>
-                    <span className={s.faixa}>
-                      {ROTULO_FAIXA[faixaDeDominio(estado?.dominio ?? null)]}
-                    </span>
-                    {pendentes.length > 0 ? (
-                      <span className={s.aviso}>{motivo}</span>
-                    ) : (
-                      <span className={s.faixa}>{motivo}</span>
-                    )}
-                  </div>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+        <div className={s.comoCai} style={{ maxWidth: 'var(--largura-leitura)' }}>
+          <span className={s.rotuloAnalise}>Análise · como essa prova cobra</span>
+          {area.comoCai}
+        </div>
 
-      {planejados.length > 0 && (
-        <section className="secao" aria-labelledby="planejados-titulo">
+        <section className="secao" aria-labelledby="assuntos-titulo">
           <div className="secao-cabecalho">
-            <h2 id="planejados-titulo" className="secao-titulo">
-              Mapeados, ainda não escritos
+            <h2 id="assuntos-titulo" className="secao-titulo">
+              Assuntos, na ordem recomendada para você
             </h2>
-            <span className="secao-meta">{planejados.length}</span>
+            <span className="secao-meta">
+              A ordem considera prioridade, seu domínio e pré-requisitos
+            </span>
           </div>
-          <p className="subtitulo" style={{ marginBottom: 'var(--s-4)' }}>
-            Estes assuntos estão no mapa de conteúdo como importantes, mas ainda não foram
-            escritos. Eles aparecem aqui em vez de virarem páginas vazias — é mais honesto e
-            serve de roteiro para a continuação.
-          </p>
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            {planejados.map((p) => (
-              <li key={p.id} className={s.planejado}>
-                <span className={s.planejadoTitulo}>{p.titulo}</span>
-                <span className={s.planejadoEstado}>Ainda não escrito</span>
-                <p className={s.assuntoResumo}>{p.resumo}</p>
-              </li>
-            ))}
+
+          <ul className={s.assuntos}>
+            {ordenados.map(({ assunto, motivo }, i) => {
+              const estado = progresso.assuntos[assunto.id];
+              const pendentes = prerequisitosPendentes(assunto, progresso.assuntos);
+              return (
+                <li
+                  key={assunto.id}
+                  className={s.assunto}
+                  style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
+                >
+                  <Link to={`/assunto/${assunto.id}`} className={s.assuntoLink}>
+                    <span className={s.ordem} aria-hidden="true">
+                      {i + 1}
+                    </span>
+                    <span className={s.assuntoCorpo}>
+                      <span className={s.assuntoTopo}>
+                        <span className={s.assuntoTitulo}>{assunto.titulo}</span>
+                        <TagPrioridade prioridade={assunto.prioridade} />
+                        <Tag>{assunto.minutosEstimados} min</Tag>
+                      </span>
+                      <span className={s.assuntoResumo}>{assunto.resumo}</span>
+                      <span className={s.assuntoRodape}>
+                        <span className={s.barraAssunto}>
+                          <BarraDominio dominio={estado?.dominio ?? null} rotulo={assunto.titulo} />
+                        </span>
+                        <span className={s.faixa}>
+                          {ROTULO_FAIXA[faixaDeDominio(estado?.dominio ?? null)]}
+                        </span>
+                        <span className={pendentes.length > 0 ? s.aviso : s.faixa}>{motivo}</span>
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </section>
-      )}
+
+        {planejados.length > 0 && (
+          <section className="secao" aria-labelledby="planejados-titulo">
+            <div className="secao-cabecalho">
+              <h2 id="planejados-titulo" className="secao-titulo">
+                Mapeados, ainda não escritos
+              </h2>
+              <span className="secao-meta">{planejados.length}</span>
+            </div>
+            <p className="subtitulo" style={{ marginBottom: 'var(--e-3x)' }}>
+              Estes assuntos estão no mapa de conteúdo como importantes, mas ainda não foram
+              escritos. Aparecem aqui em vez de virarem páginas vazias — é mais honesto e serve
+              de roteiro para a continuação.
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+              {planejados.map((p) => (
+                <li key={p.id} className={s.planejado}>
+                  <span className={s.planejadoTitulo}>{p.titulo}</span>
+                  <span className={s.planejadoEstado}>Ainda não escrito</span>
+                  <span className={s.planejadoResumo}>{p.resumo}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
     </div>
   );
 }

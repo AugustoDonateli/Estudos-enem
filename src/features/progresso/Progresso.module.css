@@ -1,156 +1,193 @@
-.resumo {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: var(--s-6);
-  padding: var(--s-6) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.numero {
-  font-family: var(--font-title);
-  font-size: var(--t-33);
-  font-weight: 600;
-  color: var(--ink);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-.rotulo {
-  font-size: var(--t-14);
-  color: var(--ink-2);
-  margin-top: var(--s-2);
-  display: block;
-}
-
+/* --- Blocos por área -------------------------------------------------
+   Cada área ganha uma barra vertical na cor do acento e um filete forte
+   no topo. É o que substitui o card: agrupa sem criar mais uma caixa. */
 .areaBloco {
-  padding: var(--s-4) 0;
-  border-bottom: 1px solid var(--line);
+  padding: var(--e-3x) 0 var(--e-4x);
+  border-top: var(--borda) solid var(--cinza-10);
+}
+
+.areaBloco:first-of-type {
+  border-top: var(--borda-forte) solid var(--cinza-90);
 }
 
 .areaTopo {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: var(--s-3);
-  margin-bottom: var(--s-2);
+  gap: var(--e-baseh);
+  margin-bottom: var(--e-baseh);
 }
 
 .areaNome {
-  font-weight: 640;
+  display: flex;
+  align-items: center;
+  gap: var(--e-baseh);
+  font-size: var(--t-up-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: -0.01em;
+}
+
+.areaNome::before {
+  content: '';
+  width: 4px;
+  height: 1.1em;
+  background: var(--acento, var(--azul-70));
 }
 
 .assuntos {
   list-style: none;
-  margin: var(--s-4) 0 0;
+  margin: var(--e-3x) 0 0;
   padding: 0;
-  display: grid;
-  gap: var(--s-3);
 }
 
+/* Tabela de leitura, não lista de cards: nome / barra / faixa alinhados
+   em colunas, para a comparação entre assuntos ser feita de relance. */
 .assunto {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--s-3);
-  font-size: var(--t-14);
+  gap: var(--e-half) var(--e-2x);
+  padding: var(--e-baseh) 0;
+  border-bottom: var(--borda) solid var(--cinza-5);
+  font-size: var(--t-base);
 }
 
 .assuntoNome {
-  flex: 1;
-  min-width: 160px;
-  color: var(--ink-2);
+  color: var(--cinza-90);
   text-decoration: none;
+  font-weight: var(--peso-medio);
 }
 
 .assuntoNome:hover {
-  color: var(--accent);
-}
-
-.assuntoBarra {
-  width: 120px;
+  color: var(--azul-70);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .assuntoFaixa {
-  font-size: var(--t-12);
-  color: var(--ink-3);
-  width: 110px;
+  font-size: var(--t-down-01);
+  color: var(--cinza-60);
   text-align: right;
+  white-space: nowrap;
 }
 
+.assuntoBarra {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+  .assunto {
+    grid-template-columns: minmax(0, 1fr) 160px 120px;
+  }
+
+  .assuntoBarra {
+    grid-column: auto;
+  }
+
+  .assuntoFaixa {
+    text-align: right;
+  }
+}
+
+/* --- Erros por tipo --------------------------------------------------
+   Barras horizontais com filete: um gráfico que se lê como tabela. */
 .erros {
   list-style: none;
   margin: 0;
   padding: 0;
+  border-top: var(--borda-forte) solid var(--cinza-90);
 }
 
 .erroLinha {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--s-3);
-  padding: var(--s-3) 0;
-  border-bottom: 1px solid var(--line);
+  gap: var(--e-half) var(--e-2x);
+  padding: var(--e-2x) 0;
+  border-bottom: var(--borda) solid var(--cinza-10);
 }
 
 .erroNome {
-  flex: 1;
-  min-width: 140px;
+  font-weight: var(--peso-medio);
 }
 
 .erroBarra {
-  flex: 2;
-  height: 8px;
-  background: var(--paper-3);
-  border-radius: 4px;
+  grid-column: 1 / -1;
+  height: 10px;
+  background: var(--cinza-5);
   overflow: hidden;
-  min-width: 80px;
 }
 
 .erroPreenchida {
+  display: block;
   height: 100%;
-  background: var(--warn);
-  border-radius: 4px;
+  background: var(--alerta-escuro);
+  transform-origin: left center;
+  animation: crescer-barra var(--d-lenta) var(--curva) both;
 }
 
 .erroValor {
-  font-size: var(--t-14);
-  color: var(--ink-3);
+  font-size: var(--t-base);
+  color: var(--cinza-60);
   font-variant-numeric: tabular-nums;
-  width: 32px;
   text-align: right;
+  white-space: nowrap;
 }
 
+@media (min-width: 768px) {
+  .erroLinha {
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr) 72px;
+  }
+
+  .erroBarra {
+    grid-column: auto;
+  }
+}
+
+/* --- Seus dados ------------------------------------------------------
+   Faixa cinza-clara com filete superior azul: separa a gestão de dados
+   do conteúdo de estudo sem virar um card solto no meio da página. */
 .dados {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: var(--s-4);
+  background: var(--cinza-2);
+  border-top: 4px solid var(--azul-70);
+  padding: var(--e-3x);
 }
 
-.area-texto {
-  width: 100%;
-  min-height: 120px;
-  padding: var(--s-3);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  font-family: var(--font-mono);
-  font-size: var(--t-12);
-  resize: vertical;
+@media (min-width: 768px) {
+  .dados {
+    padding: var(--e-4x);
+  }
+}
+
+.dados p {
+  max-width: var(--medida);
+  color: var(--cinza-70);
 }
 
 .perigo {
-  margin-top: var(--s-6);
-  padding-top: var(--s-4);
-  border-top: 1px solid var(--line);
+  margin-top: var(--e-4x);
+  padding-top: var(--e-3x);
+  border-top: var(--borda) solid var(--cinza-20);
+}
+
+.perigoAviso {
+  font-size: var(--t-down-01);
+  color: var(--cinza-70);
+  margin-bottom: var(--e-base);
 }
 
 .mensagem {
-  font-size: var(--t-14);
-  margin-top: var(--s-3);
+  font-size: var(--t-base);
+  font-weight: var(--peso-semibold);
+  margin-top: var(--e-2x);
+  padding-left: var(--e-baseh);
+  border-left: 4px solid currentColor;
 }
 
 .mensagemOk {
-  color: var(--ok);
+  color: var(--sucesso-escuro);
 }
 
 .mensagemErro {
-  color: var(--no);
+  color: var(--perigo-escuro);
 }

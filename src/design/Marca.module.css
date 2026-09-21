@@ -1,0 +1,92 @@
+/* Assinatura ------------------------------------------------------- */
+.assinatura {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-baseh);
+  text-decoration: none;
+  color: inherit;
+}
+
+.assinatura:hover {
+  color: inherit;
+}
+
+.marca {
+  flex-shrink: 0;
+  display: block;
+}
+
+.assinatura:hover .marcaBolha {
+  transform: translateX(6px);
+}
+
+.marcaBolha {
+  transition: transform var(--d-moderada) var(--curva);
+}
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.nome {
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-extrabold);
+  letter-spacing: 0.02em;
+  color: var(--azul-90);
+}
+
+.claro .nome {
+  color: var(--branco);
+}
+
+.qualificador {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-semibold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--azul-70);
+  margin-top: 3px;
+}
+
+.claro .qualificador {
+  color: var(--azul-30);
+}
+
+.compacta .nome {
+  font-size: var(--t-up-01);
+}
+
+.compacta .qualificador {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+}
+
+/* Grafismo --------------------------------------------------------- */
+/* O grafismo é textura de borda: fica fora do caminho do texto e some no
+   celular, onde não há largura sobrando para ele existir sem atrapalhar. */
+.grafismo {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+@media (min-width: 992px) {
+  .grafismo {
+    display: block;
+  }
+}
+
+.grafismoSvg {
+  position: absolute;
+  height: 100%;
+  width: 62%;
+  min-width: 420px;
+  right: 0;
+  top: 0;
+}

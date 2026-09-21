@@ -1,18 +1,21 @@
-import type { ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import type { Bloco, Prioridade, Procedencia } from '@/content/tipos';
 import { faixaDeDominio, ROTULO_FAIXA, type Faixa } from '@/engine/dominio';
 import { Diagrama } from './Diagramas';
 import s from './Primitivos.module.css';
 
-/* Botão ---------------------------------------------------------------- */
+/* ================================================================== */
+/* Botões                                                              */
+/* ================================================================== */
 
-type VarianteBotao = 'primario' | 'secundario' | 'discreto';
+type VarianteBotao = 'primario' | 'secundario' | 'terciario' | 'contraste';
 
-const varianteClasse: Record<VarianteBotao, string> = {
+const VARIANTE: Record<VarianteBotao, string> = {
   primario: s.primario!,
   secundario: s.secundario!,
-  discreto: s.discreto!,
+  terciario: s.terciario!,
+  contraste: s.contraste!,
 };
 
 interface BotaoProps {
@@ -35,9 +38,7 @@ export function Botao({
   return (
     <button
       type={type}
-      className={[s.botao, varianteClasse[variante], largura ? s.largura : '']
-        .filter(Boolean)
-        .join(' ')}
+      className={[s.botao, VARIANTE[variante], largura ? s.blocoTotal : ''].filter(Boolean).join(' ')}
       {...rest}
     >
       {children}
@@ -59,16 +60,16 @@ export function BotaoLink({
   return (
     <Link
       to={to}
-      className={[s.botao, varianteClasse[variante], largura ? s.largura : '']
-        .filter(Boolean)
-        .join(' ')}
+      className={[s.botao, VARIANTE[variante], largura ? s.blocoTotal : ''].filter(Boolean).join(' ')}
     >
       {children}
     </Link>
   );
 }
 
-/* Selo de procedência --------------------------------------------------- */
+/* ================================================================== */
+/* Selos e etiquetas                                                   */
+/* ================================================================== */
 
 const SELO: Record<Procedencia, { rotulo: string; classe: string; titulo: string }> = {
   oficial: {
@@ -85,8 +86,7 @@ const SELO: Record<Procedencia, { rotulo: string; classe: string; titulo: string
   autoral: {
     rotulo: 'Autoral',
     classe: s.seloAutoral!,
-    titulo:
-      'Questão escrita para este site no formato do exame. Não é uma questão oficial do ENEM.',
+    titulo: 'Questão escrita para este site no formato do exame. Não é uma questão oficial do ENEM.',
   },
 };
 
@@ -98,8 +98,6 @@ export function SeloProcedencia({ procedencia }: { procedencia: Procedencia }) {
     </span>
   );
 }
-
-/* Etiquetas ------------------------------------------------------------- */
 
 const CLASSE_PRIORIDADE: Record<Prioridade, string> = {
   essencial: s.tagEssencial!,
@@ -119,12 +117,27 @@ export function Tag({ children }: { children: ReactNode }) {
   return <span className={s.tag}>{children}</span>;
 }
 
-/* Destaque -------------------------------------------------------------- */
+/** Etiqueta que assume o acento cromático da área herdado por `data-area`. */
+export function TagArea({ children }: { children: ReactNode }) {
+  return <span className={`${s.tag} ${s.tagArea}`}>{children}</span>;
+}
 
-const CLASSE_DESTAQUE = {
+/* ================================================================== */
+/* Destaques                                                           */
+/* ================================================================== */
+
+type VarianteDestaque = 'nota' | 'atencao' | 'oficial';
+
+const CLASSE_DESTAQUE: Record<VarianteDestaque, string> = {
   nota: s.destaqueNota!,
   atencao: s.destaqueAtencao!,
   oficial: s.destaqueOficial!,
+};
+
+const ICONE_DESTAQUE: Record<VarianteDestaque, string> = {
+  nota: 'M12 16v-5M12 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z',
+  atencao: 'M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z',
+  oficial: 'M4 4h16v13H5.5A1.5 1.5 0 0 0 4 18.5V4zM4 18.5A1.5 1.5 0 0 1 5.5 17H20v3H5.5A1.5 1.5 0 0 1 4 18.5zM8 8h8M8 12h5',
 };
 
 export function Destaque({
@@ -132,22 +145,38 @@ export function Destaque({
   titulo,
   children,
 }: {
-  variante?: 'nota' | 'atencao' | 'oficial';
+  variante?: VarianteDestaque;
   titulo?: string;
   children: ReactNode;
 }) {
   return (
     <aside className={`${s.destaque} ${CLASSE_DESTAQUE[variante]}`}>
-      {titulo && <strong className={s.destaqueTitulo}>{titulo}</strong>}
-      {children}
+      <svg
+        className={s.destaqueIcone}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d={ICONE_DESTAQUE[variante]} />
+      </svg>
+      <div className={s.destaqueCorpo}>
+        {titulo && <strong className={s.destaqueTitulo}>{titulo}</strong>}
+        {children}
+      </div>
     </aside>
   );
 }
 
-/* Barra de domínio ------------------------------------------------------ */
+/* ================================================================== */
+/* Barra de domínio                                                    */
+/* ================================================================== */
 
 const CLASSE_FAIXA: Record<Faixa, string> = {
-  desconhecido: s.faixaDesconhecido!,
+  desconhecido: '',
   fragil: s.faixaFragil!,
   construcao: s.faixaConstrucao!,
   solido: s.faixaSolido!,
@@ -156,44 +185,130 @@ const CLASSE_FAIXA: Record<Faixa, string> = {
 
 export function BarraDominio({ dominio, rotulo }: { dominio: number | null; rotulo?: string }) {
   const faixa = faixaDeDominio(dominio);
-  const largura = dominio ?? 0;
+  const nome = `${rotulo ? rotulo + ': ' : ''}${ROTULO_FAIXA[faixa]}`;
+
   // Domínio desconhecido não pode ser desenhado como barra cheia: em cinza,
-  // uma barra de 100% lê como "concluído". A trilha vazia tracejada comunica
-  // ausência de informação, que é o que de fato existe aqui.
+  // 100% lê como "concluído". A trilha hachurada comunica ausência de dado.
   if (dominio === null) {
-    return (
-      <div
-        className={`${s.barra} ${s.barraVazia}`}
-        role="img"
-        aria-label={`${rotulo ? rotulo + ': ' : ''}${ROTULO_FAIXA[faixa]}`}
-      />
-    );
+    return <div className={`${s.barra} ${s.barraVazia}`} role="img" aria-label={nome} />;
   }
+
   return (
     <div
       role="meter"
-      aria-valuenow={Math.round(largura)}
+      aria-valuenow={Math.round(dominio)}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-label={`${rotulo ? rotulo + ': ' : ''}${ROTULO_FAIXA[faixa]}`}
+      aria-label={nome}
       className={s.barra}
     >
       <div
         className={`${s.barraPreenchida} ${CLASSE_FAIXA[faixa]}`}
-        style={{ width: `${Math.max(largura, 2)}%` }}
+        style={{ width: `${Math.max(dominio, 2)}%` }}
       />
     </div>
   );
 }
 
-/* Fórmula --------------------------------------------------------------- */
+/* ================================================================== */
+/* Cartão, acordeão, esqueleto, trilha                                 */
+/* ================================================================== */
+
+export function Acordeao({
+  titulo,
+  children,
+  abertoInicial = false,
+}: {
+  titulo: string;
+  children: ReactNode;
+  abertoInicial?: boolean;
+}) {
+  const [aberto, setAberto] = useState(abertoInicial);
+  const id = useId();
+  return (
+    <div className={`${s.acordeaoItem} ${aberto ? s.acordeaoAberto : ''}`}>
+      <button
+        type="button"
+        className={s.acordeaoBotao}
+        aria-expanded={aberto}
+        aria-controls={id}
+        onClick={() => setAberto((a) => !a)}
+      >
+        {titulo}
+        <svg
+          className={s.acordeaoSeta}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+      {/* Altura animada com grid 0fr→1fr: funciona sem medir o conteúdo. */}
+      <div className={s.acordeaoConteudo} id={id} role="region">
+        <div className={s.acordeaoInterno}>
+          <div className={s.acordeaoPadding}>{children}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Esqueleto({
+  altura = 16,
+  largura = '100%',
+  className = '',
+}: {
+  altura?: number;
+  largura?: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`${s.esqueleto} ${className}`}
+      style={{ height: altura, width: largura }}
+      aria-hidden="true"
+    />
+  );
+}
+
+export function Trilha({ itens }: { itens: { rotulo: string; para?: string }[] }) {
+  return (
+    <nav className={s.trilha} aria-label="Trilha de navegação">
+      {itens.map((item, i) => (
+        <span key={item.rotulo} style={{ display: 'inline-flex', gap: 'var(--e-base)' }}>
+          {i > 0 && (
+            <span className={s.trilhaSep} aria-hidden="true">
+              ›
+            </span>
+          )}
+          {item.para ? (
+            <Link to={item.para}>{item.rotulo}</Link>
+          ) : (
+            <span className={s.trilhaAtual} aria-current="page">
+              {item.rotulo}
+            </span>
+          )}
+        </span>
+      ))}
+    </nav>
+  );
+}
+
+/* ================================================================== */
+/* Fórmula e estado vazio                                              */
+/* ================================================================== */
 
 /**
  * Renderizador de fórmula deliberadamente simples.
  *
  * O ENEM cobra frações, potências e raízes — não integrais. Carregar KaTeX
- * (~270KB) para isso custaria mais do que o site inteiro. A notação aceita é
- * a que se escreve no caderno: `x^2`, `√(x)`, `a/b`.
+ * (~270 KB) para isso custaria mais que o site inteiro. A notação aceita é a
+ * que se escreve no caderno: x^2, √(x), a/b.
  */
 export function Formula({ children, legenda }: { children: string; legenda?: string }) {
   return (
@@ -203,8 +318,6 @@ export function Formula({ children, legenda }: { children: string; legenda?: str
     </div>
   );
 }
-
-/* Estado vazio ----------------------------------------------------------- */
 
 export function Vazio({
   titulo,
@@ -217,14 +330,28 @@ export function Vazio({
 }) {
   return (
     <div className={s.vazio}>
+      <svg
+        className={s.vazioIcone}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M4 4h16v16H4zM4 9h16M9 9v11" />
+      </svg>
       <p className={s.vazioTitulo}>{titulo}</p>
       {children}
-      {acao && <div style={{ marginTop: 'var(--s-4)' }}>{acao}</div>}
+      {acao && <div className="acoes" style={{ justifyContent: 'center' }}>{acao}</div>}
     </div>
   );
 }
 
-/* Renderizador de blocos -------------------------------------------------- */
+/* ================================================================== */
+/* Renderizador de blocos de conteúdo                                  */
+/* ================================================================== */
 
 export function Blocos({ blocos }: { blocos: Bloco[] }) {
   return (
