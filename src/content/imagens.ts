@@ -38,10 +38,17 @@ export interface Imagem {
   /** Verdadeiro quando a imagem é desenho gerado por IA, não registro. */
   gerada?: boolean;
   /**
-   * Recorte vertical, quando o centro não é o que importa. Vira
-   * `object-position`. Ex.: `'topo'` para não cortar um relógio no alto.
+   * Ponto da imagem que a faixa deve manter em vista. Vai direto para
+   * `object-position`, então aceita qualquer valor válido — inclusive
+   * percentuais, que é o que costuma resolver.
+   *
+   * Por que percentual e não `'topo' | 'centro' | 'base'`: a faixa tem altura
+   * fixa e largura de tela inteira, então quanto mais larga a janela, mais o
+   * `cover` amplia e menos da altura da imagem cabe. Numa tela de 2000px
+   * sobra menos de um terço da altura — e três rótulos não têm precisão para
+   * escolher qual terço.
    */
-  foco?: 'topo' | 'centro' | 'base';
+  foco?: string;
   /** Página de origem, para conferência. */
   url?: string;
 }
@@ -53,9 +60,10 @@ export const IMAGENS = {
     autor: '',
     fonte: 'Recraft V4.1 via Higgsfield',
     gerada: true,
-    // O relógio e as janelas estão no alto; a borda de baixo já vem cortada
-    // na própria ilustração. Melhor perder embaixo do que perder o relógio.
-    foco: 'topo',
+    // O assunto da ilustração são as cabeças inclinadas sobre os
+    // cartões-resposta, que ficam na faixa de 45% a 90% da altura. Com o topo
+    // sobravam só as janelas; com o centro, só troncos e mesas.
+    foco: 'center 68%',
   },
   redacao: {
     base: 'redacao',

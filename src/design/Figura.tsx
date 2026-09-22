@@ -36,9 +36,6 @@ export function Figura({ nome }: { nome: ChaveImagem }) {
   const url = (largura: number) =>
     `${import.meta.env.BASE_URL}imagens/${imagem.base}-${largura}w.webp`;
 
-  const posicao =
-    imagem.foco === 'topo' ? 'center top' : imagem.foco === 'base' ? 'center bottom' : undefined;
-
   return (
     <figure className={s.figura}>
       <img
@@ -51,7 +48,7 @@ export function Figura({ nome }: { nome: ChaveImagem }) {
         alt={imagem.alt}
         loading="lazy"
         decoding="async"
-        {...(posicao ? { style: { objectPosition: posicao } } : {})}
+        {...(imagem.foco ? { style: { objectPosition: imagem.foco } } : {})}
         onError={() => setFalhou(true)}
       />
       <figcaption className={s.credito}>{creditoDe(imagem)}</figcaption>

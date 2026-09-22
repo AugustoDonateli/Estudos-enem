@@ -8,23 +8,31 @@
   background: var(--papel-2);
 
   /* O recorte é responsabilidade do site, não de quem sobe o arquivo.
-     No celular a faixa é mais alta, senão a ilustração vira um filete de
-     nada; conforme a tela abre, ela vai ficando panorâmica. Assim o mesmo
-     arquivo serve as três larguras sem ninguém mexer em pixel. */
+
+     Duas regras atuam juntas, e a segunda é a que importa mais:
+
+     `aspect-ratio` dá a forma da faixa — mais alta no celular, panorâmica no
+     desktop — para a ilustração não virar um filete de nada em tela estreita.
+
+     `max-height` dá o teto. Sem ele a faixa cresce com a largura da janela
+     para sempre: numa tela de 2000px, 2:1 vira 1000px de altura, e a imagem
+     sozinha ocupa a tela inteira. É o `max-height` que decide a altura em
+     monitor largo; a proporção só manda enquanto a tela é estreita. */
   aspect-ratio: 3 / 2;
+  max-height: 210px;
 }
 
 @media (min-width: 576px) {
   .figura {
     aspect-ratio: 16 / 9;
+    max-height: 280px;
   }
 }
 
 @media (min-width: 992px) {
   .figura {
-    /* 2:1 e não 21:9. A fonte é 1,75:1; a proporção mais larga cortava 25%
-       da altura e levava junto o relógio no alto e as carteiras embaixo. */
     aspect-ratio: 2 / 1;
+    max-height: 360px;
   }
 }
 
