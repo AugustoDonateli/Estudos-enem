@@ -26,6 +26,7 @@ const SecaoRedacaoPagina = lazy(() =>
 const Diagnostico = lazy(() =>
   import('@/features/diagnostico/Diagnostico').then((m) => ({ default: m.Diagnostico })),
 );
+const Feynman = lazy(() => import('@/features/feynman/Feynman').then((m) => ({ default: m.Feynman })));
 const Progresso = lazy(() => import('@/features/progresso/Progresso').then((m) => ({ default: m.Progresso })));
 const Sobre = lazy(() => import('@/features/sobre/Sobre').then((m) => ({ default: m.Sobre })));
 
@@ -40,6 +41,7 @@ export function App() {
               <Route path="/areas" element={<Areas />} />
               <Route path="/area/:areaId" element={<Area />} />
               <Route path="/assunto/:topicId" element={<Assunto />} />
+              <Route path="/explicar/:topicId" element={<Feynman />} />
               <Route path="/questoes" element={<Praticar />} />
               <Route path="/questao/:questionId" element={<QuestaoPagina />} />
               <Route path="/revisao" element={<Revisao />} />

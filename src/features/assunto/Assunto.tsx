@@ -402,6 +402,11 @@ export function Assunto() {
                   ))}
                 </ul>
               </div>
+              <div className="acoes">
+                <BotaoLink to={`/explicar/${assunto.id}`} variante="secundario">
+                  Explicar este assunto de memória
+                </BotaoLink>
+              </div>
             </section>
 
             <div className={s.proximo}>

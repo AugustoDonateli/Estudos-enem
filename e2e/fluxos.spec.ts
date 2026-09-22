@@ -13,6 +13,7 @@ const ROTAS = [
   '/areas',
   '/area/matematica',
   '/assunto/mat-porcentagem',
+  '/explicar/mat-porcentagem',
   '/questoes',
   '/questao/mat-porc-q1',
   '/revisao',
@@ -165,6 +166,83 @@ test.describe('fluxo de estudo', () => {
     await page.goto('/assunto/mat-porcentagem');
     await page.getByRole('button', { name: 'Marcar como estudado' }).click();
     await expect(page.getByText(/Próxima revisão agendada/)).toBeVisible();
+  });
+});
+
+test.describe('Modo Feynman', () => {
+  test('entra a partir do assunto e completa o fluxo de explicar', async ({ page }) => {
+    await page.goto('/assunto/mat-porcentagem');
+    await page.getByRole('link', { name: 'Explicar este assunto de memória' }).click();
+    await expect(page).toHaveURL(/\/explicar\/mat-porcentagem/);
+
+    await expect(
+      page.getByRole('button', { name: 'Revelar pontos-chave' }),
+    ).toBeDisabled();
+
+    await page
+      .getByLabel('Sua explicação do assunto')
+      .fill('Porcentagem vira um fator que multiplica o valor original.');
+    await expect(page.getByRole('button', { name: 'Revelar pontos-chave' })).toBeEnabled();
+    await page.getByRole('button', { name: 'Revelar pontos-chave' }).click();
+
+    await expect(page.getByRole('heading', { name: 'Você cobriu isso?' })).toBeVisible();
+    const itens = page.locator('input[type="checkbox"]');
+    const total = await itens.count();
+    expect(total).toBeGreaterThan(0);
+    await itens.nth(0).check();
+    await itens.nth(1).check();
+    await expect(page.getByText(`2 de ${total}`)).toBeVisible();
+
+    await page.getByRole('button', { name: 'Concluir explicação' }).click();
+    await expect(page.getByRole('heading', { name: 'Registrado' })).toBeVisible();
+    await expect(page.getByText(/não vira nota de domínio/)).toBeVisible();
+  });
+
+  test('mostra o aviso de privacidade antes de ligar o microfone, sem persistir consentimento', async ({
+    page,
+  }) => {
+    await page.goto('/explicar/mat-porcentagem');
+    const botaoDitar = page.getByRole('button', { name: 'Ditar explicação por voz' });
+    // A API existe no Chromium do teste, então o botão de microfone aparece
+    // — o teste de ausência do botão fica no describe de degradação abaixo.
+    await expect(botaoDitar).toBeVisible();
+
+    await botaoDitar.click();
+    await expect(page.getByText('Antes de ligar o microfone')).toBeVisible();
+    await expect(page.getByText(/envia o áudio para servidores externos/)).toBeVisible();
+
+    await page.getByRole('button', { name: 'Cancelar' }).click();
+    await expect(page.getByText('Antes de ligar o microfone')).toHaveCount(0);
+  });
+
+  test('sem estouro de layout em nenhuma das etapas', async ({ page }) => {
+    await page.goto('/explicar/mat-porcentagem');
+    expect(await elementosForaDaBorda(page)).toEqual([]);
+
+    await page.getByLabel('Sua explicação do assunto').fill('Explicação de teste.');
+    await page.getByRole('button', { name: 'Revelar pontos-chave' }).click();
+    expect(await elementosForaDaBorda(page)).toEqual([]);
+  });
+});
+
+/**
+ * Sem a Web Speech API (Firefox, iOS mais antigo), o botão de microfone deve
+ * desaparecer — nunca aparecer quebrado ou sem funcionar ao ser clicado.
+ */
+test.describe('Modo Feynman sem suporte a voz', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      // @ts-expect-error - simulando um navegador sem a API, de propósito.
+      delete window.SpeechRecognition;
+      // @ts-expect-error - idem.
+      delete window.webkitSpeechRecognition;
+    });
+  });
+
+  test('o botão de ditar não aparece', async ({ page }) => {
+    await page.goto('/explicar/mat-porcentagem');
+    await expect(page.getByRole('button', { name: 'Ditar explicação por voz' })).toHaveCount(0);
+    await expect(page.getByLabel('Sua explicação do assunto')).toBeVisible();
   });
 });
 

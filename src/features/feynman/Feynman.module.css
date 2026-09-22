@@ -1,0 +1,116 @@
+.campo {
+  max-width: var(--largura-leitura);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: var(--e-2x);
+  border: var(--borda) solid var(--cinza-40);
+  border-radius: var(--raio);
+  background: var(--branco);
+  font: inherit;
+  font-size: var(--t-up-01);
+  line-height: var(--lh-alta);
+  color: var(--cinza-90);
+  resize: vertical;
+  transition: border-color var(--d-rapida) var(--curva);
+}
+
+.textarea:hover,
+.textarea:focus {
+  border-color: var(--cinza-60);
+}
+
+/* Texto provisório do ditado: ainda não confirmado, por isso itálico e mais
+   claro — não é o mesmo status do que já está no campo. */
+.parcial {
+  margin-top: var(--e-base);
+  font-style: italic;
+  color: var(--cinza-60);
+}
+
+.vozLinha {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2x);
+  margin-top: var(--e-2x);
+}
+
+.ouvindoIndicador {
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+}
+
+.ouvindoIndicador::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: var(--e-base);
+  border-radius: 50%;
+  background: var(--perigo);
+  animation: pulsar 1.4s ease-in-out infinite;
+}
+
+@keyframes pulsar {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.erroVoz {
+  margin-top: var(--e-2x);
+  color: var(--perigo-escuro);
+}
+
+.recapitulacao {
+  max-width: var(--largura-leitura);
+  margin: 0;
+  padding: var(--e-2x) var(--e-3x);
+  background: var(--papel-2);
+  border-left: var(--borda-forte) solid var(--acento, var(--azul-70));
+  font-family: var(--fonte-titulo);
+  font-style: italic;
+  font-size: var(--t-up-01);
+  line-height: var(--lh-alta);
+  color: var(--cinza-90);
+  white-space: pre-wrap;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-base);
+  max-width: var(--largura-leitura);
+  margin: var(--e-3x) 0;
+}
+
+.itemChecklist {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--e-baseh);
+  padding: var(--e-baseh);
+  border: var(--borda) solid var(--cinza-10);
+  border-radius: var(--raio);
+  cursor: pointer;
+  transition: border-color var(--d-rapida) var(--curva), background var(--d-rapida) var(--curva);
+}
+
+.itemChecklist:hover {
+  border-color: var(--cinza-30);
+  background: var(--cinza-2);
+}
+
+.itemChecklist input {
+  /* Alvo de toque de 44px mesmo com uma caixa de seleção pequena visualmente. */
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--azul-70);
+}

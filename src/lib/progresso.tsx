@@ -16,6 +16,7 @@ import {
   type Confianca,
   type Config,
   type EstadoAssunto,
+  type Explicacao,
   type NivelDeclarado,
   type Producao,
   type Progresso,
@@ -45,6 +46,7 @@ interface ContextoProgresso {
   registrarResposta: (r: RegistroResposta) => void;
   marcarLido: (topicId: string) => void;
   registrarDiagnostico: (niveis: Record<string, NivelDeclarado>) => void;
+  registrarExplicacao: (e: Omit<Explicacao, 'em'>) => void;
   marcarSecaoRedacao: (id: string) => void;
   registrarProducao: (p: Producao) => void;
   concluirItemPlano: (id: string) => void;
@@ -125,6 +127,40 @@ export function ProvedorProgresso({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  /**
+   * Modo Feynman: agenda revisão do mesmo jeito que uma resposta certa ou
+   * errada, mas **não** toca no domínio. Domínio é medido por acerto em
+   * questão; cobertura de pontos-chave é autoavaliação, e tratar as duas
+   * coisas como a mesma métrica fingiria uma precisão que a segunda não tem.
+   *
+   * Para o agendamento, cobrir a maior parte dos pontos conta como "acertou"
+   * — avança a caixa e espaça mais a próxima revisão, como uma questão certa
+   * faria.
+   */
+  const registrarExplicacao = useCallback((e: Omit<Explicacao, 'em'>) => {
+    const dia = hoje();
+    setProgresso((p) => {
+      const estado = comEstado(p, e.topicId);
+      const cobriuBem = e.totalPontos > 0 && e.pontosCobertos / e.totalPontos >= 0.6;
+      const ag = agendar(estado.caixa === 0 ? 1 : estado.caixa, cobriuBem, dia);
+      return {
+        ...p,
+        assuntos: {
+          ...p.assuntos,
+          [e.topicId]: {
+            ...estado,
+            lido: true,
+            ultimoEstudo: dia,
+            caixa: ag.caixa,
+            proximaRevisao: ag.proximaRevisao,
+            revisaoFinal: ag.revisaoFinal,
+          },
+        },
+        explicacoes: [...p.explicacoes, { ...e, em: dia }],
+      };
+    });
+  }, []);
+
   const registrarDiagnostico = useCallback((niveis: Record<string, NivelDeclarado>) => {
     setProgresso((p) => {
       const assuntos = { ...p.assuntos };
@@ -174,6 +210,7 @@ export function ProvedorProgresso({ children }: { children: ReactNode }) {
       registrarResposta,
       marcarLido,
       registrarDiagnostico,
+      registrarExplicacao,
       marcarSecaoRedacao,
       registrarProducao,
       concluirItemPlano,
@@ -187,6 +224,7 @@ export function ProvedorProgresso({ children }: { children: ReactNode }) {
       registrarResposta,
       marcarLido,
       registrarDiagnostico,
+      registrarExplicacao,
       marcarSecaoRedacao,
       registrarProducao,
       concluirItemPlano,
