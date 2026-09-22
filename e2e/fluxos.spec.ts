@@ -230,6 +230,79 @@ test.describe('calibração e ritmo', () => {
   });
 });
 
+test('sem nenhum dado, a faixa de constância não aparece', async ({ page }) => {
+  // Um contexto novo do Playwright já começa com storage vazio; não há
+  // constância para mostrar no primeiro dia, então a seção nem deve existir.
+  await page.goto('/progresso');
+  await expect(page.getByRole('heading', { name: 'Constância' })).toHaveCount(0);
+});
+
+/**
+ * A faixa de constância depende de "hoje" de verdade, não de uma data fixa
+ * como as outras seções semeadas — então os dias de atividade são calculados
+ * no próprio navegador, a partir do relógio real do teste, em vez de vir
+ * como string fixa que envelheceria a cada execução.
+ */
+test.describe('constância', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      const paraDiaISO = (d: Date) =>
+        `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+          d.getDate(),
+        ).padStart(2, '0')}`;
+      const diaOffset = (n: number) => {
+        const d = new Date();
+        d.setDate(d.getDate() + n);
+        return paraDiaISO(d);
+      };
+      // Ativo hoje, ontem e anteontem (sequência de 3) e também há 5 dias
+      // (mais um dia dentro da janela de 14, fora da sequência).
+      const respostas = [0, -1, -2, -5].map((offset, i) => ({
+        questionId: `seed-${i}`,
+        topicId: 'mat-porcentagem',
+        conceito: 'Porcentagem',
+        letra: 'A',
+        correta: true,
+        dificuldade: 'media',
+        em: diaOffset(offset),
+        ts: i,
+      }));
+      localStorage.setItem(
+        'enem-study:v1',
+        JSON.stringify({
+          versao: 2,
+          assuntos: {},
+          respostas,
+          redacao: { secoesLidas: [], producoes: [] },
+          planoConcluido: {},
+          explicacoes: [],
+          config: { orcamentoDiario: 60, linguaEstrangeira: 'ingles', diagnosticoFeito: true },
+          criadoEm: diaOffset(-10),
+        }),
+      );
+    });
+  });
+
+  test('mostra dias ativos e sequência em /progresso', async ({ page }) => {
+    await page.goto('/progresso');
+    await expect(page.getByRole('heading', { name: 'Constância' })).toBeVisible();
+    await expect(page.getByText('dos últimos 14 com atividade')).toBeVisible();
+    await expect(page.getByText('3 dias seguidos até agora')).toBeVisible();
+  });
+
+  test('também aparece no plano de hoje, com o mesmo tom informativo', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.getByRole('heading', { name: 'Constância' })).toBeVisible();
+    await expect(page.getByText('3 dias seguidos até agora')).toBeVisible();
+  });
+
+  test('o texto continua legível e sem estouro de layout', async ({ page }) => {
+    await page.goto('/progresso');
+    await expect(page.getByRole('heading', { name: 'Constância' })).toBeVisible();
+    expect(await elementosForaDaBorda(page)).toEqual([]);
+  });
+});
+
 test.describe('contraste', () => {
   /**
    * Mede o contraste real de cada texto visível contra o fundo efetivo.

@@ -6,11 +6,13 @@ import { useProgresso } from '@/lib/progresso';
 import { gerarPlano, type ItemPlano } from '@/engine/planoDiario';
 import { analisarErros, EXPLICACAO_TIPO_ERRO } from '@/engine/erros';
 import { revisoesVencidas } from '@/engine/revisao';
+import { diasComAtividade } from '@/engine/constancia';
 import { DESCRICAO_FASE, PROVA_DIA_1, diasAteProva, hoje as hojeISO } from '@/engine/datas';
 import { faixaDeDominio, ROTULO_FAIXA } from '@/engine/dominio';
 import { BarraDominio, BotaoLink, Vazio } from '@/design/Primitivos';
 import { HeroEscuro } from '@/design/Pagina';
 import { ContagemRegressiva } from '@/design/Contagem';
+import { FaixaConstancia } from '@/design/Constancia';
 import { definirTitulo } from '@/lib/titulo';
 import s from './Hoje.module.css';
 
@@ -53,6 +55,7 @@ export function Hoje() {
     () => revisoesVencidas(progresso.assuntos, dia),
     [progresso.assuntos, dia],
   );
+  const temAtividade = useMemo(() => diasComAtividade(progresso).size > 0, [progresso]);
 
   const dias = diasAteProva(dia);
   const fase = DESCRICAO_FASE[plano.fase];
@@ -223,6 +226,20 @@ export function Hoje() {
             </>
           )}
         </section>
+
+        {temAtividade && (
+          <section className="secao" aria-labelledby="constancia-titulo">
+            <div className="secao-cabecalho">
+              <h2 id="constancia-titulo" className="secao-titulo">
+                Constância
+              </h2>
+              <Link to="/progresso" className="secao-meta">
+                Ver detalhes
+              </Link>
+            </div>
+            <FaixaConstancia progresso={progresso} referencia={dia} />
+          </section>
+        )}
 
         {pendentes.length > 0 && (
           <section className="secao" aria-labelledby="revisao-titulo">

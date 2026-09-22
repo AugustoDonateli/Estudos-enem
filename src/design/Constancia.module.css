@@ -1,0 +1,74 @@
+/* Faixa de constância: número à esquerda, grade de dias à direita. No
+   celular, onde a largura é curta, empilha — a grade de 14 células não cabe
+   ao lado do texto sem espremer as duas coisas. */
+.faixa {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--e-2x);
+}
+
+@media (min-width: 576px) {
+  .faixa {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-3x);
+  }
+}
+
+.numeros {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-half);
+}
+
+.frase {
+  font-size: var(--t-up-01);
+  color: var(--cinza-90);
+}
+
+.frase strong {
+  font-weight: var(--peso-bold);
+}
+
+.sequencia {
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+}
+
+/* Sete colunas, duas linhas: uma semana por linha, como um calendário de
+   parede de verdade. */
+.grade {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  width: 154px;
+  flex-shrink: 0;
+}
+
+.celula {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--cinza-10);
+}
+
+.fimDeSemana {
+  background: var(--cinza-5);
+  border: 1px solid var(--cinza-10);
+}
+
+.ativa {
+  background: var(--azul-70);
+  border: none;
+}
+
+/* O dia de hoje ganha um anel, ativo ou não — é o único jeito de diferenciar
+   "hoje, sem atividade ainda" de "um dia qualquer sem atividade". */
+.hoje {
+  box-shadow: 0 0 0 2px var(--branco) inset, 0 0 0 3px var(--cinza-60);
+}
+
+.ativa.hoje {
+  box-shadow: 0 0 0 2px var(--branco) inset, 0 0 0 3px var(--azul-70);
+}

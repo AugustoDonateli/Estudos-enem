@@ -10,11 +10,13 @@ import {
   EXPLICACAO_TIPO_ERRO,
 } from '@/engine/erros';
 import { analisarTempo, formatarDuracao, RITMO_ALVO_SEGUNDOS } from '@/engine/tempo';
+import { diasComAtividade } from '@/engine/constancia';
 import { ROTULO_CONFIANCA } from '@/storage/schema';
 import { faixaDeDominio, ROTULO_FAIXA } from '@/engine/dominio';
 import { exportarJSON, importarJSON } from '@/storage/persist';
 import { BarraDominio, Botao, BotaoLink, Destaque, Vazio } from '@/design/Primitivos';
 import { CabecalhoPagina, Metricas } from '@/design/Pagina';
+import { FaixaConstancia } from '@/design/Constancia';
 import { definirTitulo } from '@/lib/titulo';
 import s from './Progresso.module.css';
 
@@ -30,6 +32,7 @@ export function Progresso() {
   const padrao = useMemo(() => analisarErros(progresso.respostas, 200), [progresso.respostas]);
   const calibracao = useMemo(() => analisarCalibracao(progresso.respostas), [progresso.respostas]);
   const tempo = useMemo(() => analisarTempo(progresso.respostas), [progresso.respostas]);
+  const temAtividade = useMemo(() => diasComAtividade(progresso).size > 0, [progresso]);
 
   const totais = useMemo(() => {
     const respostas = progresso.respostas;
@@ -84,6 +87,17 @@ export function Progresso() {
       />
 
       <div className="container">
+        {temAtividade && (
+          <section className="secao" aria-labelledby="constancia">
+            <div className="secao-cabecalho">
+              <h2 id="constancia" className="secao-titulo">
+                Constância
+              </h2>
+            </div>
+            <FaixaConstancia progresso={progresso} />
+          </section>
+        )}
+
         {padrao.frase && padrao.dominante && (
           <div className="secao">
             <Destaque variante="atencao" titulo="O que seus erros dizem">
