@@ -49,7 +49,7 @@ export function Redacao() {
         }
       />
 
-      <Figura nome="redacao" proporcao="21 / 9" />
+      <Figura nome="redacao" />
 
       <div className="container">
         <div className="secao">

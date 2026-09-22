@@ -113,31 +113,19 @@ mais que uma base inteira.
 
 ---
 
-## [ ] 4. As duas ilustrações  ⟶ rápido, 5 minutos
+## [x] 4. As duas ilustrações — **feito**
 
-Já estão geradas e pagas, esperando na conta Higgsfield. Os quatro links diretos estão em
-[`public/imagens/README.md`](../public/imagens/README.md).
+Você subiu, e elas estão no ar. Duas coisas foram corrigidas no caminho:
 
-1. Abrir os links e escolher **uma versão de cada** faixa.
-2. Reduzir para ~2000 px de largura e salvar em **WebP** ou JPEG qualidade ~80 — como PNG de 2k,
-   cada uma pesa mais que o site inteiro.
-3. Salvar em `public/imagens/` com exatamente estes nomes:
+- Os arquivos eram **PNG com a extensão trocada para `.webp`** — a conversão não
+  tinha acontecido, só a renomeação. E o registro procurava `.png`, então a
+  imagem nunca aparecia.
+- Vinham no tamanho original: 2688×1536, 3,7 MB somados, contra 1,2 MB do bundle
+  inteiro do site.
 
-   | Arquivo | Onde aparece |
-   |---|---|
-   | `dia-de-prova.png` | Topo de **Áreas do ENEM** |
-   | `redacao.png` | Topo do módulo de **Redação** |
-
-O código já está ligado: `Figura` renderiza sozinha quando os arquivos aparecem, com o crédito
-"Ilustração gerada por IA" impresso sobre a imagem.
-
-**Pronto quando:** as faixas aparecerem nas duas páginas.
-
-> Sobraram **7,5 créditos** se a direção de arte não agradar — dá para mais três tentativas. Mas
-> preciso que você diga o que não gostou, porque eu não consigo ver as imagens do ambiente onde
-> trabalho.
-
----
+Agora existe `npm run imagens`: joga o arquivo em `public/imagens/` com qualquer
+nome, formato e tamanho, roda o comando, e ele gera as três larguras em WebP.
+Ficou em **416 KB no total**, e o celular baixa 30 KB.
 
 ## [ ] 5. Fotos reais  ⟶ opcional, mas é uma troca melhor
 
@@ -177,7 +165,7 @@ Só me mandar os PDFs — **caderno e gabarito** — que eu extraio.
 | 1 | **Publicar o site** | Sem isso, nada disso chega no aluno | ~20 min |
 | 2 | **Gabaritos do INEP** | Pode haver resposta errada com selo de oficial | ~10 min |
 | 3 | **Dados do SISU** | Destrava a tela de nota e universidades | variável |
-| 4 | **As duas ilustrações** | Já estão pagas e prontas | ~5 min |
+| ~~4~~ | ~~As duas ilustrações~~ | **Feito** | — |
 | 5 | Fotos reais | Troca melhor que a ilustração | opcional |
 | 6 | Mais provas | Mais questões oficiais | opcional |
 

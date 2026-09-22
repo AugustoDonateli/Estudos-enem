@@ -16,14 +16,17 @@
  * de dia de prova seria um documento falso. Aqui ela entra declarada como
  * desenho, que é o que ela é.
  *
- * Os arquivos ficam em `public/imagens/` e são servidos por URL, não
- * empacotados pelo bundler: assim o site compila e roda com qualquer
- * subconjunto delas presente. Ver `public/imagens/README.md`.
+ * **Sobre o nome do arquivo:** o registro guarda só o nome-base, sem extensão
+ * e sem tamanho. Quem resolve o resto é `npm run imagens`, que gera as três
+ * larguras em WebP, e `Figura`, que monta o `srcset`. Isso não é detalhe de
+ * organização: a primeira versão guardava `'dia-de-prova.png'`, chegou um
+ * arquivo chamado `dia-de-prova.webp`, e a imagem simplesmente não apareceu.
+ * Nome-base não tem como divergir do que está no disco.
  */
 
 export interface Imagem {
-  /** Nome do arquivo em `public/imagens/`. */
-  arquivo: string;
+  /** Nome-base, sem extensão e sem largura. Ex.: `dia-de-prova`. */
+  base: string;
   /** Descrição para quem não vê a imagem. Nunca o crédito. */
   alt: string;
   /** Quem fez. Em ilustração gerada, fica vazio — não há autor. */
@@ -34,20 +37,28 @@ export interface Imagem {
   licenca?: string;
   /** Verdadeiro quando a imagem é desenho gerado por IA, não registro. */
   gerada?: boolean;
+  /**
+   * Recorte vertical, quando o centro não é o que importa. Vira
+   * `object-position`. Ex.: `'topo'` para não cortar um relógio no alto.
+   */
+  foco?: 'topo' | 'centro' | 'base';
   /** Página de origem, para conferência. */
   url?: string;
 }
 
 export const IMAGENS = {
   diaDeProva: {
-    arquivo: 'dia-de-prova.png',
+    base: 'dia-de-prova',
     alt: 'Ilustração de uma sala de aplicação do exame: fileiras de carteiras, cartões-resposta e um relógio de parede.',
     autor: '',
     fonte: 'Recraft V4.1 via Higgsfield',
     gerada: true,
+    // O relógio e as janelas estão no alto; a borda de baixo já vem cortada
+    // na própria ilustração. Melhor perder embaixo do que perder o relógio.
+    foco: 'topo',
   },
   redacao: {
-    arquivo: 'redacao.png',
+    base: 'redacao',
     alt: 'Ilustração de uma folha pautada com uma caneta apoiada e cinco barras crescentes ao lado.',
     autor: '',
     fonte: 'Recraft V4.1 via Higgsfield',
@@ -56,6 +67,9 @@ export const IMAGENS = {
 } satisfies Record<string, Imagem>;
 
 export type ChaveImagem = keyof typeof IMAGENS;
+
+/** As larguras que `scripts/otimizar-imagens.ts` gera. */
+export const LARGURAS_IMAGEM = [640, 1280, 1920] as const;
 
 /**
  * Uma imagem só é exibível quando a procedência está completa — e o que

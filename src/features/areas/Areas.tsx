@@ -50,7 +50,7 @@ export function Areas() {
 
       {/* Faixa fotográfica: a única coisa no site que sangra de borda a
           borda. Não renderiza enquanto não houver arquivo com crédito. */}
-      <Figura nome="diaDeProva" proporcao="21 / 9" />
+      <Figura nome="diaDeProva" />
 
       <div className="container">
         {/* Composição por dia de prova: é assim que o exame chega ao aluno. */}
