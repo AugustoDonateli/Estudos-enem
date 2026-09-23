@@ -20,9 +20,9 @@ import s from './Figura.module.css';
  *    dizer de onde ela vem.
  * 2. Nada quebra quando o arquivo não existe. O componente não renderiza, e a
  *    página segue sem buraco.
- * 3. **O recorte é do site, não do arquivo.** A proporção muda por faixa de
- *    tela — mais alta no celular, panorâmica no desktop — e vem do CSS. Quem
- *    sobe a imagem não precisa saber de pixel nenhum.
+ * 3. **O tamanho é do site, não do arquivo.** A vinheta tem largura máxima
+ *    e a ilustração aparece inteira, sem corte, na proporção do arquivo.
+ *    Quem sobe a imagem não precisa saber de pixel nenhum.
  * 4. **O peso é resolvido por `srcset`.** As três larguras vêm de
  *    `npm run imagens`, e o navegador baixa só a que couber: 30 KB no celular
  *    em vez dos 1,9 MB que o arquivo original tinha.
@@ -42,13 +42,12 @@ export function Figura({ nome }: { nome: ChaveImagem }) {
         className={s.img}
         src={url(1280)}
         srcSet={LARGURAS_IMAGEM.map((l) => `${url(l)} ${l}w`).join(', ')}
-        // A faixa sangra de borda a borda, então a largura de exibição é a da
-        // janela — é isso que o navegador precisa saber para escolher certo.
-        sizes="100vw"
+        // A vinheta tem largura máxima de 520px, não a da janela. Sem isso o
+        // navegador baixaria a versão de 1920px para exibir 520.
+        sizes="(min-width: 560px) 520px, 100vw"
         alt={imagem.alt}
         loading="lazy"
         decoding="async"
-        {...(imagem.foco ? { style: { objectPosition: imagem.foco } } : {})}
         onError={() => setFalhou(true)}
       />
       <figcaption className={s.credito}>{creditoDe(imagem)}</figcaption>

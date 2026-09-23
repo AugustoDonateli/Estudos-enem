@@ -1,62 +1,38 @@
-/* A faixa sangra para fora do contêiner de leitura: é a única coisa no
-   site com licença para tocar as duas bordas da tela. */
+/* Vinheta de abertura.
+   Deixou de sangrar de borda a borda. A ilustração tem proporção fixa
+   (1,75:1), então faixa larga + imagem inteira + altura baixa são
+   requisitos incompatíveis: ou ela era cortada nas bordas, ou virava um
+   selo perdido no meio de 1920px de branco. Contida e centralizada, a arte
+   aparece completa, no tamanho certo, e lê como vinheta editorial — não
+   como banner. */
 .figura {
-  position: relative;
-  margin: 0;
+  margin: 0 auto;
+  padding-inline: var(--e-2x);
   width: 100%;
-  overflow: hidden;
-  background: var(--papel-2);
-
-  /* O recorte é responsabilidade do site, não de quem sobe o arquivo.
-
-     Duas regras atuam juntas, e a segunda é a que importa mais:
-
-     `aspect-ratio` dá a forma da faixa — mais alta no celular, panorâmica no
-     desktop — para a ilustração não virar um filete de nada em tela estreita.
-
-     `max-height` dá o teto. Sem ele a faixa cresce com a largura da janela
-     para sempre: numa tela de 2000px, 2:1 vira 1000px de altura, e a imagem
-     sozinha ocupa a tela inteira. É o `max-height` que decide a altura em
-     monitor largo; a proporção só manda enquanto a tela é estreita. */
-  aspect-ratio: 3 / 2;
-  max-height: 210px;
-}
-
-@media (min-width: 576px) {
-  .figura {
-    aspect-ratio: 16 / 9;
-    max-height: 280px;
-  }
-}
-
-@media (min-width: 992px) {
-  .figura {
-    aspect-ratio: 2 / 1;
-    max-height: 360px;
-  }
+  max-width: 520px;
 }
 
 .img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
-  /* Leve dessaturação: a faixa entra como documento, não como banner. */
+  width: 100%;
+  height: auto;
+  /* Sem recorte: a proporção é a do arquivo, e a altura sai dela. */
+  aspect-ratio: 1.75;
+  object-fit: contain;
+  /* Leve dessaturação: a ilustração entra como documento, não como banner. */
   filter: saturate(0.92) contrast(1.02);
 }
 
-/* O crédito fica sobre a imagem, no canto inferior, em faixa escura —
-   legível em qualquer foto, e impossível de separar da imagem. */
+/* Crédito como legenda, fora da imagem.
+   Antes era uma tarja escura sobreposta ao canto — legível, mas marca
+   d'água: sujava a arte e competia com ela. A procedência continua
+   declarada, no lugar onde legenda de imagem sempre esteve. */
 .credito {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  max-width: 100%;
-  padding: var(--e-half) var(--e-baseh);
-  background: rgba(7, 29, 65, 0.82);
-  color: var(--azul-10);
+  padding-top: var(--e-base);
   font-size: var(--t-down-02);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 1.4;
+  color: var(--cinza-50);
+  text-align: center;
 }
