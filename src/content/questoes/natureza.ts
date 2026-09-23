@@ -155,6 +155,157 @@ export const QUESTOES_NATUREZA: Questao[] = [
   },
 
   {
+    id: 'cn-eco-q3',
+    topicId: 'cn-ecologia',
+    conceito: 'Fluxo de energia entre níveis tróficos',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'problemas',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Em um ecossistema, os produtores fixam 20 000 kcal. Considere que, a cada transferência para o nível trófico seguinte, aproximadamente 90% da energia é perdida, sobretudo como calor.',
+      },
+      { tipo: 'p', texto: 'A energia disponível para um consumidor terciário é de, aproximadamente,' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: '2 kcal.',
+        correta: false,
+        diagnostico:
+          'Você aplicou a perda quatro vezes. Do produtor ao consumidor terciário são três transferências: primário, secundário e terciário.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'B',
+        texto: '20 kcal.',
+        correta: true,
+        diagnostico:
+          'Correto. 20 000 → 2 000 (primário) → 200 (secundário) → 20 (terciário). São três transferências, cada uma conservando cerca de 10%.',
+      },
+      {
+        letra: 'C',
+        texto: '200 kcal.',
+        correta: false,
+        diagnostico:
+          'Você parou no consumidor secundário. Falta a transferência para o terciário, que reduz o valor a um décimo de novo.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'D',
+        texto: '2 000 kcal.',
+        correta: false,
+        diagnostico:
+          'Este é o valor disponível para o consumidor primário, o primeiro nível após os produtores.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'E',
+        texto: '18 000 kcal.',
+        correta: false,
+        diagnostico:
+          'Você subtraiu 10% uma vez, em vez de conservar 10%. A regra é o inverso: cerca de 90% se perde e apenas um décimo passa adiante.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'O fluxo de energia é unidirecional e decrescente: cada nível gasta a maior parte do que recebe em respiração e movimento, e essa energia sai do sistema como calor — não volta para a cadeia.',
+      },
+      {
+        tipo: 'formula',
+        latexLike:
+          'produtores        20 000 kcal\nconsumidor 1º      2 000 kcal\nconsumidor 2º        200 kcal\nconsumidor 3º         20 kcal',
+        legenda: 'Três transferências, cada uma conservando cerca de 10% do nível anterior.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'É essa queda acentuada que explica por que cadeias alimentares raramente passam de quatro ou cinco níveis, e por que há muito menos predadores de topo do que presas.',
+      },
+    ],
+    irmas: ['cn-eco-q1'],
+  },
+  {
+    id: 'cn-eco-q4',
+    topicId: 'cn-ecologia',
+    conceito: 'Eutrofização',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'fenomenos',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Um lago recebe esgoto doméstico sem tratamento e fertilizantes carregados pela chuva. Meses depois, a superfície está coberta por uma densa camada de algas, a água ficou turva e há mortandade de peixes.',
+      },
+      { tipo: 'p', texto: 'A mortandade dos peixes é explicada principalmente porque' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto:
+          'a decomposição da grande massa de algas consome o oxigênio dissolvido na água.',
+        correta: true,
+        diagnostico:
+          'Correto. O excesso de nutrientes provoca proliferação de algas; quando elas morrem, a decomposição por bactérias aeróbias consome o oxigênio dissolvido, e os peixes morrem asfixiados.',
+      },
+      {
+        letra: 'B',
+        texto: 'as algas retiram diretamente o alimento dos peixes, causando inanição.',
+        correta: false,
+        diagnostico:
+          'A competição por alimento não é o mecanismo central da eutrofização. O que mata em massa e rapidamente é a queda do oxigênio dissolvido.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'a fotossíntese das algas eleva o oxigênio a níveis tóxicos para os peixes.',
+        correta: false,
+        diagnostico:
+          'O problema é falta de oxigênio, não excesso. Além disso, a camada superficial densa reduz a luz que chega ao fundo, limitando a fotossíntese nas camadas inferiores.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'o esgoto eleva a temperatura da água acima do tolerado pelas espécies.',
+        correta: false,
+        diagnostico:
+          'Poluição térmica existe, mas não é o que o enunciado descreve. Aqui o agente é a carga de nutrientes — esgoto e fertilizante —, não calor.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'E',
+        texto: 'os fertilizantes reduzem a quantidade de nutrientes disponíveis no lago.',
+        correta: false,
+        diagnostico:
+          'Fertilizante faz o contrário: aumenta a oferta de nutrientes, sobretudo nitrogênio e fósforo. É justamente esse excesso que dispara o processo.',
+        tipoErro: 'leitura',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Eutrofização é o enriquecimento da água por nutrientes, em geral nitrogênio e fósforo vindos de esgoto e fertilizante. A sequência é sempre a mesma: nutrientes em excesso, proliferação de algas, morte das algas, decomposição, queda do oxigênio dissolvido, mortandade de peixes.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'atencao',
+        titulo: 'O passo que costuma ser pulado',
+        texto:
+          'Algas vivas produzem oxigênio. O problema não são as algas enquanto vivem — é a decomposição delas depois, que consome mais oxigênio do que o sistema consegue repor.',
+      },
+    ],
+    irmas: ['cn-eco-q2'],
+  },
+  {
     id: 'cn-corpo-q1',
     topicId: 'cn-corpo-humano',
     conceito: 'Homeostase e regulação da glicemia',
@@ -304,6 +455,160 @@ export const QUESTOES_NATUREZA: Questao[] = [
     irmas: ['cn-corpo-q1'],
   },
 
+  {
+    id: 'cn-corpo-q3',
+    topicId: 'cn-corpo-humano',
+    conceito: 'Vacina e soro: imunidade ativa e passiva',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'fenomenos',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Uma pessoa é picada por um animal peçonhento e levada ao pronto-socorro. O protocolo indica a aplicação de soro antiveneno, e não de vacina.',
+      },
+      { tipo: 'p', texto: 'A escolha pelo soro se justifica porque ele' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto:
+          'fornece anticorpos prontos, com efeito imediato, enquanto a vacina levaria dias para gerar resposta.',
+        correta: true,
+        diagnostico:
+          'Correto. O soro é imunização passiva: os anticorpos já vêm prontos e agem de imediato — que é o que o quadro exige. A vacina depende de o organismo produzir a própria resposta, o que leva dias ou semanas.',
+      },
+      {
+        letra: 'B',
+        texto: 'estimula o organismo a produzir anticorpos de forma mais rápida que a vacina.',
+        correta: false,
+        diagnostico:
+          'O soro não estimula produção: ele entrega anticorpos prontos. Quem estimula a produção própria é a vacina, e é justamente isso que a torna lenta demais para uma emergência.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'gera memória imunológica duradoura contra o veneno.',
+        correta: false,
+        diagnostico:
+          'Memória é característica da imunização ativa, produzida pela vacina. O soro não deixa memória — em uma nova picada, será preciso soro de novo.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'contém o veneno atenuado, o que provoca resposta imune controlada.',
+        correta: false,
+        diagnostico:
+          'Essa é a descrição de uma vacina, não de um soro. O soro contém anticorpos, não o agente atenuado.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'elimina a necessidade de qualquer resposta imune por parte do paciente.',
+        correta: false,
+        diagnostico:
+          'O soro neutraliza o veneno circulante, mas o sistema imune do paciente continua atuando normalmente no organismo. A afirmação é ampla demais.',
+        tipoErro: 'distrator',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'A distinção entre soro e vacina é a distinção entre receber anticorpos e produzir anticorpos — e ela decide qual dos dois serve em cada situação.',
+      },
+      {
+        tipo: 'tabela',
+        cabecalho: ['', 'Vacina', 'Soro'],
+        linhas: [
+          ['Tipo de imunização', 'Ativa', 'Passiva'],
+          ['O que contém', 'Antígeno (agente atenuado, inativado ou fragmento)', 'Anticorpos prontos'],
+          ['Início do efeito', 'Dias a semanas', 'Imediato'],
+          ['Memória imunológica', 'Sim', 'Não'],
+          ['Uso típico', 'Prevenção, antes do contato', 'Tratamento, depois do contato'],
+        ],
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Regra prática para a prova: vacina é prevenção e olha para o futuro; soro é tratamento e resolve o agora. Por isso não existe “vacina contra picada” aplicada no pronto-socorro.',
+      },
+    ],
+    irmas: ['cn-corpo-q2'],
+  },
+  {
+    id: 'cn-corpo-q4',
+    topicId: 'cn-corpo-humano',
+    conceito: 'Digestão e absorção no intestino delgado',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'fenomenos',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Após uma cirurgia, um paciente teve removida uma extensa porção do intestino delgado. Mesmo mantendo alimentação adequada em quantidade, passou a apresentar perda de peso e deficiências nutricionais.',
+      },
+      { tipo: 'p', texto: 'Esse quadro é explicado porque o intestino delgado é o principal local de' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'absorção dos nutrientes, função favorecida por sua grande superfície interna.',
+        correta: true,
+        diagnostico:
+          'Correto. As vilosidades e microvilosidades multiplicam a superfície de contato do intestino delgado. Reduzir essa área reduz a absorção, mesmo que a digestão e a ingestão estejam normais.',
+      },
+      {
+        letra: 'B',
+        texto: 'armazenamento do bolo alimentar antes da digestão química.',
+        correta: false,
+        diagnostico:
+          'O armazenamento temporário ocorre no estômago. O intestino delgado não tem função de reservatório.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'absorção de água, responsável pela formação das fezes.',
+        correta: false,
+        diagnostico:
+          'A absorção final de água e a formação das fezes ocorrem sobretudo no intestino grosso. A deficiência descrita é nutricional, não de hidratação.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'produção de bile, necessária à emulsificação das gorduras.',
+        correta: false,
+        diagnostico:
+          'A bile é produzida no fígado e armazenada na vesícula biliar; ela apenas atua no intestino delgado, mas não é produzida ali.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'início da digestão de proteínas pela ação do suco gástrico.',
+        correta: false,
+        diagnostico:
+          'A digestão de proteínas começa no estômago, com o suco gástrico. O enunciado trata de perda nutricional por falta de área intestinal, não de início de digestão.',
+        tipoErro: 'leitura',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Digerir e absorver são etapas distintas. Digestão quebra macromoléculas em unidades pequenas; absorção transfere essas unidades para o sangue e a linfa. O paciente do enunciado digere bem — o que falta é superfície para absorver.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'A anatomia explica a função: pregas, vilosidades e microvilosidades transformam um tubo de poucos metros em uma área de absorção muito maior. Sempre que uma questão fala em superfície aumentada em órgão tubular, a função em jogo é troca.',
+      },
+    ],
+    irmas: ['cn-corpo-q1'],
+  },
   {
     id: 'cn-gen-q1',
     topicId: 'cn-genetica',
@@ -459,6 +764,163 @@ export const QUESTOES_NATUREZA: Questao[] = [
   },
 
   {
+    id: 'cn-gen-q3',
+    topicId: 'cn-genetica',
+    conceito: 'Portador e afetado em heredograma',
+    procedencia: 'autoral',
+    dificuldade: 'dificil',
+    eixo: 'problemas',
+    minutos: 4,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Uma doença humana é determinada por um alelo autossômico recessivo. Um casal, em que nenhum dos dois manifesta a doença, teve um filho afetado. O casal tem outra filha, que não manifesta a doença.',
+      },
+      { tipo: 'p', texto: 'A probabilidade de essa filha ser heterozigota (portadora) é de' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: '1/4.',
+        correta: false,
+        diagnostico:
+          'Esta é a probabilidade de um filho qualquer do casal nascer afetado, antes de qualquer informação adicional. A pergunta já informa que ela não é afetada.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'B',
+        texto: '1/3.',
+        correta: false,
+        diagnostico:
+          'Você inverteu a razão. Entre os três genótipos possíveis para quem não manifesta a doença, um é homozigoto dominante e dois são heterozigotos — logo 2/3, não 1/3.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'C',
+        texto: '1/2.',
+        correta: false,
+        diagnostico:
+          'Metade seria a resposta se os genótipos possíveis fossem apenas AA e Aa em igual proporção. Mas Aa aparece duas vezes no cruzamento Aa × Aa, o que desequilibra a conta.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: '2/3.',
+        correta: true,
+        diagnostico:
+          'Correto. Como o casal gerou um filho aa, ambos são Aa. O cruzamento Aa × Aa dá 1 AA : 2 Aa : 1 aa. Saber que a filha não é afetada elimina o aa, restando 1 AA : 2 Aa — logo 2/3 de chance de ser portadora.',
+      },
+      {
+        letra: 'E',
+        texto: '3/4.',
+        correta: false,
+        diagnostico:
+          'Esta é a probabilidade de um filho qualquer do casal não manifestar a doença. Ela responde a outra pergunta: a que já foi respondida pelo enunciado.',
+        tipoErro: 'leitura',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Primeiro passo: deduzir os genótipos dos pais. Nenhum deles manifesta a doença, mas geraram um filho aa — logo cada um forneceu um alelo a, e ambos são necessariamente Aa.',
+      },
+      {
+        tipo: 'formula',
+        latexLike:
+          'Aa × Aa  →  1 AA : 2 Aa : 1 aa\ninformação: a filha NÃO é afetada  →  elimina aa\nrestam: 1 AA : 2 Aa\nP(heterozigota) = 2 / 3',
+        legenda: 'A informação “não afetada” não é enfeite: ela reduz o espaço de possibilidades.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'atencao',
+        titulo: 'O 2/3 que quase todo mundo erra',
+        texto:
+          'Portador não é afetado — e essa distinção muda a conta. Sempre que o enunciado afirmar que alguém não manifesta a doença, risque o aa antes de calcular qualquer probabilidade.',
+      },
+    ],
+    irmas: ['cn-gen-q1'],
+  },
+  {
+    id: 'cn-gen-q4',
+    topicId: 'cn-genetica',
+    conceito: 'Independência entre gestações',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'problemas',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Um casal heterozigoto para uma doença autossômica recessiva (Aa × Aa) teve três filhos, todos afetados pela doença. O casal planeja uma quarta gestação.',
+      },
+      { tipo: 'p', texto: 'A probabilidade de essa quarta criança nascer afetada é de' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: '0, pois as probabilidades já se esgotaram nos filhos anteriores.',
+        correta: false,
+        diagnostico:
+          'Probabilidade não é uma cota que se gasta. Os gametas de cada gestação se combinam ao acaso, sem registro do que aconteceu antes.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto: '1/64, pois é preciso multiplicar as chances das quatro gestações.',
+        correta: false,
+        diagnostico:
+          'Multiplicar faria sentido para a pergunta “qual a chance de os quatro nascerem afetados?”, feita antes de qualquer nascimento. Aqui três já nasceram: a pergunta é só sobre a próxima.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: '1/4, pois cada gestação é um evento independente.',
+        correta: true,
+        diagnostico:
+          'Correto. Em Aa × Aa, a chance de aa é 1/4 em qualquer gestação, independentemente do resultado das anteriores.',
+      },
+      {
+        letra: 'D',
+        texto: '1/2, pois metade dos filhos de heterozigotos é afetada.',
+        correta: false,
+        diagnostico:
+          'A proporção esperada em Aa × Aa é 1 AA : 2 Aa : 1 aa, ou seja, 1/4 de afetados — não metade. A metade corresponde aos heterozigotos.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'E',
+        texto: '1, pois o padrão observado nos três filhos deve se manter.',
+        correta: false,
+        diagnostico:
+          'Três resultados iguais não estabelecem regra: com 1/4 por gestação, a sequência é improvável, mas perfeitamente possível — e não altera a próxima.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Cada fecundação envolve um gameta aleatório de cada progenitor. Nada no processo guarda memória das gestações anteriores, e é isso que significa dizer que os eventos são independentes.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'A confusão vem de misturar duas perguntas diferentes: “qual a chance desta gestação?” (1/4, sempre) e “qual era a chance de quatro seguidas afetadas?” (1/4 elevado à quarta potência, calculada antes de todas). A segunda só faz sentido antes do primeiro nascimento.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'nota',
+        titulo: 'Onde isso aparece fora da genética',
+        texto:
+          'É o mesmo raciocínio da moeda: cinco caras seguidas não tornam coroa mais provável na sexta jogada. O ENEM costuma cobrar essa ideia tanto em Genética quanto em Probabilidade.',
+      },
+    ],
+    irmas: ['cn-gen-q1', 'cn-gen-q3'],
+  },
+  {
     id: 'cn-est-q1',
     topicId: 'cn-estequiometria',
     conceito: 'Mol e massa molar em reação de combustão',
@@ -602,6 +1064,85 @@ export const QUESTOES_NATUREZA: Questao[] = [
   },
 
   {
+    id: 'cn-est-q3',
+    topicId: 'cn-estequiometria',
+    conceito: 'Reagente limitante',
+    procedencia: 'autoral',
+    dificuldade: 'dificil',
+    eixo: 'problemas',
+    minutos: 5,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Considere a reação 2 H₂ + O₂ → 2 H₂O. Em um recipiente, são colocados 10 g de H₂ e 64 g de O₂. Massas molares: H₂ = 2 g/mol, O₂ = 32 g/mol, H₂O = 18 g/mol.',
+      },
+      { tipo: 'p', texto: 'A massa de água formada ao final da reação é de' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: '36 g.',
+        correta: false,
+        diagnostico:
+          'Você calculou a água correspondente a apenas 2 mol. O oxigênio disponível (2 mol) forma 4 mol de água, pela proporção 1 O₂ : 2 H₂O.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'B',
+        texto: '72 g.',
+        correta: true,
+        diagnostico:
+          'Correto. São 5 mol de H₂ e 2 mol de O₂. A proporção exige 2 mol de H₂ para cada 1 de O₂: os 2 mol de O₂ consomem só 4 mol de H₂, sobrando 1 mol. O O₂ é o limitante e forma 4 mol de água = 72 g.',
+      },
+      {
+        letra: 'C',
+        texto: '74 g.',
+        correta: false,
+        diagnostico:
+          'Você somou as massas dos dois reagentes. A conservação da massa vale para o sistema todo, mas parte do H₂ sobra sem reagir — e sobra não vira produto.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: '90 g.',
+        correta: false,
+        diagnostico:
+          'Você usou o H₂ como limitante: 5 mol de H₂ dariam 5 mol de água. Mas não há oxigênio suficiente para consumir todo o hidrogênio — só 2 mol de O₂ estão disponíveis.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: '144 g.',
+        correta: false,
+        diagnostico:
+          'Você dobrou o resultado, provavelmente aplicando o coeficiente 2 duas vezes. O coeficiente já está considerado ao converter 2 mol de O₂ em 4 mol de água.',
+        tipoErro: 'calculo',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Quando o enunciado fornece a quantidade dos dois reagentes, ele quase sempre está cobrando reagente limitante. O primeiro passo é converter tudo para mol — a proporção da equação só se lê em mol.',
+      },
+      {
+        tipo: 'formula',
+        latexLike:
+          'n(H₂) = 10 / 2 = 5 mol\nn(O₂) = 64 / 32 = 2 mol\nproporção exigida: 2 H₂ : 1 O₂\npara 5 mol de H₂ seriam precisos 2,5 mol de O₂ → não há\npara 2 mol de O₂ bastam 4 mol de H₂ → há de sobra\nlimitante: O₂  →  2 mol O₂ × 2 = 4 mol H₂O\nmassa = 4 × 18 = 72 g',
+        legenda: 'Sobram 1 mol de H₂ (2 g) sem reagir — a massa total do sistema continua 74 g.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'atencao',
+        titulo: 'Como identificar o limitante sem decorar fórmula',
+        texto:
+          'Divida a quantidade em mol de cada reagente pelo seu coeficiente na equação: H₂ dá 5/2 = 2,5 e O₂ dá 2/1 = 2. O menor resultado indica o limitante — aqui, o oxigênio.',
+      },
+    ],
+    irmas: ['cn-est-q1', 'cn-est-q2'],
+  },
+  {
     id: 'cn-sol-q1',
     topicId: 'cn-solucoes',
     conceito: 'Concentração comum',
@@ -739,6 +1280,160 @@ export const QUESTOES_NATUREZA: Questao[] = [
     irmas: ['cn-sol-q1'],
   },
 
+  {
+    id: 'cn-sol-q3',
+    topicId: 'cn-solucoes',
+    conceito: 'Concentração em quantidade de matéria (molaridade)',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'problemas',
+    minutos: 4,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Em um laboratório, 4,0 g de hidróxido de sódio (NaOH) são dissolvidos em água suficiente para completar 250 mL de solução. Massa molar do NaOH: 40 g/mol.',
+      },
+      { tipo: 'p', texto: 'A concentração em quantidade de matéria dessa solução é de' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: '0,0004 mol/L.',
+        correta: false,
+        diagnostico:
+          'Você dividiu pelo volume em mililitros. A unidade mol/L exige o volume em litros: 250 mL = 0,25 L.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'B',
+        texto: '0,10 mol/L.',
+        correta: false,
+        diagnostico:
+          'Você parou na quantidade de matéria: 4,0 ÷ 40 = 0,10 mol. Esse é o número de mols, não a concentração — falta dividir pelo volume.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'C',
+        texto: '0,40 mol/L.',
+        correta: true,
+        diagnostico:
+          'Correto. n = 4,0 ÷ 40 = 0,10 mol; V = 250 mL = 0,25 L; M = 0,10 ÷ 0,25 = 0,40 mol/L.',
+      },
+      {
+        letra: 'D',
+        texto: '2,5 mol/L.',
+        correta: false,
+        diagnostico:
+          'Você inverteu a divisão, calculando volume ÷ quantidade de matéria. A concentração é sempre quantidade por volume.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'E',
+        texto: '16 mol/L.',
+        correta: false,
+        diagnostico:
+          'Você dividiu a massa pelo volume (4,0 ÷ 0,25 = 16) sem converter a massa em mol. Isso dá concentração comum, 16 g/L, que é outra grandeza.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Concentração comum e molaridade respondem à mesma pergunta — quanto soluto há por volume de solução — mas em unidades diferentes: g/L numa, mol/L na outra. Confundir as duas é o erro mais frequente do assunto.',
+      },
+      {
+        tipo: 'formula',
+        latexLike:
+          'n = m / M = 4,0 / 40 = 0,10 mol\nV = 250 mL = 0,25 L\nM = n / V = 0,10 / 0,25 = 0,40 mol/L',
+        legenda: 'A massa vira mol antes de qualquer divisão por volume.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Confira a unidade do que o enunciado pede: “concentração em quantidade de matéria” e “molaridade” significam mol/L; “concentração comum” significa g/L. A alternativa E existe exatamente para quem não leu isso.',
+      },
+    ],
+    irmas: ['cn-sol-q1'],
+  },
+  {
+    id: 'cn-sol-q4',
+    topicId: 'cn-solucoes',
+    conceito: 'Solubilidade e solução saturada',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'problemas',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'A solubilidade de determinado sal, a 20 °C, é de 36 g por 100 g de água. Em um béquer, um estudante adiciona 50 g desse sal a 100 g de água, mantém a temperatura em 20 °C e agita até não haver mais dissolução.',
+      },
+      { tipo: 'p', texto: 'Ao final, a massa de sal dissolvida e a massa depositada no fundo são, respectivamente,' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: '14 g e 36 g.',
+        correta: false,
+        diagnostico:
+          'Você trocou os valores. Os 36 g são o máximo que a água dissolve nessa temperatura; o que sobra é que vai ao fundo.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'B',
+        texto: '18 g e 32 g.',
+        correta: false,
+        diagnostico:
+          'Você usou metade da solubilidade, como se apenas 50 g de água estivessem disponíveis. O enunciado informa 100 g de água, que é exatamente a base da tabela de solubilidade.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'C',
+        texto: '36 g e 14 g.',
+        correta: true,
+        diagnostico:
+          'Correto. A 20 °C, 100 g de água dissolvem no máximo 36 g. Dos 50 g adicionados, 36 g se dissolvem e 14 g permanecem como corpo de fundo.',
+      },
+      {
+        letra: 'D',
+        texto: '50 g e 0 g.',
+        correta: false,
+        diagnostico:
+          'Isso exigiria que a solubilidade fosse de pelo menos 50 g por 100 g de água. Como o limite é 36 g, a solução satura antes de dissolver tudo.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: '36 g e 50 g.',
+        correta: false,
+        diagnostico:
+          'A soma daria 86 g, mais do que os 50 g adicionados. Matéria não é criada no béquer — o total precisa fechar com o que foi colocado.',
+        tipoErro: 'calculo',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Solubilidade é um teto, definido para uma temperatura e uma quantidade de solvente. Abaixo dele a solução é insaturada; exatamente nele, saturada; acima dele o excesso não dissolve e se deposita como corpo de fundo.',
+      },
+      {
+        tipo: 'formula',
+        latexLike:
+          'limite a 20 °C = 36 g / 100 g de água\nadicionado = 50 g\ndissolvido = 36 g  (a solução satura)\ncorpo de fundo = 50 − 36 = 14 g',
+        legenda: 'Conferência: 36 + 14 = 50 g, o total adicionado.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Aquecer a água costuma elevar a solubilidade de sais e dissolver o corpo de fundo; resfriar de volta faz o excesso recristalizar. É essa reversibilidade que as questões de curva de solubilidade exploram.',
+      },
+    ],
+    irmas: ['cn-sol-q1', 'cn-sol-q2'],
+  },
   {
     id: 'cn-org-q1',
     topicId: 'cn-organica',
@@ -894,6 +1589,166 @@ export const QUESTOES_NATUREZA: Questao[] = [
   },
 
   {
+    id: 'cn-org-q3',
+    topicId: 'cn-organica',
+    conceito: 'Função éster',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'linguagens',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Vários compostos responsáveis por aromas de frutas e usados como essências têm estrutura semelhante à do acetato de etila, representado por CH₃—COO—CH₂—CH₃.',
+      },
+      { tipo: 'p', texto: 'O grupo funcional presente nesse composto caracteriza a função' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'álcool.',
+        correta: false,
+        diagnostico:
+          'Álcool tem hidroxila (—OH) ligada a carbono saturado. Na estrutura apresentada não há —OH livre: o oxigênio simples está entre dois carbonos, dentro do grupo —COO—.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto: 'aldeído.',
+        correta: false,
+        diagnostico:
+          'Aldeído tem o grupo —CHO na extremidade da cadeia, com hidrogênio ligado à carbonila. Aqui a carbonila está ligada a um oxigênio, não a um hidrogênio.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'ácido carboxílico.',
+        correta: false,
+        diagnostico:
+          'É o distrator mais forte, porque a carboxila (—COOH) e o éster (—COO—) são parecidos. A diferença está no final: no ácido há hidrogênio ligado ao oxigênio; aqui há uma cadeia carbônica (—CH₂—CH₃).',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'cetona.',
+        correta: false,
+        diagnostico:
+          'Cetona tem carbonila (C=O) entre dois carbonos, sem oxigênio adicional ligado a ela. A estrutura apresentada tem dois oxigênios no mesmo carbono.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'éster.',
+        correta: true,
+        diagnostico:
+          'Correto. O grupo —COO— ligado a dois radicais orgânicos, um de cada lado, caracteriza a função éster. É a função típica dos aromas artificiais de fruta e também dos biodieseis.',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Identificar função orgânica é ler o entorno do oxigênio. Uma hidroxila solta indica álcool; carbonila entre carbonos indica cetona; carbonila com hidrogênio na ponta indica aldeído; carboxila terminando em —OH indica ácido; e o —COO— ligando dois radicais indica éster.',
+      },
+      {
+        tipo: 'lista',
+        itens: [
+          'Álcool: R—OH',
+          'Aldeído: R—CHO',
+          'Cetona: R—CO—R′',
+          'Ácido carboxílico: R—COOH',
+          'Éster: R—COO—R′',
+        ],
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Ésteres se formam pela reação entre um ácido carboxílico e um álcool, com saída de água. Esse parentesco explica por que as duas funções são tão confundidas — e por que o final da estrutura é o que decide.',
+      },
+    ],
+    irmas: ['cn-org-q1'],
+  },
+  {
+    id: 'cn-org-q4',
+    topicId: 'cn-organica',
+    conceito: 'Ligação de hidrogênio e ponto de ebulição',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'fenomenos',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'O etanol (CH₃—CH₂—OH, massa molar 46 g/mol) entra em ebulição a cerca de 78 °C, enquanto o propano (CH₃—CH₂—CH₃, massa molar 44 g/mol) entra em ebulição a cerca de −42 °C, ambos à pressão atmosférica.',
+      },
+      { tipo: 'p', texto: 'A grande diferença entre os pontos de ebulição se explica porque, no etanol,' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto:
+          'as moléculas formam ligações de hidrogênio entre si, o que exige mais energia para separá-las.',
+        correta: true,
+        diagnostico:
+          'Correto. A hidroxila permite ligações de hidrogênio entre moléculas vizinhas — a interação intermolecular mais intensa entre as citadas. Romper essas interações exige mais energia, e o líquido só ferve em temperatura mais alta.',
+      },
+      {
+        letra: 'B',
+        texto: 'a massa molar é muito maior, o que aumenta a atração entre as moléculas.',
+        correta: false,
+        diagnostico:
+          'As massas molares são praticamente iguais: 46 e 44 g/mol. É justamente por isso que o enunciado as informa — para eliminar a massa como explicação.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'C',
+        texto: 'as ligações covalentes entre carbono e oxigênio são mais fortes que as demais.',
+        correta: false,
+        diagnostico:
+          'Esta é a confusão clássica entre ligação intramolecular e interação intermolecular. Na ebulição as moléculas se separam umas das outras; as ligações covalentes internas permanecem intactas.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'o composto é iônico, e compostos iônicos apresentam altos pontos de ebulição.',
+        correta: false,
+        diagnostico:
+          'Etanol é molecular, não iônico. Compostos iônicos têm pontos de fusão e ebulição muito mais altos — centenas de graus —, bem acima dos 78 °C citados.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'a cadeia carbônica é mais longa, o que eleva as forças de dispersão.',
+        correta: false,
+        diagnostico:
+          'A cadeia do etanol tem dois carbonos e a do propano, três — ou seja, o etanol tem a cadeia menor. Se só as forças de dispersão contassem, o propano é que ferveria a temperatura mais alta.',
+        tipoErro: 'leitura',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Ponto de ebulição depende da força das interações ENTRE moléculas, não das ligações dentro delas. Ferver é afastar moléculas umas das outras; nenhuma ligação covalente se rompe no processo.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'A ligação de hidrogênio aparece quando há hidrogênio ligado a flúor, oxigênio ou nitrogênio. A hidroxila do etanol cumpre esse requisito; o propano, formado só por carbono e hidrogênio, conta apenas com forças de dispersão, bem mais fracas.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'nota',
+        titulo: 'Massas parecidas, propriedades diferentes',
+        texto:
+          'Quando uma questão dá dois compostos com massas molares próximas, ela está dizendo que a resposta não está na massa. O que resta comparar é o tipo de interação intermolecular.',
+      },
+    ],
+    irmas: ['cn-org-q2'],
+  },
+  {
     id: 'cn-ener-q1',
     topicId: 'cn-energia',
     conceito: 'Conservação da energia mecânica',
@@ -1046,6 +1901,162 @@ export const QUESTOES_NATUREZA: Questao[] = [
   },
 
   {
+    id: 'cn-ener-q3',
+    topicId: 'cn-energia',
+    conceito: 'Potência e trabalho',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'problemas',
+    minutos: 4,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Um elevador de carga eleva 500 kg a uma altura de 12 m em 20 s, com velocidade constante. Considere g = 10 m/s².',
+      },
+      { tipo: 'p', texto: 'A potência útil desenvolvida pelo motor nesse processo é de' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: '300 W.',
+        correta: false,
+        diagnostico:
+          'Você esqueceu a gravidade: calculou 500 × 12 ÷ 20. O trabalho contra o peso exige multiplicar a massa por g para obter a força.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'B',
+        texto: '3 000 W.',
+        correta: true,
+        diagnostico:
+          'Correto. O trabalho é m·g·h = 500 × 10 × 12 = 60 000 J; a potência é 60 000 ÷ 20 = 3 000 W, ou 3 kW.',
+      },
+      {
+        letra: 'C',
+        texto: '30 000 W.',
+        correta: false,
+        diagnostico:
+          'Seu resultado é dez vezes maior que o correto — provável erro ao dividir 60 000 por 20, ou ao converter a altura.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'D',
+        texto: '60 000 W.',
+        correta: false,
+        diagnostico:
+          'Este é o trabalho realizado, em joules, não a potência. Potência é trabalho dividido pelo tempo — falta dividir por 20 s.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: '1 200 000 W.',
+        correta: false,
+        diagnostico:
+          'Você multiplicou pelo tempo em vez de dividir. Quanto mais tempo se leva para realizar o mesmo trabalho, menor a potência.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Trabalho e potência respondem a perguntas diferentes: trabalho é quanta energia foi transferida; potência é com que rapidez isso aconteceu. O mesmo trabalho em metade do tempo dobra a potência.',
+      },
+      {
+        tipo: 'formula',
+        latexLike:
+          'τ = m · g · h = 500 × 10 × 12 = 60 000 J\nP = τ / Δt = 60 000 / 20 = 3 000 W = 3 kW',
+        legenda: 'Como a velocidade é constante, toda a energia útil vai para a energia potencial gravitacional.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Confira a unidade antes de marcar: joule mede energia, watt mede energia por segundo. Se o resultado saiu em joule, a divisão pelo tempo ficou faltando.',
+      },
+    ],
+    irmas: ['cn-ener-q1'],
+  },
+  {
+    id: 'cn-ener-q4',
+    topicId: 'cn-energia',
+    conceito: 'Energia cinética e dependência quadrática da velocidade',
+    procedencia: 'autoral',
+    dificuldade: 'dificil',
+    eixo: 'fenomenos',
+    minutos: 4,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Em uma campanha de trânsito, afirma-se que um carro a 60 km/h, ao frear, percorre cerca de 20 m até parar. Considere que a força de frenagem seja a mesma e que toda a energia cinética seja dissipada pelos freios.',
+      },
+      { tipo: 'p', texto: 'A 120 km/h, a distância percorrida até parar seria de, aproximadamente,' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: '20 m, pois a força de frenagem é a mesma.',
+        correta: false,
+        diagnostico:
+          'A força ser a mesma não significa distância igual: a energia a ser dissipada é maior, e a distância é a energia dividida pela força.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto: '40 m, pois a velocidade dobrou.',
+        correta: false,
+        diagnostico:
+          'Este é o erro central da questão. A energia cinética depende do quadrado da velocidade: dobrar a velocidade quadruplica a energia, não a duplica.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: '60 m, pois a energia cresce com o triplo da velocidade.',
+        correta: false,
+        diagnostico:
+          'Não há fator 3 em nenhuma etapa. A relação entre energia cinética e velocidade é quadrática: v dobra, E_c fica quatro vezes maior.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'D',
+        texto: '80 m, pois a energia cinética quadruplica.',
+        correta: true,
+        diagnostico:
+          'Correto. E_c = m·v²/2: dobrar v multiplica a energia por 4. Com a mesma força de frenagem, é preciso quatro vezes mais distância para dissipá-la: 4 × 20 = 80 m.',
+      },
+      {
+        letra: 'E',
+        texto: '160 m, pois a energia cresce com o cubo da velocidade.',
+        correta: false,
+        diagnostico:
+          'O expoente é 2, não 3. A dependência cúbica não aparece na energia cinética — dobrar v multiplica a energia por 4, e não por 8.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'A distância de frenagem sai de uma igualdade simples: a energia cinética inicial precisa ser inteiramente dissipada pelo trabalho da força de frenagem, que vale força × distância.',
+      },
+      {
+        tipo: 'formula',
+        latexLike:
+          'E_c = m · v² / 2\nF · d = m · v² / 2   →   d = m · v² / (2F)\nv → 2v  ⇒  d → 4d\n4 × 20 m = 80 m',
+        legenda: 'Com F constante, a distância é proporcional ao quadrado da velocidade.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'atencao',
+        titulo: 'Por que isso importa fora da prova',
+        texto:
+          'É a razão física das campanhas de redução de velocidade: entre 60 e 120 km/h, a distância até parar não dobra — quadruplica. E isso desconsidera o tempo de reação do motorista, que aumenta a distância total ainda mais.',
+      },
+    ],
+    irmas: ['cn-ener-q1', 'cn-ener-q2'],
+  },
+  {
     id: 'cn-elet-q1',
     topicId: 'cn-eletricidade',
     conceito: 'Consumo de energia elétrica em kWh',
@@ -1189,5 +2200,81 @@ export const QUESTOES_NATUREZA: Questao[] = [
       },
     ],
     irmas: ['cn-elet-q1', 'cn-ener-q2'],
+  },
+  {
+    id: 'cn-elet-q3',
+    topicId: 'cn-eletricidade',
+    conceito: 'Relação entre potência, tensão e corrente',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'problemas',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Um chuveiro elétrico de 5 500 W é instalado em uma rede de 220 V. O eletricista precisa escolher o disjuntor adequado ao circuito.',
+      },
+      { tipo: 'p', texto: 'A corrente que percorre o chuveiro em funcionamento é de' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: '0,04 A.',
+        correta: false,
+        diagnostico:
+          'Você dividiu a tensão pela potência (220 ÷ 5 500). A relação é i = P ÷ U: a potência vai no numerador.',
+        tipoErro: 'calculo',
+      },
+      {
+        letra: 'B',
+        texto: '12,5 A.',
+        correta: false,
+        diagnostico:
+          'Este seria o resultado com 440 V. A rede informada é de 220 V.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'C',
+        texto: '25 A.',
+        correta: true,
+        diagnostico:
+          'Correto. De P = U · i, temos i = 5 500 ÷ 220 = 25 A. É por isso que chuveiro exige circuito e disjuntor próprios, dimensionados acima desse valor.',
+      },
+      {
+        letra: 'D',
+        texto: '50 A.',
+        correta: false,
+        diagnostico:
+          'Este é o valor para uma rede de 110 V. Na mesma potência, quanto menor a tensão, maior a corrente — mas o enunciado fixa 220 V.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'E',
+        texto: '1 210 000 A.',
+        correta: false,
+        diagnostico:
+          'Você multiplicou potência por tensão. A ordem de grandeza já denuncia: nenhuma instalação residencial conduz mais de um milhão de ampères.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'P = U · i é a relação que liga as três grandezas elétricas mais cobradas. Conhecendo duas, a terceira sai por divisão ou multiplicação — o cuidado é saber qual delas está isolada.',
+      },
+      {
+        tipo: 'formula',
+        latexLike: 'P = U · i\ni = P / U = 5 500 / 220 = 25 A',
+        legenda: 'Na mesma potência, dobrar a tensão reduz a corrente à metade.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'É por isso que aparelhos de alta potência são preferencialmente ligados em 220 V: corrente menor significa menos aquecimento nos fios, pelo efeito Joule, e cabos mais finos para a mesma carga.',
+      },
+    ],
+    irmas: ['cn-elet-q1', 'cn-elet-q2'],
   },
 ];

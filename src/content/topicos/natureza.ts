@@ -92,7 +92,7 @@ export const CONTEUDOS_NATUREZA: Record<string, ConteudoAssunto> = {
           'Sem eles a matéria não retorna ao ambiente e os ciclos param. Eles aparecem em muitos esquemas justamente por isso.',
       },
     ],
-    questoes: ['cn-eco-q1', 'cn-eco-q2'],
+    questoes: ['cn-eco-q1', 'cn-eco-q2', 'cn-eco-q3', 'cn-eco-q4'],
     revisaoRapida: [
       'Energia flui (≈10% por nível); matéria cicla.',
       'Poluente não degradável se concentra no topo da cadeia.',
@@ -182,7 +182,7 @@ export const CONTEUDOS_NATUREZA: Record<string, ConteudoAssunto> = {
           'Antibióticos atuam sobre estruturas bacterianas que os vírus não possuem. Isso aparece com frequência em itens sobre uso racional de medicamentos.',
       },
     ],
-    questoes: ['cn-corpo-q1', 'cn-corpo-q2'],
+    questoes: ['cn-corpo-q1', 'cn-corpo-q2', 'cn-corpo-q3', 'cn-corpo-q4'],
     revisaoRapida: [
       'Homeostase por retroalimentação negativa: desvio → resposta → correção.',
       'Insulina baixa glicemia; glucagon eleva.',
@@ -272,7 +272,7 @@ export const CONTEUDOS_NATUREZA: Record<string, ConteudoAssunto> = {
           'Dominância descreve como o alelo se expressa, não quão comum ele é na população. Há alelos dominantes raríssimos.',
       },
     ],
-    questoes: ['cn-gen-q1', 'cn-gen-q2'],
+    questoes: ['cn-gen-q1', 'cn-gen-q2', 'cn-gen-q3', 'cn-gen-q4'],
     revisaoRapida: [
       'Aa × Aa → 1 AA : 2 Aa : 1 aa (25% afetados).',
       'Portador ≠ afetado.',
@@ -352,7 +352,7 @@ export const CONTEUDOS_NATUREZA: Record<string, ConteudoAssunto> = {
           'Se o enunciado informa a massa dos DOIS reagentes, é sinal de que um deles limita — e o cálculo deve partir dele.',
       },
     ],
-    questoes: ['cn-est-q1', 'cn-est-q2', 'of-2025-cn-131'],
+    questoes: ['cn-est-q1', 'cn-est-q2', 'cn-est-q3', 'of-2025-cn-131'],
     revisaoRapida: [
       'n = m / M. A proporção da equação é em mol.',
       'Rotina: massa → mol → proporção → mol → massa.',
@@ -434,7 +434,7 @@ export const CONTEUDOS_NATUREZA: Record<string, ConteudoAssunto> = {
         porque: 'Uma usa gramas, a outra usa mol. Passar de uma para a outra exige a massa molar.',
       },
     ],
-    questoes: ['cn-sol-q1', 'cn-sol-q2'],
+    questoes: ['cn-sol-q1', 'cn-sol-q2', 'cn-sol-q3', 'cn-sol-q4'],
     revisaoRapida: [
       'C = m/V (g/L) · M = n/V (mol/L).',
       'Diluição: C₁V₁ = C₂V₂.',
@@ -521,7 +521,7 @@ export const CONTEUDOS_NATUREZA: Record<string, ConteudoAssunto> = {
           'Quem decide a solubilidade em água é a polaridade. Massa molar tem mais relação com ponto de ebulição.',
       },
     ],
-    questoes: ['cn-org-q1', 'cn-org-q2'],
+    questoes: ['cn-org-q1', 'cn-org-q2', 'cn-org-q3', 'cn-org-q4'],
     revisaoRapida: [
       '—OH álcool · —COOH ácido · —COO— éster · —CHO aldeído · C=O cetona.',
       'Semelhante dissolve semelhante.',
@@ -610,7 +610,7 @@ export const CONTEUDOS_NATUREZA: Record<string, ConteudoAssunto> = {
         porque: 'Rendimento é útil sobre total. Se o resultado passar de 100%, a divisão foi feita ao contrário.',
       },
     ],
-    questoes: ['cn-ener-q1', 'cn-ener-q2'],
+    questoes: ['cn-ener-q1', 'cn-ener-q2', 'cn-ener-q3', 'cn-ener-q4'],
     revisaoRapida: [
       'E_p = mgh · E_c = mv²/2 · P = E/t.',
       'Sem atrito: potencial vira cinética integralmente.',
@@ -692,7 +692,7 @@ export const CONTEUDOS_NATUREZA: Record<string, ConteudoAssunto> = {
           'O comando quase sempre pede o valor mensal. Vale reler a pergunta depois de terminar a conta.',
       },
     ],
-    questoes: ['cn-elet-q1', 'cn-elet-q2', 'of-2025-cn-122'],
+    questoes: ['cn-elet-q1', 'cn-elet-q2', 'cn-elet-q3', 'of-2025-cn-122'],
     revisaoRapida: [
       'P = U·i · E(kWh) = P(kW) × t(h).',
       '1 kW = 1 000 W; 30 min = 0,5 h.',
