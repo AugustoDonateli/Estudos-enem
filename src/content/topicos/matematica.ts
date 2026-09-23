@@ -189,7 +189,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
         porque: 'A conta da escala costuma estar certa; a conversão é o que derruba. 1 km = 100 000 cm.',
       },
     ],
-    questoes: ['mat-prop-q1', 'mat-prop-q2', 'of-2025-mt-150'],
+    questoes: ['mat-prop-q1', 'mat-prop-q2', 'mat-prop-q3', 'of-2025-mt-150'],
     revisaoRapida: [
       'Direta: a razão se mantém. Inversa: o produto se mantém.',
       'Pergunte sempre antes: sobe ou desce?',
@@ -286,7 +286,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
           'Se o gráfico traz temperatura, nenhuma alternativa sobre umidade, número de dias ou causa climática pode ser sustentada.',
       },
     ],
-    questoes: ['mat-graf-q1', 'mat-graf-q2'],
+    questoes: ['mat-graf-q1', 'mat-graf-q2', 'mat-graf-q3', 'mat-graf-q4'],
     revisaoRapida: [
       'Rotina: título → eixos → unidades → escala → comando.',
       'Correlação ≠ causa.',
@@ -378,7 +378,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
         porque: 'Se nenhum valor se repete, não há moda. Se dois se repetem igualmente, há duas.',
       },
     ],
-    questoes: ['mat-med-q1', 'mat-med-q2', 'of-2025-mt-142'],
+    questoes: ['mat-med-q1', 'mat-med-q2', 'mat-med-q3', 'of-2025-mt-142'],
     revisaoRapida: [
       'Média: soma ÷ quantidade. Puxada por extremos.',
       'Mediana: ordene primeiro; é o centro. Resiste a extremos.',
@@ -465,7 +465,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
           'Um resultado absurdo — um carro gastando R$ 20 mil numa viagem de 300 km — é um aviso gratuito de que a conta saiu do rumo.',
       },
     ],
-    questoes: ['mat-gran-q1', 'mat-gran-q2'],
+    questoes: ['mat-gran-q1', 'mat-gran-q2', 'mat-gran-q3', 'mat-gran-q4'],
     revisaoRapida: [
       'A unidade indica a operação: acompanhe-a na conta.',
       '1 m³ = 1 000 L · 1 L = 1 000 cm³.',
@@ -550,7 +550,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
         porque: 'A raiz é −b/a. Em situações de depreciação (a negativo), o sinal trocado dá um valor sem sentido físico.',
       },
     ],
-    questoes: ['mat-afim-q1', 'mat-afim-q2', 'of-2024-mt-157'],
+    questoes: ['mat-afim-q1', 'mat-afim-q2', 'mat-afim-q3', 'of-2024-mt-157'],
     revisaoRapida: [
       'f(x) = ax + b: b é o valor inicial, a é a taxa por unidade.',
       'Em tabela, a é a diferença constante entre linhas seguidas.',
@@ -633,7 +633,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
         porque: 'Dobrar o lado quadruplica a área. Confundir isso é o que gera as alternativas de 100% e 400%.',
       },
     ],
-    questoes: ['mat-area-q1', 'mat-area-q2', 'of-2024-mt-151'],
+    questoes: ['mat-area-q1', 'mat-area-q2', 'mat-area-q3', 'of-2024-mt-151'],
     revisaoRapida: [
       'Retângulo b×h · triângulo b×h/2 · círculo πr² · trapézio (B+b)h/2.',
       'Decomponha: some partes ou subtraia o que sai.',
@@ -716,7 +716,7 @@ export const CONTEUDOS_MATEMATICA: Record<string, ConteudoAssunto> = {
         porque: 'Dobrar as dimensões multiplica o volume por 8, não por 2 nem por 4.',
       },
     ],
-    questoes: ['mat-vol-q1', 'mat-vol-q2'],
+    questoes: ['mat-vol-q1', 'mat-vol-q2', 'mat-vol-q3', 'mat-vol-q4'],
     revisaoRapida: [
       'V = área da base × altura. Cone e pirâmide: ÷ 3.',
       'Cilindro: V = πr²h — cuidado com raio × diâmetro.',
