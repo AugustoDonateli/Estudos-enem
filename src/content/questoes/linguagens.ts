@@ -163,6 +163,157 @@ export const QUESTOES_LINGUAGENS: Questao[] = [
   },
 
   {
+    id: 'ling-interp-q3',
+    topicId: 'ling-interpretacao',
+    conceito: 'Extrapolação',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'linguagens',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          'Uma pesquisa ouviu 2 000 moradores da cidade: 68% avaliam o transporte público como ruim ou péssimo. Entre os que usam o serviço todos os dias, o índice sobe para 81%. A pesquisa não perguntou sobre outros meios de transporte nem sobre disposição a pagar mais por melhorias.',
+        fonte: 'Texto escrito para este exercício.',
+      },
+      { tipo: 'p', texto: 'Com base exclusivamente nas informações do texto, é correto afirmar que' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'a maioria dos moradores ouvidos avalia negativamente o transporte público.',
+        correta: true,
+        diagnostico:
+          'Correto. 68% é mais da metade, e a afirmação não vai além do que o dado sustenta — fala dos ouvidos, não de toda a cidade.',
+      },
+      {
+        letra: 'B',
+        texto: 'a população prefere o transporte individual ao coletivo.',
+        correta: false,
+        diagnostico:
+          'O texto diz explicitamente que a pesquisa não perguntou sobre outros meios de transporte. Avaliar mal um serviço não é o mesmo que preferir outro.',
+        tipoErro: 'distrator',
+      },
+      {
+        letra: 'C',
+        texto: 'os usuários diários avaliam o serviço de forma menos negativa que os demais.',
+        correta: false,
+        diagnostico:
+          'Está invertido: entre os usuários diários o índice sobe de 68% para 81%, ou seja, eles avaliam pior, não melhor.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'D',
+        texto: 'os moradores pagariam mais por um serviço de melhor qualidade.',
+        correta: false,
+        diagnostico:
+          'O próprio texto avisa que a disposição a pagar não foi perguntada. Preencher esse vazio com o que parece razoável é extrapolar.',
+        tipoErro: 'distrator',
+      },
+      {
+        letra: 'E',
+        texto: '32% dos moradores consideram o transporte público excelente.',
+        correta: false,
+        diagnostico:
+          'Os 32% restantes são todos os que não marcaram “ruim ou péssimo” — podem ter dito regular ou bom. O texto não permite concluir “excelente”.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Esta questão testa uma única habilidade: parar exatamente onde o texto para. Três alternativas aqui são afirmações plausíveis sobre o mundo — e é justamente por serem plausíveis que atraem.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'A frase “a pesquisa não perguntou sobre...” não é enfeite: é o enunciado avisando quais alternativas estão eliminadas. Quando um texto delimita o que ele não cobre, essa delimitação costuma ser a chave da questão.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'nota',
+        titulo: 'Teste do trecho de apoio',
+        texto:
+          'Para cada alternativa, aponte com o dedo a linha do texto que a sustenta. Se não existir linha, a alternativa está eliminada — por mais verdadeira que ela pareça fora da prova.',
+      },
+    ],
+    irmas: ['ling-interp-q1', 'ling-interp-q2'],
+  },
+  {
+    id: 'ling-interp-q4',
+    topicId: 'ling-interpretacao',
+    conceito: 'Identificação da tese',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'argumentacao',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          '“Dizer que a tecnologia isola as pessoas é confortável, porque transfere para um objeto a responsabilidade por um problema antigo. Antes dos celulares, já se reclamava da televisão; antes dela, do rádio. O que muda a cada geração é o aparelho acusado, não a queixa.”',
+        fonte: 'Texto escrito para este exercício.',
+      },
+      { tipo: 'p', texto: 'A tese defendida pelo autor é a de que' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'a tecnologia atual isola mais as pessoas do que a televisão isolava.',
+        correta: false,
+        diagnostico:
+          'O texto sustenta o contrário: a queixa se repete a cada geração, sem que o autor a valide para nenhuma delas.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'B',
+        texto: 'a queixa sobre o isolamento é recorrente e apenas troca de alvo a cada geração.',
+        correta: true,
+        diagnostico:
+          'Correto. É o que a última frase afirma diretamente: “o que muda é o aparelho acusado, não a queixa”.',
+      },
+      {
+        letra: 'C',
+        texto: 'o rádio e a televisão foram acusados injustamente, mas o celular não.',
+        correta: false,
+        diagnostico:
+          'O texto trata os três casos como o mesmo fenômeno. Separar o celular dos outros é acrescentar uma distinção que ele não faz.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'D',
+        texto: 'a responsabilidade pelo isolamento é individual, e não tecnológica.',
+        correta: false,
+        diagnostico:
+          'O autor diz que a acusação é cômoda, não que a culpa seja de cada um. A alternativa troca a crítica ao argumento por uma tese sobre o culpado.',
+        tipoErro: 'distrator',
+      },
+      {
+        letra: 'E',
+        texto: 'as gerações anteriores eram mais críticas em relação à tecnologia.',
+        correta: false,
+        diagnostico:
+          'Comparar o grau de criticidade entre gerações é conclusão que o texto não oferece — ele só registra que a reclamação existia antes.',
+        tipoErro: 'distrator',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Tese é a afirmação que o texto quer fazer você aceitar. Exemplos, comparações e dados são apoios — não são a tese, mesmo quando ocupam mais linhas do que ela.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Aqui a tese está na última frase, e as menções ao rádio e à televisão são o apoio histórico dela. Uma pista útil: a tese costuma ser a única frase que continua fazendo sentido sozinha, fora do texto.',
+      },
+    ],
+    irmas: ['ling-interp-q2'],
+  },
+  {
     id: 'ling-func-q1',
     topicId: 'ling-funcoes',
     conceito: 'Função conativa (apelativa)',
@@ -315,6 +466,157 @@ export const QUESTOES_LINGUAGENS: Questao[] = [
     irmas: ['ling-func-q1'],
   },
 
+  {
+    id: 'ling-func-q3',
+    topicId: 'ling-funcoes',
+    conceito: 'Função fática',
+    procedencia: 'autoral',
+    dificuldade: 'facil',
+    eixo: 'linguagens',
+    minutos: 2,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          '— Alô? Alô? Você está me ouvindo?\n— Estou, pode falar.\n— É que ficou mudo aqui um instante. Alô? Continua aí?',
+        fonte: 'Diálogo fictício, escrito para este exercício.',
+      },
+      { tipo: 'p', texto: 'Predomina nesse diálogo a função' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'emotiva, porque os falantes expressam impaciência.',
+        correta: false,
+        diagnostico:
+          'Não há marcas de subjetividade nem foco em quem fala. O assunto do diálogo é a ligação em si, não o estado de ânimo de ninguém.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto: 'fática, porque as falas servem para testar e manter o contato.',
+        correta: true,
+        diagnostico:
+          'Correto. “Alô?”, “está me ouvindo?” e “continua aí?” não transmitem conteúdo: verificam se o canal está funcionando. Esse é o papel da função fática.',
+      },
+      {
+        letra: 'C',
+        texto: 'conativa, porque um falante dá ordens ao outro.',
+        correta: false,
+        diagnostico:
+          '“Pode falar” até tem forma de permissão, mas o eixo do diálogo não é influenciar o interlocutor — é confirmar que ele está na linha.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'referencial, porque informa sobre um problema técnico.',
+        correta: false,
+        diagnostico:
+          'A função referencial se organiza em torno de um assunto externo, com objetividade. Aqui o “assunto” é o próprio funcionamento da conversa.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'metalinguística, porque a conversa fala sobre a própria conversa.',
+        correta: false,
+        diagnostico:
+          'É a alternativa mais atraente, mas metalinguagem é a linguagem explicando o código — uma definição, uma regra, um sentido de palavra. Falar sobre o canal é fática, não metalinguística.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Cada função põe em destaque um elemento da comunicação. A fática destaca o canal: é a linguagem cuidando da conexão, não do conteúdo.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Fora do telefone, ela aparece em “né?”, “entendeu?”, “tá me acompanhando?” e no “bom dia” de abertura — tudo que existe para abrir, manter ou encerrar o contato.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'atencao',
+        titulo: 'Fática × metalinguística',
+        texto:
+          'As duas “falam da comunicação”, e é aí que o ENEM arma o distrator. Fática cuida do CANAL (a conexão está de pé?); metalinguística cuida do CÓDIGO (o que essa palavra significa?).',
+      },
+    ],
+    irmas: ['ling-func-q1', 'ling-func-q2'],
+  },
+  {
+    id: 'ling-func-q4',
+    topicId: 'ling-funcoes',
+    conceito: 'Função poética e a armadilha da primeira pessoa',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'linguagens',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          '“Eu sigo, sigo e sigo, e o caminho me segue:\ncada passo que dou já é passo que perco.”',
+        fonte: 'Versos escritos para este exercício.',
+      },
+      { tipo: 'p', texto: 'Embora escrito em primeira pessoa, o trecho evidencia predomínio da função' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'conativa, porque convoca o leitor a seguir em frente.',
+        correta: false,
+        diagnostico:
+          'Não há interlocutor convocado: nenhum imperativo dirigido a “você”, nenhum apelo. O verbo “sigo” está na primeira pessoa, não na segunda.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto: 'emotiva, porque o eu lírico expressa seu cansaço.',
+        correta: false,
+        diagnostico:
+          'Esta é a armadilha da questão. Primeira pessoa não garante função emotiva — o que decide é onde está o foco, e aqui ele está na construção dos versos, não no sentimento relatado.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'fática, porque a repetição de “sigo” mantém o contato com o leitor.',
+        correta: false,
+        diagnostico:
+          'A repetição aqui constrói ritmo, não conexão. Função fática testa o canal (“alô?”, “entendeu?”), o que não acontece em nenhum ponto do trecho.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'poética, porque a repetição e a inversão põem a própria forma em primeiro plano.',
+        correta: true,
+        diagnostico:
+          'Correto. “Sigo, sigo e sigo”, a inversão “o caminho me segue” e o paradoxo do passo que se perde ao ser dado chamam atenção para como a mensagem foi construída — esse é o foco da função poética.',
+      },
+      {
+        letra: 'E',
+        texto: 'referencial, porque descreve objetivamente um deslocamento.',
+        correta: false,
+        diagnostico:
+          'Referencial exige objetividade e terceira pessoa, com foco no assunto. Um caminho que “segue” quem anda é o oposto de descrição objetiva.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'A função poética não é sinônimo de “texto bonito” nem de poema: ela predomina sempre que o trabalho com a forma — som, ritmo, repetição, jogo de palavras — vira parte do sentido. Por isso aparece também em slogan e manchete.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'A pergunta útil não é “tem eu no texto?”, e sim “o que o texto está exibindo?”. Aqui, o que se exibe é a construção: repetição em escala, inversão de papéis e um paradoxo.',
+      },
+    ],
+    irmas: ['ling-func-q2'],
+  },
   {
     id: 'ling-var-q1',
     topicId: 'ling-variacao',
@@ -471,6 +773,78 @@ export const QUESTOES_LINGUAGENS: Questao[] = [
   },
 
   {
+    id: 'ling-var-q3',
+    topicId: 'ling-variacao',
+    conceito: 'Variação diacrônica',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'linguagens',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          'Em ofícios do início do século XX, lia-se com frequência: “Vossa Senhoria houve por bem deferir o pleito deste suplicante”. Um documento atual, com o mesmo conteúdo, diria: “seu pedido foi aprovado”.',
+        fonte: 'Exemplo construído para este exercício.',
+      },
+      { tipo: 'p', texto: 'A diferença entre as duas formulações evidencia, principalmente, variação' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'diatópica, ligada à região de origem do falante.',
+        correta: false,
+        diagnostico:
+          'Diatópica é variação no espaço — sotaque, palavra típica de uma região. Nada no exemplo aponta para lugar: os dois textos são do mesmo país.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto: 'diastrática, ligada ao grupo social do falante.',
+        correta: false,
+        diagnostico:
+          'Diastrática separa grupos sociais no mesmo tempo e lugar. Aqui os dois textos vêm do mesmo tipo de emissor — a repartição pública —, só que em épocas diferentes.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'diacrônica, ligada à passagem do tempo.',
+        correta: true,
+        diagnostico:
+          'Correto. O que separa “houve por bem deferir o pleito” de “foi aprovado” são cem anos de uso da língua, não região, grupo ou grau de formalidade da situação.',
+      },
+      {
+        letra: 'D',
+        texto: 'diafásica, ligada ao grau de formalidade da situação.',
+        correta: false,
+        diagnostico:
+          'É o distrator mais forte, porque o texto antigo soa mais formal. Mas as duas situações são igualmente formais: as duas são documentos oficiais. O que mudou foi a época, não o grau de formalidade exigido.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'inexistente, já que a forma antiga contém erros hoje corrigidos.',
+        correta: false,
+        diagnostico:
+          'A forma antiga não tem erro: era a norma de prestígio do seu tempo. Chamar de erro o que envelheceu é o mesmo mecanismo do preconceito linguístico, só deslocado para o eixo do tempo.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Os quatro eixos de variação respondem a perguntas diferentes: onde (diatópica), quem (diastrática), em que situação (diafásica) e quando (diacrônica). Identificar o eixo é identificar qual dessas perguntas o exemplo faz variar.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'O jeito rápido de separar diacrônica de diafásica: pergunte se os dois textos poderiam ter sido escritos no mesmo ano. Se não poderiam, a variação é de tempo.',
+      },
+    ],
+    irmas: ['ling-var-q1', 'ling-var-q2'],
+  },
+  {
     id: 'ling-gen-q1',
     topicId: 'ling-generos',
     conceito: 'Propósito comunicativo do gênero',
@@ -618,6 +992,156 @@ export const QUESTOES_LINGUAGENS: Questao[] = [
     irmas: ['ling-gen-q1', 'ling-func-q1'],
   },
 
+  {
+    id: 'ling-gen-q3',
+    topicId: 'ling-generos',
+    conceito: 'Gênero textual e tipo textual',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'linguagens',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          'Prezada redação,\n\nLi na edição de domingo que a reforma da praça custará o dobro do previsto. Moro no bairro há trinta anos e considero o investimento indefensável enquanto a única creche da região funciona com telhado remendado. Prioridade se mostra no orçamento, não no discurso.\n\nM. S., leitora',
+        fonte: 'Carta fictícia, escrita para este exercício.',
+      },
+      { tipo: 'p', texto: 'Sobre esse texto, é correto afirmar que' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'pertence ao gênero carta de leitor e nele predomina o tipo textual argumentativo.',
+        correta: true,
+        diagnostico:
+          'Correto. O gênero se reconhece pelo formato e pelo suporte (carta endereçada à redação de um jornal, assinada por uma leitora); o tipo predominante é argumentativo, porque o texto defende uma posição com razões.',
+      },
+      {
+        letra: 'B',
+        texto: 'pertence ao gênero carta de leitor, o que faz dele um texto narrativo.',
+        correta: false,
+        diagnostico:
+          'O gênero não determina o tipo. Uma carta pode narrar, descrever ou argumentar — e esta argumenta: não há sequência de acontecimentos, há defesa de um ponto de vista.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'é um editorial, pois defende uma posição sobre um assunto de interesse público.',
+        correta: false,
+        diagnostico:
+          'Editorial é a posição do próprio jornal, sem assinatura individual. Este texto é assinado por uma leitora e dirigido à redação — origem oposta à do editorial.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'é um texto dissertativo, e “dissertativo” é o nome do seu gênero.',
+        correta: false,
+        diagnostico:
+          '“Dissertativo” nomeia o tipo textual, não o gênero. Gênero é a forma social concreta em que o texto circula — carta, notícia, edital, bula —, e tipo é a estrutura interna.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'é uma notícia, pois se refere a um fato divulgado recentemente.',
+        correta: false,
+        diagnostico:
+          'Mencionar uma notícia não transforma o texto em notícia. Notícia relata com distanciamento; aqui há primeira pessoa, avaliação e defesa explícita de uma prioridade.',
+        tipoErro: 'leitura',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Gênero e tipo respondem a perguntas diferentes. Gênero: em que forma social esse texto circula, com que propósito e em que suporte? Tipo: como ele está estruturado por dentro — narrando, descrevendo, argumentando, expondo ou instruindo?',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Um mesmo gênero comporta tipos diferentes: há carta que narra uma viagem e carta que argumenta contra uma obra. Por isso “é uma carta, logo é narrativa” nunca se sustenta.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'nota',
+        titulo: 'Marcas que entregam o gênero aqui',
+        texto:
+          'Vocativo dirigido à redação, assinatura com iniciais, referência à edição de domingo e tamanho curto. São marcas de reconhecimento — o ENEM espera que você as use em vez de adivinhar pelo assunto.',
+      },
+    ],
+    irmas: ['ling-gen-q1', 'ling-gen-q2'],
+  },
+  {
+    id: 'ling-gen-q4',
+    topicId: 'ling-generos',
+    conceito: 'Intertextualidade',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'linguagens',
+    minutos: 2,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto: 'Cartaz de campanha por mais ônibus:\n\n“QUEM ESPERA SEMPRE ALCANÇA.\nMenos o das 7h10.”',
+        fonte: 'Campanha fictícia, escrita para este exercício.',
+      },
+      { tipo: 'p', texto: 'O efeito crítico do cartaz é construído porque o texto' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'retoma um provérbio conhecido e quebra a expectativa que ele cria.',
+        correta: true,
+        diagnostico:
+          'Correto. A primeira linha aciona um provérbio que promete recompensa a quem espera; a segunda nega essa promessa num caso concreto. A crítica nasce do choque entre o texto retomado e a realidade do ponto de ônibus.',
+      },
+      {
+        letra: 'B',
+        texto: 'emprega vocabulário regional para aproximar-se do público.',
+        correta: false,
+        diagnostico:
+          'Não há marca regional no cartaz: “quem espera sempre alcança” circula em todo o país, e “o das 7h10” é referência de horário, não de lugar.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'utiliza termos técnicos do setor de transporte para dar credibilidade.',
+        correta: false,
+        diagnostico:
+          'Não há um único termo técnico. O cartaz funciona pelo oposto: linguagem cotidiana e uma frase que todo mundo já ouviu.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'D',
+        texto: 'narra uma sequência de acontecimentos vividos por um passageiro.',
+        correta: false,
+        diagnostico:
+          'Não há narrativa: nenhum personagem, nenhuma sequência de fatos no tempo. São duas frases curtas em relação de contraste.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'dirige-se diretamente ao leitor por meio de verbos no imperativo.',
+        correta: false,
+        diagnostico:
+          'Não há imperativo nem interlocutor convocado. “Espera” aqui está na terceira pessoa, dentro do provérbio, e não é uma ordem dada a quem lê.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Intertextualidade é um texto convocando outro para produzir sentido. Quando o texto convocado é conhecido de todos — provérbio, música, manchete, obra célebre —, basta uma linha para que o leitor complete o resto sozinho.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'O recurso só funciona porque a segunda linha contraria a primeira. Retomar sem quebrar seria citação; quebrar é o que transforma a retomada em crítica.',
+      },
+    ],
+    irmas: ['ling-gen-q2'],
+  },
   {
     id: 'ling-fig-q1',
     topicId: 'ling-figuras',
@@ -770,6 +1294,150 @@ export const QUESTOES_LINGUAGENS: Questao[] = [
     irmas: ['ling-fig-q1'],
   },
 
+  {
+    id: 'ling-fig-q3',
+    topicId: 'ling-figuras',
+    conceito: 'Eufemismo',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'linguagens',
+    minutos: 2,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          '“A empresa comunica que, em decorrência de um realinhamento do quadro funcional, trezentos colaboradores foram desligados de suas funções.”',
+        fonte: 'Comunicado fictício, escrito para este exercício.',
+      },
+      { tipo: 'p', texto: 'As expressões “realinhamento do quadro funcional” e “desligados” produzem efeito de' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'hipérbole, por exagerar a dimensão da mudança.',
+        correta: false,
+        diagnostico:
+          'Hipérbole exagera; o comunicado faz o contrário, escolhe palavras que reduzem o impacto do que está sendo anunciado.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto: 'eufemismo, por suavizar a demissão em massa.',
+        correta: true,
+        diagnostico:
+          'Correto. “Demitimos trezentas pessoas” e o texto do comunicado dizem o mesmo fato, mas as expressões escolhidas amortecem o impacto — é exatamente o que define o eufemismo.',
+      },
+      {
+        letra: 'C',
+        texto: 'metáfora, por comparar a empresa a um quadro.',
+        correta: false,
+        diagnostico:
+          '“Quadro funcional” é o nome usual do conjunto de empregados, não uma comparação criada no texto. Expressão cristalizada no uso não funciona como metáfora viva.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'ironia, por dizer o contrário do que se pretende comunicar.',
+        correta: false,
+        diagnostico:
+          'Ironia depende de o leitor perceber a inversão pretendida por quem escreve. Aqui não há inversão: o comunicado quer mesmo que a demissão pareça menor, não que você entenda o oposto.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'metonímia, por usar a parte para designar o todo.',
+        correta: false,
+        diagnostico:
+          'Não há substituição por proximidade. Nenhum termo do comunicado está no lugar de outro por contiguidade — eles estão no lugar de outro por conveniência.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Eufemismo troca um termo áspero por outro mais macio, sem mudar o fato. Por isso ele é tão frequente em comunicado de empresa, nota oficial e texto de campanha: o acontecimento permanece, só a moldura muda.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'O ENEM raramente pergunta o nome da figura. Costuma perguntar o efeito — e o efeito aqui é reduzir a responsabilidade percebida de quem escreve. Traduzir a frase para o português direto (“demitimos trezentas pessoas”) torna o contraste visível.',
+      },
+    ],
+    irmas: ['ling-fig-q1', 'ling-fig-q2'],
+  },
+  {
+    id: 'ling-fig-q4',
+    topicId: 'ling-figuras',
+    conceito: 'Personificação',
+    procedencia: 'autoral',
+    dificuldade: 'facil',
+    eixo: 'linguagens',
+    minutos: 2,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          '“A cidade acordou de mau humor: engoliu os carros, cuspiu buzinas e só foi respirar depois das dez.”',
+        fonte: 'Frase escrita para este exercício.',
+      },
+      { tipo: 'p', texto: 'O recurso expressivo que organiza o trecho é a' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'personificação, por atribuir ações e estados humanos à cidade.',
+        correta: true,
+        diagnostico:
+          'Correto. Acordar, ficar de mau humor, engolir, cuspir e respirar são ações de ser vivo, atribuídas aqui a uma cidade. É o que define a personificação (ou prosopopeia).',
+      },
+      {
+        letra: 'B',
+        texto: 'hipérbole, por exagerar o volume do trânsito.',
+        correta: false,
+        diagnostico:
+          'Há exagero no trecho, mas ele é consequência do recurso principal, não o recurso. O que estrutura a frase inteira é a cidade agir como gente.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'metonímia, por usar “cidade” no lugar de seus habitantes.',
+        correta: false,
+        diagnostico:
+          'Se fosse metonímia, a cidade estaria substituindo as pessoas em ações humanas comuns. Mas “engolir carros” e “cuspir buzinas” não são ações de habitantes — são ações da cidade como criatura.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'eufemismo, por suavizar os transtornos do congestionamento.',
+        correta: false,
+        diagnostico:
+          'O trecho não ameniza nada: escolhe imagens agressivas — engolir, cuspir, prender a respiração até as dez. Eufemismo faria o movimento oposto.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'antítese, por opor o início e o fim da manhã.',
+        correta: false,
+        diagnostico:
+          'Antítese exige um par de termos opostos em confronto direto. Aqui há uma sequência de ações no mesmo sentido, todas construindo a mesma imagem.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Personificação empresta traços de ser vivo — ação, vontade, sentimento, corpo — a algo que não os tem. Quando a figura se sustenta por uma frase inteira, como aqui, ela deixa de ser enfeite e vira a estrutura do trecho.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Repare no efeito: a cidade vira sujeito, e quem está no trânsito vira aquilo que é engolido. A figura escolhe de que lado fica a ação — e isso é sentido, não decoração.',
+      },
+    ],
+    irmas: ['ling-fig-q1'],
+  },
   {
     id: 'ling-le-q1',
     topicId: 'ling-estrangeira',
@@ -930,5 +1598,169 @@ export const QUESTOES_LINGUAGENS: Questao[] = [
       },
     ],
     irmas: ['ling-le-q1'],
+  },
+  {
+    id: 'ling-le-q3',
+    topicId: 'ling-estrangeira',
+    conceito: 'Falsos cognatos em inglês',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'linguagens',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          '“I actually enjoyed the film, although I had planned to leave halfway through. My friends pretended not to notice that I cried at the end.”',
+        fonte: 'Texto escrito para este exercício, em inglês.',
+      },
+      { tipo: 'p', texto: 'No trecho, as palavras “actually” e “pretended” significam, respectivamente,' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'atualmente e pretenderam.',
+        correta: false,
+        diagnostico:
+          'As duas traduções vêm da semelhança com o português, não do sentido em inglês. “Atualmente” é currently; “pretender” é to intend.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto: 'atualmente e fingiram.',
+        correta: false,
+        diagnostico:
+          'Você acertou “pretended”, mas manteve o falso cognato em “actually”. Repare que “atualmente gostei do filme” não faz sentido nem em português.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'na verdade e fingiram.',
+        correta: true,
+        diagnostico:
+          'Correto. “Actually” marca contraste com uma expectativa (ele planejava sair no meio), e “to pretend” é fingir. A leitura fica coerente: gostou apesar do plano de sair, e os amigos fingiram não ver o choro.',
+      },
+      {
+        letra: 'D',
+        texto: 'na verdade e pretenderam.',
+        correta: false,
+        diagnostico:
+          'Você resolveu “actually” e tropeçou em “pretended”. “Pretenderam não notar” não se sustenta: o texto fala de um disfarce já realizado, não de uma intenção.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'finalmente e simularam.',
+        correta: false,
+        diagnostico:
+          '“Finalmente” corresponde a finally ou eventually — outro falso cognato frequente. “Simularam” chega perto de fingiram, mas a primeira palavra já elimina a alternativa.',
+        tipoErro: 'leitura',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Falso cognato é a palavra que parece uma coisa e é outra. Ela derruba mais gente do que vocabulário desconhecido, porque não acende nenhum alerta: você acha que entendeu e segue em frente.',
+      },
+      {
+        tipo: 'lista',
+        itens: [
+          'actually = na verdade (atualmente = currently)',
+          'eventually = por fim, acabar acontecendo (eventualmente = occasionally)',
+          'pretend = fingir (pretender = to intend)',
+          'parents = pais (parentes = relatives)',
+          'push = empurrar (puxar = pull)',
+        ],
+      },
+      {
+        tipo: 'p',
+        texto:
+          'A defesa é simples: quando a tradução automática deixa a frase estranha, desconfie da palavra parecida antes de desconfiar do resto.',
+      },
+    ],
+    irmas: ['ling-le-q1'],
+  },
+  {
+    id: 'ling-le-q4',
+    topicId: 'ling-estrangeira',
+    conceito: 'Negação e contraste em espanhol',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'linguagens',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          '“El problema no es la falta de información, sino el exceso. Sin embargo, pocos programas escolares enseñan a descartar lo que no sirve.”',
+        fonte: 'Texto escrito para este exercício, em espanhol.',
+      },
+      { tipo: 'p', texto: 'De acordo com o texto,' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'falta informação disponível aos estudantes.',
+        correta: false,
+        diagnostico:
+          'A estrutura “no es… sino…” nega a primeira parte para afirmar a segunda. O texto diz justamente que o problema NÃO é a falta.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'B',
+        texto: 'o excesso de informação é o problema, e a escola pouco ensina a selecioná-la.',
+        correta: true,
+        diagnostico:
+          'Correto. “No es la falta… sino el exceso” identifica o problema; “sin embargo, pocos programas” acrescenta que a escola não está resolvendo isso.',
+      },
+      {
+        letra: 'C',
+        texto: 'as escolas já ensinam os alunos a descartar informação irrelevante.',
+        correta: false,
+        diagnostico:
+          '“Pocos programas enseñan” significa que poucos ensinam — o oposto de “já ensinam”. Quantificadores pequenos como pocos são onde a questão é ganha ou perdida.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'D',
+        texto: 'o excesso de informação melhora o aprendizado dos alunos.',
+        correta: false,
+        diagnostico:
+          'O texto apresenta o excesso como problema, não como benefício. A alternativa inverte o julgamento do autor.',
+        tipoErro: 'distrator',
+      },
+      {
+        letra: 'E',
+        texto: 'faltam programas escolares em número suficiente.',
+        correta: false,
+        diagnostico:
+          'O texto não fala da quantidade de programas, e sim do que eles ensinam. “Pocos programas enseñan a descartar” é sobre conteúdo, não sobre oferta.',
+        tipoErro: 'leitura',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Duas estruturas decidem esta questão, e as duas são de negação e contraste: “no… sino…” (não X, mas sim Y) e “sin embargo” (no entanto). Localizá-las já entrega a resposta, mesmo sem entender todas as palavras.',
+      },
+      {
+        tipo: 'lista',
+        itens: [
+          'no… sino… = não… mas sim…',
+          'sin embargo = no entanto',
+          'pocos / pocas = poucos, poucas (quantificador negativo)',
+          'aunque = embora',
+          'a pesar de = apesar de',
+        ],
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Marcar negações e conectivos de contraste antes de ler as alternativas é a rotina que mais rende em língua estrangeira: as alternativas erradas costumam ser a frase do texto com a negação removida.',
+      },
+    ],
+    irmas: ['ling-le-q2'],
   },
 ];

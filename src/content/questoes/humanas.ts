@@ -150,6 +150,164 @@ export const QUESTOES_HUMANAS: Questao[] = [
   },
 
   {
+    id: 'hum-vargas-q3',
+    topicId: 'hum-vargas',
+    conceito: 'Industrialização por substituição de importações',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'fenomenos',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Nas décadas de 1930 e 1940, o Estado brasileiro criou empresas em setores como siderurgia e mineração, elevou tarifas sobre produtos importados e passou a financiar diretamente a instalação de indústrias, em um contexto internacional de crise e depois de guerra, que reduziu a oferta de manufaturados vindos do exterior.',
+      },
+      { tipo: 'p', texto: 'Essa política produtiva é caracterizada como' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'liberalização comercial, pela redução das barreiras à entrada de produtos estrangeiros.',
+        correta: false,
+        diagnostico:
+          'O enunciado diz o contrário: as tarifas sobre importados foram elevadas. Liberalização comercial reduz barreiras, e não foi isso que aconteceu.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'B',
+        texto: 'substituição de importações, pela produção interna de bens antes comprados de fora.',
+        correta: true,
+        diagnostico:
+          'Correto. A combinação de proteção tarifária, empresas estatais em setores de base e crédito estatal tinha como objetivo produzir dentro do país aquilo que antes era importado.',
+      },
+      {
+        letra: 'C',
+        texto: 'especialização primária, pela concentração da economia em produtos agrícolas de exportação.',
+        correta: false,
+        diagnostico:
+          'Especialização primária é justamente o modelo que essa política buscava superar. Criar siderurgia é o oposto de concentrar a economia em produto agrícola.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'desestatização, pela transferência de setores estratégicos à iniciativa privada.',
+        correta: false,
+        diagnostico:
+          'O movimento foi o inverso: o Estado criou empresas e assumiu setores considerados estratégicos, em vez de transferi-los.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'E',
+        texto: 'integração regional, pela formação de um mercado comum com países vizinhos.',
+        correta: false,
+        diagnostico:
+          'Nada no enunciado menciona acordo com outros países. A política descrita é interna, voltada ao mercado nacional.',
+        tipoErro: 'distrator',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Substituição de importações é uma estratégia de industrialização em que o Estado protege o mercado interno e investe em setores que a iniciativa privada nacional não tinha capital ou interesse para assumir — sobretudo a indústria de base, cara e de retorno lento.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'O contexto externo ajuda a explicar o timing: crise de 1929 e Segunda Guerra reduziram a oferta de manufaturados importados, e a escassez tornou economicamente viável produzir aqui o que antes se comprava pronto.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'nota',
+        titulo: 'Como o ENEM costuma cobrar',
+        texto:
+          'O item raramente usa o nome do modelo. Ele descreve as medidas — tarifa, estatal, crédito dirigido — e pede que você reconheça a lógica por trás delas.',
+      },
+    ],
+    irmas: ['hum-vargas-q1'],
+  },
+  {
+    id: 'hum-vargas-q4',
+    topicId: 'hum-vargas',
+    conceito: 'A ruptura de 1937 e o caráter ditatorial do Estado Novo',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'argumentacao',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Em 1937, o governo fechou o Congresso Nacional, cancelou as eleições presidenciais previstas, outorgou uma nova Constituição sem participação do Legislativo e instituiu censura prévia à imprensa. O mesmo governante permaneceu no poder até 1945.',
+      },
+      { tipo: 'p', texto: 'O conjunto dessas medidas permite afirmar que 1937 marca' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto:
+          'a continuidade do período anterior, já que o governante e o projeto econômico permaneceram os mesmos.',
+        correta: false,
+        diagnostico:
+          'Permanecer no poder não é o mesmo que permanecer no mesmo regime. O que muda em 1937 é como esse poder passa a ser exercido e de onde ele extrai legitimidade.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto:
+          'a instauração de uma ditadura, pela supressão simultânea do Legislativo, das eleições e da liberdade de imprensa.',
+        correta: true,
+        diagnostico:
+          'Correto. Fechar o Congresso, cancelar eleição, outorgar Constituição e censurar a imprensa elimina de uma vez os mecanismos de representação, de alternância e de controle público — é a definição prática de regime ditatorial.',
+      },
+      {
+        letra: 'C',
+        texto: 'o início do período constitucional, uma vez que uma nova Constituição foi promulgada.',
+        correta: false,
+        diagnostico:
+          'A Constituição de 1937 foi outorgada, não promulgada: veio de cima, sem Assembleia Constituinte. A palavra que o enunciado usa — outorgada — é a pista decisiva.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'D',
+        texto: 'uma transição democrática, já que a nova ordem institucional foi formalizada por escrito.',
+        correta: false,
+        diagnostico:
+          'Ter texto constitucional não torna um regime democrático. O critério é se existe representação, eleição e controle — e os três foram suprimidos.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'a descentralização do poder, com ampliação da autonomia dos estados.',
+        correta: false,
+        diagnostico:
+          'O período foi de centralização, não de descentralização. Nada no enunciado aponta para ganho de autonomia estadual.',
+        tipoErro: 'distrator',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'O período varguista costuma ser dividido em três fases: Governo Provisório (1930-1934), Governo Constitucional (1934-1937) e Estado Novo (1937-1945). A terceira fase se distingue das anteriores por ser abertamente ditatorial.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Uma armadilha frequente é tratar direitos trabalhistas e ditadura como incompatíveis. Não são: o mesmo Estado que consolidou a legislação do trabalho fechou o Congresso e censurou jornais. Reconhecer isso é entender o período, não relativizá-lo.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'atencao',
+        titulo: 'Outorgada × promulgada',
+        texto:
+          'Constituição promulgada nasce de uma Assembleia Constituinte eleita. Outorgada é imposta por quem já está no poder. O ENEM usa essa distinção com frequência, tanto em 1937 quanto em 1824.',
+      },
+    ],
+    irmas: ['hum-vargas-q2'],
+  },
+  {
     id: 'hum-dit-q1',
     topicId: 'hum-ditadura',
     conceito: 'AI-5 e endurecimento do regime',
@@ -297,6 +455,149 @@ export const QUESTOES_HUMANAS: Questao[] = [
   },
 
   {
+    id: 'hum-dit-q3',
+    topicId: 'hum-ditadura',
+    conceito: 'Milagre econômico e concentração de renda',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'argumentacao',
+    minutos: 4,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Entre o fim dos anos 1960 e o início dos 1970, a economia brasileira registrou altas taxas de crescimento, com forte expansão da indústria e de grandes obras de infraestrutura. No mesmo período, a política de arrocho salarial limitou os reajustes dos salários mais baixos e a distância entre os rendimentos do topo e da base aumentou.',
+      },
+      { tipo: 'p', texto: 'Esses dados, tomados em conjunto, indicam que' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'o crescimento econômico e a melhora na distribuição de renda caminharam juntos.',
+        correta: false,
+        diagnostico:
+          'O enunciado afirma o oposto sobre a distribuição: a distância entre topo e base aumentou. Crescer e distribuir são processos que podem andar em sentidos contrários.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'B',
+        texto: 'o crescimento do produto não implicou, por si só, redução da desigualdade.',
+        correta: true,
+        diagnostico:
+          'Correto. O período combina expansão econômica acelerada com concentração de renda — a prova histórica de que crescimento e distribuição são questões distintas.',
+      },
+      {
+        letra: 'C',
+        texto: 'houve estagnação econômica, o que explica o aumento da desigualdade.',
+        correta: false,
+        diagnostico:
+          'Não houve estagnação: o enunciado fala em altas taxas de crescimento. A desigualdade aumentou apesar do crescimento, não por causa da falta dele.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'D',
+        texto: 'o arrocho salarial foi consequência da queda da produção industrial.',
+        correta: false,
+        diagnostico:
+          'A indústria estava em expansão, não em queda. O arrocho era política de contenção de custos e de inflação, não efeito de retração produtiva.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'E',
+        texto: 'a ausência de eleições diretas impediu qualquer crescimento econômico no período.',
+        correta: false,
+        diagnostico:
+          'A afirmação contraria o próprio enunciado, que registra crescimento elevado. Regime autoritário e crescimento econômico não são mutuamente excludentes — e reconhecer isso não é defender o regime.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'O chamado milagre econômico é o caso brasileiro mais citado para separar duas ideias que costumam ser confundidas: o tamanho do bolo e a forma como ele é repartido. Os dois indicadores se moveram ao mesmo tempo, em direções opostas.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'O item cobra leitura conjunta de dois dados. Quem lê só o crescimento marca a alternativa A; quem lê só a desigualdade marca a C. A resposta depende de sustentar as duas informações ao mesmo tempo.',
+      },
+    ],
+    irmas: ['hum-dit-q1'],
+  },
+  {
+    id: 'hum-dit-q4',
+    topicId: 'hum-ditadura',
+    conceito: 'Bipartidarismo imposto',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'fenomenos',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Em 1965, um ato institucional extinguiu os partidos políticos existentes no Brasil e estabeleceu um sistema com apenas duas legendas: uma de sustentação do governo e outra de oposição consentida, que atuava dentro dos limites fixados pelo próprio regime.',
+      },
+      { tipo: 'p', texto: 'Essa reorganização partidária teve como efeito principal' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'ampliar a representação política, ao simplificar as opções oferecidas ao eleitor.',
+        correta: false,
+        diagnostico:
+          'Reduzir de vários partidos para dois por decisão de cima não amplia representação: elimina as correntes que não couberam em nenhuma das duas legendas.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto:
+          'enquadrar a disputa política nos limites definidos pelo regime, mantendo a aparência de pluralismo.',
+        correta: true,
+        diagnostico:
+          'Correto. A existência de uma oposição legal dava ao regime uma fachada de normalidade institucional, enquanto as regras do jogo — quem podia existir e até onde podia ir — eram fixadas pelo próprio governo.',
+      },
+      {
+        letra: 'C',
+        texto: 'restaurar o sistema partidário anterior a 1964, com os mesmos partidos e lideranças.',
+        correta: false,
+        diagnostico:
+          'O ato extinguiu os partidos anteriores. Restauração é o oposto exato do que o enunciado descreve.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'D',
+        texto: 'transferir ao Legislativo o controle sobre a criação e a extinção de partidos.',
+        correta: false,
+        diagnostico:
+          'A decisão veio por ato institucional, instrumento do Executivo no regime. O período foi de esvaziamento do Legislativo, não de ampliação de seus poderes.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'eliminar completamente a realização de eleições no país.',
+        correta: false,
+        diagnostico:
+          'Eleições continuaram a existir, inclusive para o Legislativo — com regras restritivas e cassações. Regime autoritário com eleições controladas é diferente de ausência total de eleição.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'O bipartidarismo imposto é um exemplo de como regimes autoritários preservam formas institucionais enquanto esvaziam seu conteúdo. O Congresso continuou existindo, eleições continuaram ocorrendo, partidos continuaram a existir — todos sob regras que o próprio regime escrevia.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'É o mesmo raciocínio que a questão da Constituição outorgada cobra no período varguista: a existência da forma não garante a substância. O critério é sempre quem define as regras e quem pode perder.',
+      },
+    ],
+    irmas: ['hum-dit-q1', 'hum-dit-q2'],
+  },
+  {
     id: 'hum-cid-q1',
     topicId: 'hum-cidadania',
     conceito: 'Direitos sociais e papel do Estado',
@@ -442,6 +743,85 @@ export const QUESTOES_HUMANAS: Questao[] = [
     irmas: ['hum-cid-q1'],
   },
 
+  {
+    id: 'hum-cid-q3',
+    topicId: 'hum-cidadania',
+    conceito: 'As três dimensões da cidadania',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'fenomenos',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Considere três garantias previstas no ordenamento brasileiro: (I) a liberdade de expressar opinião sem censura prévia; (II) o direito de votar e de ser votado; (III) o direito ao atendimento gratuito na rede pública de saúde.',
+      },
+      { tipo: 'p', texto: 'Essas garantias correspondem, respectivamente, a direitos' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'civis, políticos e sociais.',
+        correta: true,
+        diagnostico:
+          'Correto. Liberdade de expressão é direito civil (protege o indivíduo contra interferência); voto é direito político (participação no poder); saúde pública é direito social (exige prestação do Estado).',
+      },
+      {
+        letra: 'B',
+        texto: 'políticos, civis e sociais.',
+        correta: false,
+        diagnostico:
+          'Você inverteu os dois primeiros. Expressar opinião é liberdade individual, não participação no poder; votar é exatamente o contrário.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'sociais, políticos e civis.',
+        correta: false,
+        diagnostico:
+          'Liberdade de expressão não é direito social: direito social envolve condições materiais garantidas pelo Estado, como saúde, educação e trabalho.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'civis, sociais e políticos.',
+        correta: false,
+        diagnostico:
+          'Você acertou o primeiro e trocou os outros dois. Votar é participação política; atendimento de saúde é prestação social.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'todos classificados como direitos civis, por constarem da Constituição.',
+        correta: false,
+        diagnostico:
+          'Estar na Constituição não define a dimensão do direito. A classificação depende do que cada garantia exige: não interferência, participação ou prestação.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'As três dimensões se distinguem pelo que exigem do Estado. Direito civil pede que ele não interfira. Direito político pede que ele abra espaço de participação. Direito social pede que ele atue e financie.',
+      },
+      {
+        tipo: 'lista',
+        itens: [
+          'Civis: liberdade de expressão, de crença, de ir e vir, propriedade, devido processo legal.',
+          'Políticos: votar, ser votado, filiar-se a partido, participar de plebiscito.',
+          'Sociais: saúde, educação, moradia, trabalho, previdência, assistência.',
+        ],
+      },
+      {
+        tipo: 'p',
+        texto:
+          'A pergunta que resolve quase todo item desse tipo: o Estado precisa gastar dinheiro para garantir isso? Se sim, é direito social. Se basta que ele não atrapalhe, é civil. Se é sobre decidir quem manda, é político.',
+      },
+    ],
+    irmas: ['hum-cid-q1', 'hum-cid-q2'],
+  },
   {
     id: 'hum-glob-q1',
     topicId: 'hum-globalizacao',
@@ -600,6 +980,77 @@ export const QUESTOES_HUMANAS: Questao[] = [
   },
 
   {
+    id: 'hum-glob-q3',
+    topicId: 'hum-globalizacao',
+    conceito: 'Assimetria entre fluxos de capital e de pessoas',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'argumentacao',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Uma empresa transfere recursos financeiros entre filiais em três países em questão de segundos, e as mercadorias que produz cruzam fronteiras sob acordos que reduzem tarifas e prazos. Os trabalhadores que fabricam essas mercadorias, para migrar legalmente a qualquer um desses países, enfrentam exigências de visto, comprovação de renda e cotas anuais.',
+      },
+      { tipo: 'p', texto: 'A situação descrita evidencia que a globalização' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'eliminou as fronteiras nacionais para todos os tipos de fluxo.',
+        correta: false,
+        diagnostico:
+          'O próprio enunciado mostra fronteiras plenamente ativas — para pessoas. Dizer que elas foram eliminadas contradiz metade do texto.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'B',
+        texto: 'liberalizou a circulação de capitais e mercadorias muito mais do que a de pessoas.',
+        correta: true,
+        diagnostico:
+          'Correto. Os mesmos Estados que assinam acordos para acelerar dinheiro e carga mantêm e endurecem o controle sobre a entrada de trabalhadores. É a assimetria central do processo.',
+      },
+      {
+        letra: 'C',
+        texto: 'ampliou igualmente a mobilidade de capitais, mercadorias e trabalhadores.',
+        correta: false,
+        diagnostico:
+          'A palavra “igualmente” não se sustenta: segundos para o capital, cotas anuais para pessoas. A questão existe justamente por causa dessa diferença.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'D',
+        texto: 'reduziu o papel dos Estados nacionais na regulação dos fluxos internacionais.',
+        correta: false,
+        diagnostico:
+          'Os Estados continuam decidindo quem entra, sob quais condições e em que número. O que houve foi mudança no que eles regulam com rigor, não abandono da regulação.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'transferiu às empresas a competência de conceder vistos de trabalho.',
+        correta: false,
+        diagnostico:
+          'Nada no enunciado atribui essa competência às empresas. Visto, comprovação de renda e cota são instrumentos estatais.',
+        tipoErro: 'distrator',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Globalização não é um processo homogêneo: ela é seletiva quanto ao que faz circular. Capital e mercadoria encontram acordos, corredores e prazos reduzidos; força de trabalho encontra visto, cota e fiscalização.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Essa assimetria é o pano de fundo de boa parte dos itens de Humanas sobre migração, xenofobia e trabalho internacional. Alternativas que falam em “fim das fronteiras” quase sempre são distratores.',
+      },
+    ],
+    irmas: ['hum-glob-q1', 'hum-glob-q2'],
+  },
+  {
     id: 'hum-urb-q1',
     topicId: 'hum-urbanizacao',
     conceito: 'Transição demográfica e envelhecimento',
@@ -754,6 +1205,156 @@ export const QUESTOES_HUMANAS: Questao[] = [
   },
 
   {
+    id: 'hum-urb-q3',
+    topicId: 'hum-urbanizacao',
+    conceito: 'Conurbação e gestão metropolitana',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'fenomenos',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Três municípios vizinhos cresceram até que suas áreas urbanas se tornassem contínuas: não há mais espaço rural entre elas, moradores dormem em um município e trabalham em outro, e a mesma linha de ônibus cruza as três prefeituras. Cada uma mantém legislação própria de uso do solo e serviços independentes de água e limpeza.',
+      },
+      { tipo: 'p', texto: 'O processo descrito e o problema que ele cria são, respectivamente,' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'êxodo rural e o esvaziamento do campo.',
+        correta: false,
+        diagnostico:
+          'Êxodo rural é o deslocamento do campo para a cidade. O enunciado descreve cidades que se encostaram umas nas outras, e não movimento de população vinda da zona rural.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto: 'conurbação e a necessidade de gestão integrada de serviços entre municípios.',
+        correta: true,
+        diagnostico:
+          'Correto. Conurbação é a fusão das manchas urbanas de municípios vizinhos. Como a cidade real passa a ser única e a administração continua fragmentada, transporte, saneamento e uso do solo exigem coordenação supramunicipal.',
+      },
+      {
+        letra: 'C',
+        texto: 'segregação socioespacial e a concentração de renda no centro.',
+        correta: false,
+        diagnostico:
+          'Segregação socioespacial trata da separação entre grupos sociais dentro do território. O enunciado não distingue grupos nem localização de renda: ele descreve a continuidade física entre cidades.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'metropolização e a perda da autonomia municipal prevista em lei.',
+        correta: false,
+        diagnostico:
+          'A autonomia municipal não é perdida — é justamente porque ela permanece que a gestão fica fragmentada. Esse é o nó do problema, não sua solução.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'E',
+        texto: 'transição demográfica e o envelhecimento acelerado da população.',
+        correta: false,
+        diagnostico:
+          'Transição demográfica trata de natalidade, mortalidade e estrutura etária. Nada no enunciado menciona idade ou taxas demográficas.',
+        tipoErro: 'distrator',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Conurbação é um fato territorial: as manchas urbanas se encontram. A consequência administrativa é que os problemas passam a ser compartilhados — enchente, ônibus, aterro, abastecimento — enquanto as competências continuam divididas por prefeitura.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'É por isso que existem regiões metropolitanas e consórcios intermunicipais: são tentativas de fazer a escala da gestão alcançar a escala da cidade real.',
+      },
+    ],
+    irmas: ['hum-urb-q2'],
+  },
+  {
+    id: 'hum-urb-q4',
+    topicId: 'hum-urbanizacao',
+    conceito: 'Janela demográfica',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'fenomenos',
+    minutos: 4,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Em um país, a queda da natalidade reduziu a proporção de crianças, enquanto o envelhecimento ainda não elevou muito a proporção de idosos. O resultado é um período em que a parcela da população em idade de trabalhar é a maior da história desse país — situação que os dados indicam como temporária.',
+      },
+      { tipo: 'p', texto: 'Esse período é conhecido como janela demográfica e representa' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto:
+          'uma oportunidade temporária, já que a proporção de pessoas em idade produtiva sustenta menos dependentes por trabalhador.',
+        correta: true,
+        diagnostico:
+          'Correto. Com menos crianças e ainda poucos idosos proporcionalmente, a razão de dependência cai. A oportunidade é econômica e tem prazo: o envelhecimento posterior fecha a janela.',
+      },
+      {
+        letra: 'B',
+        texto: 'um período permanente de vantagem econômica, garantido pela queda da natalidade.',
+        correta: false,
+        diagnostico:
+          'O próprio enunciado diz que a situação é temporária. A mesma queda da natalidade que abre a janela é a que, décadas depois, a fecha por envelhecimento.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'C',
+        texto: 'um momento de crise, causado pela redução absoluta da população total.',
+        correta: false,
+        diagnostico:
+          'Queda da natalidade não significa, de imediato, queda da população total — e o enunciado não afirma redução absoluta. O que muda primeiro é a composição por idade.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'o início do envelhecimento populacional, com predomínio de idosos sobre adultos.',
+        correta: false,
+        diagnostico:
+          'O predomínio de idosos vem depois e caracteriza o fechamento da janela, não a janela. No período descrito, quem predomina é a população em idade de trabalhar.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'uma fase de crescimento vegetativo negativo, com mais óbitos do que nascimentos.',
+        correta: false,
+        diagnostico:
+          'O crescimento vegetativo pode continuar positivo mesmo com natalidade em queda, desde que os nascimentos superem os óbitos. O enunciado não menciona esse cruzamento.',
+        tipoErro: 'conceito',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'A janela demográfica é consequência aritmética da transição demográfica: a natalidade cai primeiro, o contingente nascido antes da queda chega à idade adulta, e por algumas décadas a base de trabalhadores é proporcionalmente grande diante de crianças e idosos.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'O ponto que o ENEM costuma cobrar é o prazo. A janela é a fase em que o país pode ampliar poupança, produtividade e cobertura previdenciária antes de a conta do envelhecimento chegar — e ela não se repete.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'atencao',
+        titulo: 'Não confundir',
+        texto:
+          'Janela demográfica é sobre proporção entre faixas etárias. Crescimento vegetativo é a diferença entre natalidade e mortalidade. Um país pode estar na janela com crescimento vegetativo positivo, negativo ou nulo.',
+      },
+    ],
+    irmas: ['hum-urb-q1'],
+  },
+  {
     id: 'hum-trab-q1',
     topicId: 'hum-trabalho',
     conceito: 'Fordismo e toyotismo',
@@ -906,6 +1507,155 @@ export const QUESTOES_HUMANAS: Questao[] = [
   },
 
   {
+    id: 'hum-trab-q3',
+    topicId: 'hum-trabalho',
+    conceito: 'Taylorismo e separação entre concepção e execução',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'fenomenos',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Em uma fábrica, engenheiros cronometram cada movimento dos operários, definem a sequência exata de gestos que deve ser seguida e distribuem essas instruções por escrito. Ao trabalhador cabe repetir a tarefa no tempo determinado; decidir como executá-la deixa de fazer parte do seu trabalho.',
+      },
+      { tipo: 'p', texto: 'A organização do trabalho descrita corresponde ao' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'taylorismo, pela separação entre quem planeja e quem executa a tarefa.',
+        correta: true,
+        diagnostico:
+          'Correto. Cronometragem, prescrição do gesto e retirada da decisão do operário são exatamente os princípios da administração científica do trabalho.',
+      },
+      {
+        letra: 'B',
+        texto: 'toyotismo, pela exigência de polivalência e autonomia do trabalhador.',
+        correta: false,
+        diagnostico:
+          'O toyotismo pede trabalhador que opera várias máquinas e intervém no processo. O enunciado descreve o oposto: um gesto único, prescrito por outro.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'artesanato, pelo domínio completo do processo produtivo por quem o executa.',
+        correta: false,
+        diagnostico:
+          'No trabalho artesanal quem executa também concebe. Aqui a concepção foi deliberadamente transferida para os engenheiros.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'gerenciamento algorítmico, pelo controle exercido por sistemas automatizados.',
+        correta: false,
+        diagnostico:
+          'O controle descrito é exercido por pessoas — engenheiros com cronômetro e instruções escritas —, não por plataformas digitais. A lógica de controle é parecida; a tecnologia e a época, não.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'cooperativismo, pela gestão coletiva das decisões de produção.',
+        correta: false,
+        diagnostico:
+          'Não há decisão coletiva em nenhum ponto: as instruções descem prontas de um setor para outro.',
+        tipoErro: 'distrator',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'O taylorismo transforma o saber do ofício em procedimento escrito e o transfere para a gerência. O ganho de produtividade vem junto com a perda de controle do trabalhador sobre o próprio trabalho — e as duas coisas fazem parte do mesmo método.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Fordismo e taylorismo costumam aparecer juntos, mas não são sinônimos: o taylorismo organiza o gesto; o fordismo organiza o fluxo, com linha de montagem, produção em massa e estoque alto.',
+      },
+    ],
+    irmas: ['hum-trab-q1'],
+  },
+  {
+    id: 'hum-trab-q4',
+    topicId: 'hum-trabalho',
+    conceito: 'Precarização: perda de garantias sem perda de subordinação',
+    procedencia: 'autoral',
+    dificuldade: 'dificil',
+    eixo: 'argumentacao',
+    minutos: 4,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Uma empresa dispensa parte de seus empregados e recontrata as mesmas pessoas como prestadoras de serviço com empresa própria. As atividades, o horário de entrada, as metas e a chefia permanecem os mesmos; férias remuneradas, décimo terceiro e recolhimento previdenciário pelo contratante deixam de existir.',
+      },
+      { tipo: 'p', texto: 'A situação descrita caracteriza precarização porque' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'houve redução da jornada de trabalho sem redução proporcional da remuneração.',
+        correta: false,
+        diagnostico:
+          'O enunciado não menciona mudança de jornada: horário e metas permanecem os mesmos. Precarização aqui não passa por tempo de trabalho.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'B',
+        texto: 'a subordinação ao contratante permaneceu, enquanto as garantias associadas a ela foram retiradas.',
+        correta: true,
+        diagnostico:
+          'Correto. O vínculo real de trabalho continua — mesma chefia, mesmo horário, mesmas metas —, mas a forma contratual passa a excluir os direitos que acompanham esse vínculo. Essa dissociação é o núcleo da precarização.',
+      },
+      {
+        letra: 'C',
+        texto: 'os trabalhadores passaram a ter autonomia plena sobre o próprio trabalho.',
+        correta: false,
+        diagnostico:
+          'Autonomia plena é incompatível com manter chefia, horário e metas definidos pela empresa. A autonomia aqui é formal, e o enunciado deixa isso explícito.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'D',
+        texto: 'a empresa ampliou o quadro de pessoal e diluiu as responsabilidades trabalhistas.',
+        correta: false,
+        diagnostico:
+          'Não houve ampliação de quadro: são as mesmas pessoas, sob outro contrato. O que mudou foi o enquadramento jurídico, não o tamanho da equipe.',
+        tipoErro: 'leitura',
+      },
+      {
+        letra: 'E',
+        texto: 'a produtividade caiu em razão da mudança no tipo de contrato.',
+        correta: false,
+        diagnostico:
+          'Nada no enunciado trata de produtividade. A questão é sobre a relação entre subordinação e garantias, não sobre desempenho.',
+        tipoErro: 'distrator',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'O direito do trabalho associa garantias à subordinação: quem trabalha sob ordens de outro recebe proteções que compensam essa assimetria. Precarização é o arranjo que mantém a subordinação e dispensa as proteções.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Por isso o critério usado em análises do tema não é o nome do contrato, e sim os fatos: quem define horário, quem dá ordens, quem fixa metas, quem pode ser substituído. É o mesmo raciocínio aplicado ao trabalho por plataforma.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'nota',
+        titulo: 'Item de Humanas, não de Direito',
+        texto:
+          'O ENEM não cobra se determinado contrato é válido — isso é decisão judicial. Ele cobra a análise social: o que muda, e para quem, quando a forma do contrato se descola da relação real de trabalho.',
+      },
+    ],
+    irmas: ['hum-trab-q2'],
+  },
+  {
     id: 'hum-filo-q1',
     topicId: 'hum-filosofia-politica',
     conceito: 'Contratualistas: Hobbes, Locke e Rousseau',
@@ -1049,5 +1799,163 @@ export const QUESTOES_HUMANAS: Questao[] = [
       },
     ],
     irmas: ['hum-filo-q1', 'hum-dit-q1'],
+  },
+  {
+    id: 'hum-filo-q3',
+    topicId: 'hum-filosofia-politica',
+    conceito: 'Hobbes e o estado de natureza',
+    procedencia: 'autoral',
+    dificuldade: 'media',
+    eixo: 'argumentacao',
+    minutos: 3,
+    enunciado: [
+      {
+        tipo: 'p',
+        texto:
+          'Um autor sustenta que, fora da sociedade política, não existe autoridade capaz de conter os conflitos entre indivíduos igualmente capazes de se ferir, o que resulta em insegurança permanente. Para escapar dessa condição, os indivíduos transferem seu poder a um soberano, cuja autoridade não pode ser contestada sem que se retorne à desordem anterior.',
+      },
+      { tipo: 'p', texto: 'A concepção apresentada corresponde à de' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'Hobbes, para quem o contrato busca segurança e resulta em soberano forte.',
+        correta: true,
+        diagnostico:
+          'Correto. A insegurança como ponto de partida e a transferência de poder a um soberano que não pode ser contestado são as marcas da formulação hobbesiana.',
+      },
+      {
+        letra: 'B',
+        texto: 'Locke, para quem existem direitos anteriores ao Estado e o governo é limitado.',
+        correta: false,
+        diagnostico:
+          'Em Locke há direitos naturais antes do Estado e o governo pode ser destituído quando os viola. O texto afirma o contrário: a autoridade não pode ser contestada.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'C',
+        texto: 'Rousseau, para quem a soberania pertence à vontade geral do povo.',
+        correta: false,
+        diagnostico:
+          'Em Rousseau a soberania permanece com o corpo dos cidadãos, não é transferida a um soberano separado deles. O texto descreve justamente uma transferência.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'Montesquieu, para quem o poder deve ser dividido entre instâncias que se limitam.',
+        correta: false,
+        diagnostico:
+          'Montesquieu trata da organização interna do poder por freios e contrapesos, não da origem do Estado a partir do estado de natureza. O texto discute origem, não divisão.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'Maquiavel, para quem a política se explica pela virtude do governante diante da fortuna.',
+        correta: false,
+        diagnostico:
+          'Maquiavel não é contratualista: ele não explica a origem do poder por um acordo. O texto é explicitamente contratualista, o que já o elimina.',
+        tipoErro: 'distrator',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'Os contratualistas partem de uma mesma pergunta — por que obedecer ao poder político? — e chegam a respostas diferentes, porque descrevem o estado de natureza de maneiras diferentes.',
+      },
+      {
+        tipo: 'lista',
+        itens: [
+          'Hobbes: estado de natureza inseguro → contrato busca proteção → soberano forte, sem direito de resistência.',
+          'Locke: há direitos naturais → contrato os protege → governo limitado, com direito de resistência.',
+          'Rousseau: liberdade se perde com a propriedade → contrato devolve liberdade coletiva → soberania da vontade geral.',
+        ],
+      },
+      {
+        tipo: 'p',
+        texto:
+          'A distinção decisiva em prova costuma ser uma só: o que acontece quando o governante abusa? Em Hobbes, não há remédio legítimo; em Locke, há resistência; em Rousseau, o povo é o soberano e não delega isso.',
+      },
+    ],
+    irmas: ['hum-filo-q1'],
+  },
+  {
+    id: 'hum-filo-q4',
+    topicId: 'hum-filosofia-politica',
+    conceito: 'Rousseau, propriedade e vontade geral',
+    procedencia: 'autoral',
+    dificuldade: 'dificil',
+    eixo: 'argumentacao',
+    minutos: 4,
+    enunciado: [
+      {
+        tipo: 'citacao',
+        texto:
+          '“O primeiro que, tendo cercado um terreno, se lembrou de dizer: isto é meu, e encontrou pessoas bastante simples para acreditá-lo, foi o verdadeiro fundador da sociedade civil.”',
+        fonte: 'Formulação clássica atribuída a Rousseau, no Discurso sobre a origem da desigualdade.',
+      },
+      { tipo: 'p', texto: 'No conjunto do pensamento desse autor, a passagem sustenta que' },
+    ],
+    alternativas: [
+      {
+        letra: 'A',
+        texto: 'a propriedade privada é a garantia primeira da liberdade individual.',
+        correta: false,
+        diagnostico:
+          'Essa é a posição de Locke, não a de Rousseau. Aqui a propriedade aparece na origem da desigualdade, não como proteção da liberdade.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'B',
+        texto: 'a desigualdade social tem origem histórica, e não natural.',
+        correta: true,
+        diagnostico:
+          'Correto. Ao situar a desigualdade em um ato fundador — o cercamento aceito pelos demais —, o autor a apresenta como construção humana, e portanto transformável, não como ordem da natureza.',
+      },
+      {
+        letra: 'C',
+        texto: 'o estado de natureza era marcado pela guerra de todos contra todos.',
+        correta: false,
+        diagnostico:
+          'A guerra de todos contra todos é a descrição hobbesiana. Em Rousseau, o conflito aparece depois, com a propriedade, e não antes dela.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'D',
+        texto: 'a soberania deve ser transferida integralmente a um governante inconteste.',
+        correta: false,
+        diagnostico:
+          'Rousseau defende que a soberania permanece no corpo dos cidadãos, como vontade geral. Transferência integral e irrevogável é formulação de Hobbes.',
+        tipoErro: 'conceito',
+      },
+      {
+        letra: 'E',
+        texto: 'a separação entre os poderes é condição para conter o abuso de autoridade.',
+        correta: false,
+        diagnostico:
+          'Freios e contrapesos são o tema de Montesquieu. A passagem trata da origem da desigualdade, não do arranjo institucional do poder.',
+        tipoErro: 'distrator',
+      },
+    ],
+    explicacao: [
+      {
+        tipo: 'p',
+        texto:
+          'A força do argumento está no “encontrou pessoas bastante simples para acreditá-lo”: a propriedade não se impõe por natureza, mas por reconhecimento social. O que é socialmente construído pode ser socialmente modificado — daí a carga crítica da passagem.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Por isso Rousseau é frequentemente convocado em questões sobre desigualdade, políticas redistributivas e soberania popular: a desigualdade, nele, é resultado de arranjos humanos, não destino.',
+      },
+      {
+        tipo: 'destaque',
+        variante: 'nota',
+        titulo: 'Como não confundir os três',
+        texto:
+          'Diante de uma citação, pergunte qual é o problema que o autor quer resolver: insegurança (Hobbes), arbítrio do governante sobre direitos prévios (Locke) ou desigualdade e perda da liberdade (Rousseau).',
+      },
+    ],
+    irmas: ['hum-filo-q1', 'hum-filo-q3'],
   },
 ];

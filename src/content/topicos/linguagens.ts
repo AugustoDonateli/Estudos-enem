@@ -119,7 +119,7 @@ export const CONTEUDOS_LINGUAGENS: Record<string, ConteudoAssunto> = {
           'Em prova com tempo contado, isso custa caro. Ler o comando primeiro transforma a leitura numa busca dirigida.',
       },
     ],
-    questoes: ['ling-interp-q1', 'ling-interp-q2'],
+    questoes: ['ling-interp-q1', 'ling-interp-q2', 'ling-interp-q3', 'ling-interp-q4'],
     revisaoRapida: [
       'Comando primeiro, texto depois.',
       'Para cada alternativa, aponte o trecho que a sustenta.',
@@ -197,7 +197,7 @@ export const CONTEUDOS_LINGUAGENS: Record<string, ConteudoAssunto> = {
         porque: 'Fática é especificamente testar ou manter o canal, não conversar.',
       },
     ],
-    questoes: ['ling-func-q1', 'ling-func-q2'],
+    questoes: ['ling-func-q1', 'ling-func-q2', 'ling-func-q3', 'ling-func-q4'],
     revisaoRapida: [
       'Emissor → emotiva. Receptor → conativa. Assunto → referencial.',
       'Canal → fática. Código → metalinguística. Mensagem → poética.',
@@ -294,7 +294,7 @@ export const CONTEUDOS_LINGUAGENS: Record<string, ConteudoAssunto> = {
           'Alternativas do tipo "toda forma serve em qualquer contexto" são exageros que o exame também rejeita.',
       },
     ],
-    questoes: ['ling-var-q1', 'ling-var-q2', 'of-2024-lc-014'],
+    questoes: ['ling-var-q1', 'ling-var-q2', 'ling-var-q3', 'of-2024-lc-014'],
     revisaoRapida: [
       'Variedade ≠ erro. O critério é adequação à situação.',
       'Diatópica (lugar) · diastrática (grupo) · diafásica (situação) · diacrônica (tempo).',
@@ -382,7 +382,7 @@ export const CONTEUDOS_LINGUAGENS: Record<string, ConteudoAssunto> = {
           'Em infográfico, charge e propaganda, parte essencial do sentido está na imagem, no enquadramento e na cor.',
       },
     ],
-    questoes: ['ling-gen-q1', 'ling-gen-q2'],
+    questoes: ['ling-gen-q1', 'ling-gen-q2', 'ling-gen-q3', 'ling-gen-q4'],
     revisaoRapida: [
       'Gênero = forma social com propósito. Tipo = estrutura interna.',
       'Identificou o gênero, identificou o propósito.',
@@ -465,7 +465,7 @@ export const CONTEUDOS_LINGUAGENS: Record<string, ConteudoAssunto> = {
         porque: 'A ironia é um recurso argumentativo deliberado e o leitor é convidado a percebê-la.',
       },
     ],
-    questoes: ['ling-fig-q1', 'ling-fig-q2'],
+    questoes: ['ling-fig-q1', 'ling-fig-q2', 'ling-fig-q3', 'ling-fig-q4'],
     revisaoRapida: [
       'Metáfora = semelhança. Metonímia = proximidade.',
       'Ironia = dizer o contrário para criticar.',
@@ -559,7 +559,7 @@ export const CONTEUDOS_LINGUAGENS: Record<string, ConteudoAssunto> = {
           'Depois de "however" ou "sin embargo" vem a posição que o autor de fato defende — e é ela que a questão cobra.',
       },
     ],
-    questoes: ['ling-le-q1', 'ling-le-q2'],
+    questoes: ['ling-le-q1', 'ling-le-q2', 'ling-le-q3', 'ling-le-q4'],
     revisaoRapida: [
       'Comando primeiro, varredura depois.',
       'Circule negações e contrastes.',

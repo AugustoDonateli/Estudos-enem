@@ -93,7 +93,7 @@ export const CONTEUDOS_HUMANAS: Record<string, ConteudoAssunto> = {
           'É uma categoria de análise disputada entre historiadores. Alternativas que a apresentam como explicação única costumam simplificar demais.',
       },
     ],
-    questoes: ['hum-vargas-q1', 'hum-vargas-q2'],
+    questoes: ['hum-vargas-q1', 'hum-vargas-q2', 'hum-vargas-q3', 'hum-vargas-q4'],
     revisaoRapida: [
       '1930-34 provisório · 1934-37 constitucional · 1937-45 Estado Novo (ditadura).',
       'Direitos concedidos + sindicato tutelado = corporativismo.',
@@ -177,7 +177,7 @@ export const CONTEUDOS_HUMANAS: Record<string, ConteudoAssunto> = {
         porque: 'A mobilização foi massiva, mas a eleição presidencial seguinte ainda foi indireta.',
       },
     ],
-    questoes: ['hum-dit-q1', 'hum-dit-q2'],
+    questoes: ['hum-dit-q1', 'hum-dit-q2', 'hum-dit-q3', 'hum-dit-q4'],
     revisaoRapida: [
       'Atos institucionais concentram poder no Executivo.',
       'AI-5 (1968): fase mais dura; fim do habeas corpus para crimes políticos.',
@@ -270,7 +270,7 @@ export const CONTEUDOS_HUMANAS: Record<string, ConteudoAssunto> = {
           'Repertório errado prejudica mais do que ajuda. Use o que você tem certeza — princípios amplos são mais seguros que números de artigo.',
       },
     ],
-    questoes: ['hum-cid-q1', 'hum-cid-q2', 'of-2025-ch-076'],
+    questoes: ['hum-cid-q1', 'hum-cid-q2', 'hum-cid-q3', 'of-2025-ch-076'],
     revisaoRapida: [
       'Civis (liberdade) · políticos (participação) · sociais (condições materiais).',
       'Direito social exige prestação do Estado.',
@@ -360,7 +360,7 @@ export const CONTEUDOS_HUMANAS: Record<string, ConteudoAssunto> = {
           'Origem do poder e controle do poder são questões distintas — é exatamente o que Montesquieu acrescenta ao debate.',
       },
     ],
-    questoes: ['hum-filo-q1', 'hum-filo-q2'],
+    questoes: ['hum-filo-q1', 'hum-filo-q2', 'hum-filo-q3', 'hum-filo-q4'],
     revisaoRapida: [
       'Hobbes: insegurança → soberano forte, sem resistência.',
       'Locke: direitos naturais → governo limitado, com resistência.',
@@ -440,7 +440,7 @@ export const CONTEUDOS_HUMANAS: Record<string, ConteudoAssunto> = {
         porque: 'Importa o que se exporta. Volume grande de produto primário não equivale a captura alta de valor.',
       },
     ],
-    questoes: ['hum-glob-q1', 'hum-glob-q2', 'of-2024-ch-070'],
+    questoes: ['hum-glob-q1', 'hum-glob-q2', 'hum-glob-q3', 'of-2024-ch-070'],
     revisaoRapida: [
       'Globalização = fluxos intensos e desiguais.',
       'Valor se concentra em tecnologia e marca, não em extração.',
@@ -527,7 +527,7 @@ export const CONTEUDOS_HUMANAS: Record<string, ConteudoAssunto> = {
         porque: 'Envelhecer é mudar a proporção entre faixas etárias — o total pode continuar crescendo.',
       },
     ],
-    questoes: ['hum-urb-q1', 'hum-urb-q2'],
+    questoes: ['hum-urb-q1', 'hum-urb-q2', 'hum-urb-q3', 'hum-urb-q4'],
     revisaoRapida: [
       'Urbanização rápida + infraestrutura lenta = segregação socioespacial.',
       'Transição demográfica: natalidade cai, expectativa de vida sobe.',
@@ -620,7 +620,7 @@ export const CONTEUDOS_HUMANAS: Record<string, ConteudoAssunto> = {
           'O efeito depende de política pública, formação e estrutura econômica. Alternativas deterministas costumam ser distratores.',
       },
     ],
-    questoes: ['hum-trab-q1', 'hum-trab-q2'],
+    questoes: ['hum-trab-q1', 'hum-trab-q2', 'hum-trab-q3', 'hum-trab-q4'],
     revisaoRapida: [
       'Taylorismo: fragmenta e cronometra. Fordismo: massa e estoque.',
       'Toyotismo: flexível, estoque mínimo, polivalente.',
