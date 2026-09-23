@@ -1,0 +1,21 @@
+/* Marca da tela de carregamento. A placa fica estática e só a marcação
+   amarela pulsa — animar o símbolo inteiro transformaria a espera em
+   espetáculo, e o objetivo é o contrário: dizer que o site está de pé. */
+.marca {
+  margin-bottom: var(--e-3x);
+  opacity: 0.9;
+}
+
+.marca :global(svg) rect:last-child {
+  animation: marcacao-pulsa 1.4s var(--curva) infinite;
+}
+
+@keyframes marcacao-pulsa {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}

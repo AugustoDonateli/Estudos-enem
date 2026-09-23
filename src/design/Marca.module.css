@@ -16,12 +16,14 @@
   display: block;
 }
 
-.assinatura:hover .marcaBolha {
-  transform: translateX(6px);
+/* No hover, a marcação do monograma completa o braço — o gesto de marcar
+   a alternativa, em 200 ms. É a única animação da marca. */
+.marcacao {
+  transition: width var(--d-moderada) var(--curva);
 }
 
-.marcaBolha {
-  transition: transform var(--d-moderada) var(--curva);
+.assinatura:hover .marcaAnimada .marcacao {
+  width: 20px;
 }
 
 .texto {
@@ -41,7 +43,10 @@
   color: var(--branco);
 }
 
+/* No celular o qualificador some: a 412px ele quebrava em duas linhas e
+   empurrava a altura do cabeçalho. A marca sozinha já identifica o site. */
 .qualificador {
+  display: none;
   font-size: var(--t-down-01);
   font-weight: var(--peso-semibold);
   letter-spacing: 0.18em;
@@ -54,8 +59,19 @@
   color: var(--azul-30);
 }
 
+@media (min-width: 576px) {
+  .qualificador {
+    display: block;
+  }
+}
+
 .compacta .nome {
   font-size: var(--t-up-01);
+}
+
+/* No rodapé o qualificador aparece em qualquer largura: ali há espaço. */
+.compacta .qualificador {
+  display: block;
 }
 
 .compacta .qualificador {

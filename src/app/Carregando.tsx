@@ -1,4 +1,6 @@
 import { Esqueleto } from '@/design/Primitivos';
+import { SimboloENEM } from '@/design/Marca';
+import s from './Carregando.module.css';
 
 /**
  * Esqueleto de carregamento.
@@ -13,6 +15,12 @@ export function Carregando() {
     <div className="page" role="status" aria-live="polite" aria-busy="true">
       <span className="visually-hidden">Carregando…</span>
       <div className="container" style={{ paddingTop: 'var(--e-6x)' }}>
+        {/* A marca aparece também aqui: é o único momento em que a tela fica
+            sem conteúdo, e deixá-la anônima quebraria a continuidade entre
+            uma rota e outra. A marcação amarela pulsa enquanto carrega. */}
+        <div className={s.marca}>
+          <SimboloENEM tamanho={28} />
+        </div>
         <Esqueleto altura={12} largura="140px" />
         <div style={{ height: 'var(--e-2x)' }} />
         <Esqueleto altura={36} largura="min(420px, 80%)" />

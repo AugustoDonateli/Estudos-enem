@@ -44,23 +44,6 @@ export function Layout({ children }: { children: ReactNode }) {
         Pular para o conteúdo
       </a>
 
-      {/* Faixa institucional ------------------------------------------- */}
-      <div className={s.faixa}>
-        <Grafismo variante="bolhas" />
-        <div className={`container ${s.faixaInterna}`}>
-          <span className={s.faixaTexto}>
-            <BandeiraBrasil />
-            <span className={s.faixaLongo}>
-              Preparação para o Exame Nacional do Ensino Médio
-            </span>
-            <span className={s.faixaCurto}>Preparação para o ENEM 2026</span>
-          </span>
-          <span className={s.faixaData}>
-            Aplicação: {diaCurto(PROVA_DIA_1)} e {diaCurto(PROVA_DIA_2)} de 2026
-          </span>
-        </div>
-      </div>
-
       {!salvandoOk && (
         <div className={s.aviso} role="status">
           <div className={`container ${s.avisoInterno}`}>
@@ -76,26 +59,17 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       )}
 
-      {/* Cabeçalho ------------------------------------------------------ */}
+      {/*
+        Um cabeçalho só, não dois. Antes havia faixa institucional + cabeçalho +
+        barra de navegação empilhados: 140px de altura para repetir que o site é
+        sobre o ENEM — coisa que a marca já diz. Agora marca, navegação e
+        contexto do exame dividem a mesma linha.
+      */}
       <header className={`${s.cabecalho} ${rolado ? s.cabecalhoRolado : ''}`}>
         <div className={`container ${s.cabecalhoInterno}`}>
           <Assinatura />
-          {dias > 0 && (
-            <div className={s.contador}>
-              <span className={s.contadorNumero}>{dias}</span>
-              <span className={s.contadorRotulo}>
-                <span>{dias === 1 ? 'dia' : 'dias'} até</span>
-                <span>o 1º dia</span>
-              </span>
-            </div>
-          )}
-        </div>
-      </header>
 
-      {/* Navegação principal (desktop) ---------------------------------- */}
-      <div className={s.barraNav}>
-        <nav className="container" aria-label="Navegação principal">
-          <div className={s.navLista}>
+          <nav className={s.navDesktop} aria-label="Navegação principal">
             {ITENS.map((item) => (
               <NavLink
                 key={item.para}
@@ -111,9 +85,24 @@ export function Layout({ children }: { children: ReactNode }) {
                 )}
               </NavLink>
             ))}
+          </nav>
+
+          {/* Contexto do exame: as duas datas, que são fato fixo, e a contagem.
+              O hero da home repete a contagem em escala de cartaz; aqui ela é
+              só referência persistente, e por isso vem em corpo pequeno. */}
+          <div className={s.contexto}>
+            <span className={s.contextoRotulo}>ENEM 2026</span>
+            <span className={s.contextoDatas}>
+              {diaCurto(PROVA_DIA_1)} <span aria-hidden="true">·</span> {diaCurto(PROVA_DIA_2)}
+            </span>
+            {dias > 0 && (
+              <span className={s.contextoDias}>
+                <strong>{dias}</strong> {dias === 1 ? 'dia' : 'dias'}
+              </span>
+            )}
           </div>
-        </nav>
-      </div>
+        </div>
+      </header>
 
       <main id="conteudo" className={s.conteudo}>
         {children}
@@ -205,19 +194,6 @@ export function Layout({ children }: { children: ReactNode }) {
         })}
       </nav>
     </div>
-  );
-}
-
-/** Bandeira do Brasil reduzida a três faixas — grafismo, não brasão. */
-function BandeiraBrasil() {
-  return (
-    <span className={s.faixaBandeira} aria-hidden="true">
-      <svg viewBox="0 0 18 13" width="18" height="13">
-        <rect width="18" height="13" fill="#009c3b" />
-        <path d="M9 1.4 16.4 6.5 9 11.6 1.6 6.5z" fill="#ffdf00" />
-        <circle cx="9" cy="6.5" r="2.6" fill="#002776" />
-      </svg>
-    </span>
   );
 }
 

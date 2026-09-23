@@ -7,11 +7,11 @@ import { gerarPlano, type ItemPlano } from '@/engine/planoDiario';
 import { analisarErros, EXPLICACAO_TIPO_ERRO } from '@/engine/erros';
 import { revisoesVencidas } from '@/engine/revisao';
 import { diasComAtividade } from '@/engine/constancia';
-import { DESCRICAO_FASE, PROVA_DIA_1, diasAteProva, hoje as hojeISO } from '@/engine/datas';
+import { DESCRICAO_FASE, PROVA_DIA_1, PROVA_DIA_2, diasAteProva, hoje as hojeISO } from '@/engine/datas';
 import { faixaDeDominio, ROTULO_FAIXA } from '@/engine/dominio';
 import { BarraDominio, BotaoLink, Vazio } from '@/design/Primitivos';
 import { HeroEscuro } from '@/design/Pagina';
-import { ContagemRegressiva } from '@/design/Contagem';
+import { PainelPreparacao } from '@/design/PainelPreparacao';
 import { FaixaConstancia } from '@/design/Constancia';
 import { definirTitulo } from '@/lib/titulo';
 import s from './Hoje.module.css';
@@ -23,6 +23,23 @@ const ROTULO_TIPO: Record<ItemPlano['tipo'], string> = {
   redacao: 'Redação',
   pratica: 'Praticar',
 };
+
+/* Os cinco tipos de item viram três gestos de estudo. A contagem por gesto
+   diz o que a sessão vai exigir — ler, resolver ou recuperar — que é uma
+   informação diferente de "4 itens". */
+const GESTO: Record<ItemPlano['tipo'], 'estudar' | 'praticar' | 'revisar'> = {
+  novo: 'estudar',
+  redacao: 'estudar',
+  pratica: 'praticar',
+  erro: 'praticar',
+  revisao: 'revisar',
+};
+
+const ROTULO_GESTO = {
+  estudar: { um: 'estudo', varios: 'estudos' },
+  praticar: { um: 'prática', varios: 'práticas' },
+  revisar: { um: 'revisão', varios: 'revisões' },
+} as const;
 
 export function Hoje() {
   const { progresso, concluirItemPlano, atualizarConfig } = useProgresso();
@@ -61,6 +78,50 @@ export function Hoje() {
   const fase = DESCRICAO_FASE[plano.fase];
   const comecou = progresso.config.diagnosticoFeito || progresso.respostas.length > 0;
   const restantes = plano.itens.filter((i) => !i.concluido);
+  const proximo = restantes[0];
+
+  const gestos = useMemo(() => {
+    const conta = { estudar: 0, praticar: 0, revisar: 0 };
+    for (const item of restantes) conta[GESTO[item.tipo]] += 1;
+    return conta;
+  }, [restantes]);
+
+  // Domínio por área, incluindo Redação — que não tem domínio calculado e é
+  // medida pelo que de fato existe: seções do módulo lidas.
+  const areas = useMemo(() => {
+    const lidas = new Set(progresso.redacao.secoesLidas);
+    return AREAS.map((area) => {
+      if (area.id === 'redacao') {
+        const total = SECOES_REDACAO_META.length;
+        const feitas = SECOES_REDACAO_META.filter((sec) => lidas.has(sec.id)).length;
+        return {
+          id: area.id,
+          nome: area.nomeCurto,
+          dominio: feitas === 0 ? null : (feitas / total) * 100,
+          detalhe: `${feitas}/${total} seções lidas`,
+          para: '/redacao',
+        };
+      }
+      const assuntos = assuntosDaArea(area.id);
+      const avaliados = assuntos
+        .map((a) => progresso.assuntos[a.id]?.dominio)
+        .filter((d): d is number => typeof d === 'number');
+      const media =
+        avaliados.length > 0
+          ? avaliados.reduce((acc, d) => acc + d, 0) / assuntos.length
+          : null;
+      return {
+        id: area.id,
+        nome: area.nomeCurto,
+        dominio: media,
+        detalhe:
+          media === null
+            ? 'Não avaliado'
+            : `${ROTULO_FAIXA[faixaDeDominio(media)]} · ${avaliados.length}/${assuntos.length} assuntos`,
+        para: `/area/${area.id}`,
+      };
+    });
+  }, [progresso]);
 
   return (
     <div className="page">
@@ -72,52 +133,98 @@ export function Hoje() {
             ? 'Cada item abaixo diz por que está aí. Comece pelo primeiro.'
             : 'Faça o diagnóstico rápido e o plano passa a priorizar o que você realmente não domina.'
         }
-        aside={
-          <ContagemRegressiva
-            ate={PROVA_DIA_1}
-            rotulo={dias === 1 ? 'dia até a prova' : 'dias até a prova'}
-          />
-        }
-        abaixo={
-          /* Os três números do dia numa linha só. Depois da contagem em
-             escala de cartaz, repetir o formato de métrica grande faria a
-             faixa inteira gritar — e aí nada grita. */
-          <p className={s.resumoDia}>
-            <span>
-              <strong>{restantes.length}</strong>{' '}
-              {restantes.length === 1 ? 'item no plano' : 'itens no plano'}
-            </span>
-            <span aria-hidden="true" className={s.resumoBarra} />
-            <span>
-              <strong>{plano.minutosPlanejados}</strong> min planejados
-            </span>
-            <span aria-hidden="true" className={s.resumoBarra} />
-            <span>
-              <strong>{pendentes.length}</strong>{' '}
-              {pendentes.length === 1 ? 'revisão vencida' : 'revisões vencidas'}
-            </span>
-          </p>
+        aside={<PainelPreparacao de={dia} />}
+        acao={
+          /* O hero respondia "quantos dias faltam" e deixava metade da faixa
+             vazia. Esta é a outra pergunta de quem abre o site: por onde
+             começo agora. Vem do mesmo plano da seção abaixo — não é um
+             segundo plano, é o primeiro item dele em tamanho de chamada. */
+          <>
+            {proximo && (
+            <Link to={proximo.href} className={s.proximo}>
+              <span className={s.proximoRotulo}>Comece por</span>
+              <span className={s.proximoTitulo}>{proximo.titulo}</span>
+              <span className={s.proximoMeta}>
+                {ROTULO_TIPO[proximo.tipo]} · {proximo.minutos} min
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                  <path
+                    d="M5 12h13M13 6l6 6-6 6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </Link>
+            )}
+
+            {/* Os três números do dia. Ficam aqui, e não numa faixa própria
+                abaixo, porque pertencem ao mesmo assunto da chamada: o que
+                este dia pede. */}
+            <dl className={s.resumoDia}>
+              <div>
+                <dt>{restantes.length === 1 ? 'item no plano' : 'itens no plano'}</dt>
+                <dd>{restantes.length}</dd>
+              </div>
+              <div>
+                <dt>min planejados</dt>
+                <dd>{plano.minutosPlanejados}</dd>
+              </div>
+              <div>
+                <dt>{pendentes.length === 1 ? 'revisão vencida' : 'revisões vencidas'}</dt>
+                <dd>{pendentes.length}</dd>
+              </div>
+            </dl>
+          </>
         }
       />
 
       <div className="container">
-        <section className="secao" aria-label="Itens do plano de hoje">
+        {/* 1. O que fazer hoje ------------------------------------------ */}
+        <section className="secao" aria-labelledby="plano-titulo">
+          <div className="secao-cabecalho">
+            <h2 id="plano-titulo" className="secao-titulo">
+              Seu plano de hoje
+            </h2>
+            <span className="secao-meta">
+              {plano.minutosPlanejados} de {plano.orcamento} min
+            </span>
+          </div>
+
           <div className={s.barraOrcamento}>
-            <span className={s.orcamentoRotulo}>Quanto tempo você tem hoje?</span>
-            <div className={s.orcamento} role="group" aria-label="Tempo disponível hoje">
-              {([30, 60, 90] as const).map((m) => (
-                <button
-                  key={m}
-                  type="button"
-                  className={`${s.orcamentoBotao} ${
-                    progresso.config.orcamentoDiario === m ? s.orcamentoAtivo : ''
-                  }`}
-                  aria-pressed={progresso.config.orcamentoDiario === m}
-                  onClick={() => atualizarConfig({ orcamentoDiario: m })}
-                >
-                  {m} min
-                </button>
-              ))}
+            <div className={s.gestos}>
+              {(['estudar', 'praticar', 'revisar'] as const).map((g) =>
+                gestos[g] > 0 ? (
+                  <span key={g} className={s.gesto} data-gesto={g}>
+                    <strong>{gestos[g]}</strong>{' '}
+                    {gestos[g] === 1 ? ROTULO_GESTO[g].um : ROTULO_GESTO[g].varios}
+                  </span>
+                ) : null,
+              )}
+              {restantes.length === 0 && (
+                <span className={s.gesto}>Tudo concluído hoje</span>
+              )}
+            </div>
+
+            <div className={s.orcamentoCampo}>
+              <span className={s.orcamentoRotulo}>Tempo de hoje</span>
+              <div className={s.orcamento} role="group" aria-label="Tempo disponível hoje">
+                {([30, 60, 90] as const).map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    className={`${s.orcamentoBotao} ${
+                      progresso.config.orcamentoDiario === m ? s.orcamentoAtivo : ''
+                    }`}
+                    aria-pressed={progresso.config.orcamentoDiario === m}
+                    onClick={() => atualizarConfig({ orcamentoDiario: m })}
+                  >
+                    {m} min
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -151,7 +258,10 @@ export function Hoje() {
             </Vazio>
           ) : (
             <>
-              <ul className={s.plano}>
+              {/* Sequência, não pilha: a trilha vertical liga um item ao
+                  seguinte e o número diz a ordem sugerida. O plano tem ordem
+                  — o desenho antes não mostrava isso. */}
+              <ol className={s.plano}>
                 {plano.itens.map((item, i) => (
                   <li
                     key={item.id}
@@ -160,6 +270,11 @@ export function Hoje() {
                     }`}
                     style={{ animationDelay: `${Math.min(i, 5) * 50}ms` }}
                   >
+                    <div className={s.trilha} aria-hidden="true">
+                      <span className={s.trilhaOrdem}>{i + 1}</span>
+                      <span className={s.trilhaLinha} />
+                    </div>
+
                     <button
                       type="button"
                       className={`${s.marcar} ${item.concluido ? s.marcarFeito : ''}`}
@@ -172,24 +287,24 @@ export function Hoje() {
                       }
                     >
                       <span className={s.marcarCirculo} aria-hidden="true">
-                        {item.concluido && (
-                          <svg viewBox="0 0 16 16" width="14" height="14">
-                            <path
-                              d="M3 8.5l3.5 3.5L13 5"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2.4"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        )}
+                        <svg viewBox="0 0 16 16" width="14" height="14">
+                          <path
+                            d="M3 8.5l3.5 3.5L13 5"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
                       </span>
                     </button>
 
                     <div className={s.corpo}>
                       <div className={s.itemTopo}>
-                        <span className={s.itemTipo}>{ROTULO_TIPO[item.tipo]}</span>
+                        <span className={s.itemTipo} data-gesto={GESTO[item.tipo]}>
+                          {ROTULO_TIPO[item.tipo]}
+                        </span>
                         {item.subtitulo && (
                           <span className={s.itemSubtitulo}>{item.subtitulo}</span>
                         )}
@@ -203,7 +318,7 @@ export function Hoje() {
                     <span className={s.minutos}>{item.minutos} min</span>
                   </li>
                 ))}
-              </ul>
+              </ol>
 
               <p className={s.resumoPlano}>
                 <span>
@@ -227,6 +342,44 @@ export function Hoje() {
           )}
         </section>
 
+        {/* 2. Onde estou ------------------------------------------------ */}
+        <section className="secao" aria-labelledby="dominio-titulo">
+          <div className="secao-cabecalho">
+            <h2 id="dominio-titulo" className="secao-titulo">
+              Sua preparação
+            </h2>
+            <span className="secao-meta">
+              {comecou && (
+                <>
+                  <Link to="/diagnostico">Refazer diagnóstico</Link>
+                  <span aria-hidden="true"> · </span>
+                </>
+              )}
+              <Link to="/progresso">Ver detalhes</Link>
+            </span>
+          </div>
+          <div className={s.areas}>
+            {areas.map((area, i) => (
+              <Link
+                key={area.id}
+                to={area.para}
+                className={s.areaLinha}
+                data-area={area.id}
+                style={{ animationDelay: `${i * 60}ms` }}
+              >
+                <span className={s.areaMarca} aria-hidden="true" />
+                <span className={s.areaCorpo}>
+                  <span className={s.areaTopo}>
+                    <span className={s.areaNome}>{area.nome}</span>
+                    <span className={s.areaFaixa}>{area.detalhe}</span>
+                  </span>
+                  <BarraDominio dominio={area.dominio} rotulo={area.nome} />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {temAtividade && (
           <section className="secao" aria-labelledby="constancia-titulo">
             <div className="secao-cabecalho">
@@ -242,22 +395,16 @@ export function Hoje() {
         )}
 
         {pendentes.length > 0 && (
-          <section className="secao" aria-labelledby="revisao-titulo">
-            <div className="secao-cabecalho">
-              <h2 id="revisao-titulo" className="secao-titulo">
-                Revisão pendente
-              </h2>
-              <span className="secao-meta">
-                {pendentes.length} {pendentes.length === 1 ? 'assunto' : 'assuntos'}
-              </span>
-            </div>
-            <p className="subtitulo">
+          <Link to="/revisao" className={s.aviso}>
+            <span className={s.avisoMarca} aria-hidden="true" />
+            <span className={s.avisoTexto}>
+              <strong>
+                {pendentes.length} {pendentes.length === 1 ? 'revisão venceu' : 'revisões venceram'}
+              </strong>
               Revisar no dia certo é o que impede que o estudo desta semana evapore em duas.
-            </p>
-            <div className="acoes">
-              <BotaoLink to="/revisao">Ver a fila de revisão</BotaoLink>
-            </div>
-          </section>
+            </span>
+            <span className={s.avisoAcao}>Ver a fila</span>
+          </Link>
         )}
 
         {padrao.frase && padrao.dominante && (
@@ -274,57 +421,51 @@ export function Hoje() {
           </section>
         )}
 
-        <section className="secao" aria-labelledby="dominio-titulo">
+        {/* 3. Para onde vai: as duas datas ------------------------------ */}
+        <section className="secao" aria-labelledby="datas-titulo">
           <div className="secao-cabecalho">
-            <h2 id="dominio-titulo" className="secao-titulo">
-              Seu domínio por área
+            <h2 id="datas-titulo" className="secao-titulo">
+              Os dois domingos
             </h2>
-            <Link to="/progresso" className="secao-meta">
-              Ver detalhes
-            </Link>
+            <span className="secao-meta">
+              {dias > 0 ? `faltam ${dias} dias para o 1º` : 'aplicação em curso'}
+            </span>
           </div>
-          <div className={s.areas}>
-            {AREAS.filter((a) => a.id !== 'redacao').map((area) => {
-              const assuntos = assuntosDaArea(area.id);
-              const avaliados = assuntos
-                .map((a) => progresso.assuntos[a.id]?.dominio)
-                .filter((d): d is number => typeof d === 'number');
-              const media =
-                avaliados.length > 0
-                  ? avaliados.reduce((acc, d) => acc + d, 0) / assuntos.length
-                  : null;
+          <ol className={s.datas}>
+            {([1, 2] as const).map((numero) => {
+              const data = numero === 1 ? PROVA_DIA_1 : PROVA_DIA_2;
+              const doDia = AREAS.filter((a) => a.dia === numero);
+              const questoes = doDia.reduce((acc, a) => acc + (a.questoes ?? 0), 0);
+              const [ano, mes, d] = data.split('-');
               return (
-                <Link
-                  key={area.id}
-                  to={`/area/${area.id}`}
-                  className={s.areaLinha}
-                  data-area={area.id}
-                >
-                  <span className={s.areaMarca} aria-hidden="true" />
-                  <span className={s.areaCorpo}>
-                    <span className={s.areaTopo}>
-                      <span className={s.areaNome}>{area.nomeCurto}</span>
-                      <span className={s.areaFaixa}>
-                        {media === null
-                          ? 'Não avaliado'
-                          : `${ROTULO_FAIXA[faixaDeDominio(media)]} · ${avaliados.length}/${assuntos.length} assuntos`}
-                      </span>
+                <li key={numero} className={s.data}>
+                  <div className={s.dataCabecalho}>
+                    <span className={s.dataNumero}>{numero}º dia</span>
+                    <span className={s.dataDia}>
+                      {d}
+                      <span className={s.dataMes}>/{mes}</span>
                     </span>
-                    <BarraDominio dominio={media} rotulo={area.nomeCurto} />
-                  </span>
-                </Link>
+                    <span className={s.dataAno}>domingo · {ano}</span>
+                  </div>
+                  <ul className={s.dataAreas}>
+                    {doDia.map((a) => (
+                      <li key={a.id} data-area={a.id}>
+                        <span className={s.dataAreaMarca} aria-hidden="true" />
+                        {a.nomeCurto}
+                        {a.questoes && <span className={s.dataAreaQtd}>{a.questoes} questões</span>}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className={s.dataTotal}>
+                    {questoes} questões objetivas
+                    {numero === 1 ? ' e a redação · 5h30' : ' · 5h'}
+                  </p>
+                </li>
               );
             })}
-          </div>
+          </ol>
         </section>
 
-        {comecou && (
-          <div className="acoes">
-            <BotaoLink to="/diagnostico" variante="secundario">
-              Refazer diagnóstico
-            </BotaoLink>
-          </div>
-        )}
       </div>
     </div>
   );

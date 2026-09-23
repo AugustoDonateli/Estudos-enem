@@ -1,0 +1,170 @@
+/* Painel de preparação — vive sobre o azul escuro do hero.
+   Placa recuada, não card flutuante: borda fina e fundo levemente mais claro
+   que a faixa, sem sombra. Sombra sobre azul escuro só suja. */
+.painel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-3x);
+  padding: var(--e-3x);
+  border: var(--borda) solid rgba(173, 205, 255, 0.22);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--raio);
+}
+
+@media (min-width: 992px) {
+  .painel {
+    padding: var(--e-4x);
+    gap: var(--e-3x);
+  }
+}
+
+/* --- Contagem ------------------------------------------------------ */
+.topo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-base);
+}
+
+.rotulo {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--azul-30);
+}
+
+.numeroLinha {
+  display: flex;
+  align-items: baseline;
+  gap: var(--e-2x);
+}
+
+/* O contador é a única coisa da interface com licença para este tamanho:
+   é o número que define o produto. */
+.numero {
+  font-family: var(--fonte-titulo);
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' 144, 'SOFT' 0;
+  font-size: clamp(4.5rem, 11vw, var(--t-cartaz-03));
+  font-weight: var(--peso-semibold);
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--branco);
+}
+
+.unidade {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-semibold);
+  color: var(--azul-20);
+  line-height: 1.1;
+}
+
+.unidadeSub {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--azul-30);
+}
+
+/* --- Calendário ---------------------------------------------------- */
+/* Sete colunas: uma semana por linha, começando no domingo, como calendário
+   de parede. A largura é fluida para o painel não travar num tamanho fixo. */
+.grade {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  /* Teto estreito de propósito: a bolha precisa ficar na escala de marcação
+     de cartão-resposta (~16px). Solta na coluna, a grade virava um teclado. */
+  /* width explícito: dentro de um flex column, um grid com max-width e
+     margem automática encolhe até o min-content das células — que, sendo
+     aspect-ratio sem largura, é zero. A grade sumia. */
+  width: 100%;
+  max-width: 210px;
+  margin-inline: auto;
+}
+
+.celula,
+.vazia {
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+/* Contorno mais firme: a 7px de diâmetro, uma borda a 45% de opacidade
+   sobre azul escuro simplesmente some. */
+.celula {
+  border: 1.5px solid rgba(173, 205, 255, 0.62);
+  animation: bolha-entra var(--d-moderada) var(--curva-saida) both;
+}
+
+/* Fim de semana só um pouco mais forte. Preenchimento cheio criava colunas
+   escuras verticais e a grade lia como padrão decorativo, não calendário. */
+.fimDeSemana {
+  border-color: rgba(173, 205, 255, 0.95);
+}
+
+/* Os dois domingos de prova, na posição real que ocupam no calendário. */
+.prova1,
+.prova2 {
+  background: var(--alerta);
+  border-color: var(--alerta);
+  box-shadow: 0 0 0 3px rgba(255, 205, 7, 0.22);
+}
+
+.prova2 {
+  background: transparent;
+  box-shadow: none;
+}
+
+@keyframes bolha-entra {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Legenda -------------------------------------------------------- */
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-base) var(--e-3x);
+  padding-top: var(--e-2x);
+  border-top: var(--borda) solid rgba(173, 205, 255, 0.18);
+  font-size: var(--t-base);
+  color: var(--azul-20);
+}
+
+.legendaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-base);
+}
+
+.legendaItem strong {
+  color: var(--branco);
+  font-weight: var(--peso-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.legendaMarca {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legendaProva1 {
+  background: var(--alerta);
+}
+
+.legendaProva2 {
+  border: 1.5px solid var(--alerta);
+}

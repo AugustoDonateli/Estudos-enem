@@ -7,46 +7,37 @@ import s from './Marca.module.css';
  *
  * A marca NÃO reproduz o logotipo oficial do ENEM nem do INEP: são marcas de
  * terceiros, e este é um projeto pessoal de estudo. O que existe aqui é uma
- * assinatura própria construída na mesma linguagem institucional — tipografia
- * Rawline, azul do governo federal e um símbolo geométrico autoral.
+ * assinatura própria construída na mesma linguagem institucional.
  *
- * O símbolo é uma linha de alternativas de cartão-resposta com uma marcada.
- * É a imagem mais reconhecível do exame e funciona bem em tamanho pequeno,
- * que é onde toda marca de cabeçalho realmente vive.
+ * O símbolo é um monograma **E** em placa quadrada: haste vertical e três
+ * braços, em que o braço do meio é a marcação amarela do cartão-resposta.
+ * Três decisões, todas por legibilidade em tamanho pequeno:
+ *
+ *  - a haste vertical existe para que os três braços não leiam como ícone de
+ *    menu — sem ela, o desenho vira hambúrguer a 16px;
+ *  - o braço do meio é mais curto e amarelo: é o gesto que define a prova
+ *    (marcar) e o único ponto de cor, o que dá reconhecimento imediato;
+ *  - cantos quase retos, não pílula: placa institucional, não ícone de app.
  */
 
-export function SimboloENEM({ tamanho = 40 }: { tamanho?: number }) {
+export function SimboloENEM({ tamanho = 40, animado = false }: { tamanho?: number; animado?: boolean }) {
   return (
     <svg
       width={tamanho}
       height={tamanho}
       viewBox="0 0 40 40"
-      className={s.marca}
+      className={`${s.marca} ${animado ? s.marcaAnimada : ''}`}
       role="img"
-      aria-label="Símbolo do ENEM Estudos: alternativas de cartão-resposta com uma marcada"
+      aria-label="ENEM Estudos"
     >
-      <rect width="40" height="40" rx="6" fill="var(--azul-90)" />
-      {/* Três linhas de alternativas; a do meio tem uma resposta marcada. */}
-      {[12, 20, 28].map((y, linha) => (
-        <g key={y}>
-          {[10, 18, 26, 34].map((x, coluna) => {
-            const marcada = linha === 1 && coluna === 2;
-            return (
-              <circle
-                key={x}
-                cx={x}
-                cy={y}
-                r="2.6"
-                fill={marcada ? 'var(--branco)' : 'none'}
-                stroke="var(--azul-30)"
-                strokeWidth="1.4"
-                opacity={marcada ? 1 : 0.6}
-                className={marcada ? s.marcaBolha : undefined}
-              />
-            );
-          })}
-        </g>
-      ))}
+      <rect width="40" height="40" rx="4" fill="var(--azul-90)" />
+      {/* Haste do E */}
+      <rect x="10" y="10" width="4.4" height="20" fill="var(--branco)" />
+      {/* Braço superior e inferior */}
+      <rect x="10" y="10" width="20" height="4.4" fill="var(--branco)" />
+      <rect x="10" y="25.6" width="20" height="4.4" fill="var(--branco)" />
+      {/* Braço do meio: a marcação. Mais curto, e o único elemento em cor. */}
+      <rect x="10" y="17.8" width="13" height="4.4" fill="var(--alerta)" className={s.marcacao} />
     </svg>
   );
 }
@@ -64,7 +55,7 @@ export function Assinatura({
       className={`${s.assinatura} ${claro ? s.claro : ''} ${compacta ? s.compacta : ''}`}
       aria-label="ENEM Estudos — página inicial"
     >
-      <SimboloENEM tamanho={compacta ? 34 : 42} />
+      <SimboloENEM tamanho={compacta ? 30 : 36} animado />
       <span className={s.texto}>
         <span className={s.nome}>ENEM Estudos</span>
         <span className={s.qualificador}>Preparação intensiva</span>
@@ -76,10 +67,10 @@ export function Assinatura({
 /**
  * Grafismo de fundo das faixas institucionais.
  *
- * Retoma a grade de alternativas do símbolo, em escala grande e opacidade
- * baixa. É textura, não ilustração: nunca compete com o texto por cima.
+ * Retoma a grade de alternativas do cartão-resposta, em escala grande e
+ * opacidade baixa. É textura, não ilustração: nunca compete com o texto.
  */
-export function Grafismo({ variante = 'bolhas' }: { variante?: 'bolhas' | 'diagonais' }) {
+export function Grafismo({ variante = 'bolhas' }: { variante?: 'bolhas' | 'diagonais' | 'gabarito' }) {
   // A faixa, o hero e o rodapé desenham o grafismo na mesma página. Sem um id
   // por instância, os três <defs> colidiriam e a máscara de um apagaria a do
   // outro ao desmontar.
@@ -99,6 +90,16 @@ export function Grafismo({ variante = 'bolhas' }: { variante?: 'bolhas' | 'diago
           >
             <line x1="0" y1="0" x2="0" y2="18" stroke="currentColor" strokeWidth="1.5" />
           </pattern>
+          {/*
+            Linha de cartão-resposta: quatro alternativas vazias e uma marcada,
+            repetidas. É o grafismo mais específico do exame que cabe em padrão.
+          */}
+          <pattern id={`p-gabarito-${id}`} width="76" height="26" patternUnits="userSpaceOnUse">
+            <circle cx="10" cy="13" r="4" fill="none" stroke="currentColor" strokeWidth="1.4" />
+            <circle cx="26" cy="13" r="4" fill="currentColor" />
+            <circle cx="42" cy="13" r="4" fill="none" stroke="currentColor" strokeWidth="1.4" />
+            <circle cx="58" cy="13" r="4" fill="none" stroke="currentColor" strokeWidth="1.4" />
+          </pattern>
           <linearGradient id={`esvair-${id}`} x1="0" y1="0" x2="1" y2="0">
             <stop offset="0" stopColor="#fff" stopOpacity="0" />
             <stop offset="0.55" stopColor="#fff" stopOpacity="0.5" />
@@ -113,7 +114,7 @@ export function Grafismo({ variante = 'bolhas' }: { variante?: 'bolhas' | 'diago
           height="200"
           fill={`url(#p-${variante}-${id})`}
           mask={`url(#m-esvair-${id})`}
-          opacity="0.18"
+          opacity={variante === 'gabarito' ? 0.07 : 0.18}
         />
       </svg>
     </div>

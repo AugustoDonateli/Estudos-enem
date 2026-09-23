@@ -259,11 +259,18 @@
   transition: width var(--d-moderada) var(--curva);
 }
 
+/* Escala sequencial, não semáforo.
+   Domínio frágil é o estado NORMAL de quem está começando — pintar isso de
+   vermelho transforma a home inteira em alarme e diz ao aluno que ele está
+   falhando por ter começado. A progressão claro → escuro → verde lê como
+   avanço, e o rótulo ao lado ("Frágil", "Em construção") já carrega o
+   julgamento com a precisão que a cor não tem. O verde fica reservado ao
+   topo da escala, onde significa algo. */
 .faixaFragil {
-  background: var(--perigo);
+  background: var(--azul-30);
 }
 .faixaConstrucao {
-  background: var(--alerta);
+  background: var(--azul-50);
 }
 .faixaSolido {
   background: var(--azul-70);

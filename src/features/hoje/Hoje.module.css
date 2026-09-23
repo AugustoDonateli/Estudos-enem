@@ -1,11 +1,63 @@
-/* Seletor de orçamento — segmentado, institucional */
+/* ==================================================================
+   BARRA DO PLANO — o que a sessão exige + quanto tempo há
+   ================================================================== */
 .barraOrcamento {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--e-2x);
-  padding-block: var(--e-3x);
+  padding: var(--e-2x) 0 var(--e-3x);
+}
+
+/* Os três gestos da sessão. Ponto colorido em vez de ícone: o mesmo código
+   de cor reaparece na etiqueta de cada item da lista, o que liga o resumo
+   ao plano sem precisar de legenda. */
+.gestos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e-baseh) var(--e-3x);
+  font-size: var(--t-up-01);
+  color: var(--cinza-70);
+}
+
+.gesto {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-base);
+}
+
+.gesto strong {
+  font-weight: var(--peso-bold);
+  color: var(--cinza-90);
+  font-variant-numeric: tabular-nums;
+}
+
+.gesto[data-gesto]::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cinza-40);
+}
+
+.gesto[data-gesto='estudar']::before {
+  background: var(--azul-70);
+}
+
+.gesto[data-gesto='praticar']::before {
+  background: var(--area-natureza);
+}
+
+.gesto[data-gesto='revisar']::before {
+  background: var(--alerta-escuro);
+}
+
+.orcamentoCampo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-baseh);
 }
 
 .orcamentoRotulo {
@@ -64,9 +116,11 @@
 }
 
 .item {
-  display: flex;
-  gap: var(--e-2x);
-  align-items: flex-start;
+  position: relative;
+  display: grid;
+  grid-template-columns: 26px 44px minmax(0, 1fr) auto;
+  gap: var(--e-baseh);
+  align-items: start;
   padding: var(--e-3x) var(--e-2x) var(--e-3x) var(--e-baseh);
   border-bottom: var(--borda) solid var(--cinza-10);
   border-left: 4px solid transparent;
@@ -93,11 +147,62 @@
   opacity: 0.6;
 }
 
+/* --- Trilha de sequência ------------------------------------------
+   O número diz a ordem sugerida e a linha liga um item ao seguinte. É o
+   que transforma a lista em percurso: antes era uma pilha de cards em que
+   nada indicava por onde começar. */
+.trilha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--e-base);
+  padding-top: 2px;
+}
+
+.trilhaOrdem {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--cinza-60);
+  background: var(--cinza-5);
+  transition:
+    background var(--d-rapida) var(--curva),
+    color var(--d-rapida) var(--curva);
+}
+
+.itemPrincipal .trilhaOrdem {
+  background: var(--azul-70);
+  color: var(--branco);
+}
+
+.itemConcluido .trilhaOrdem {
+  background: var(--sucesso-fundo);
+  color: var(--sucesso-escuro);
+}
+
+.trilhaLinha {
+  flex: 1;
+  width: 2px;
+  background: var(--cinza-10);
+  border-radius: 1px;
+}
+
+/* O último item não liga a nada abaixo dele. */
+.item:last-child .trilhaLinha {
+  display: none;
+}
+
 .marcar {
   flex-shrink: 0;
   width: 44px;
   height: 44px;
-  margin: -6px 0 0 -8px;
+  margin: -8px 0 0 0;
   border: 0;
   background: none;
   cursor: pointer;
@@ -126,9 +231,37 @@
   transform: scale(1.08);
 }
 
+.marcarCirculo svg {
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity var(--d-rapida) var(--curva),
+    transform var(--d-rapida) var(--curva);
+}
+
 .marcarFeito .marcarCirculo {
   background: var(--sucesso);
   border-color: var(--sucesso);
+}
+
+/* O tique entra com um leve estouro de escala: é a única confirmação que o
+   aluno recebe ao concluir um item, e precisa ser sentida. */
+.marcarFeito .marcarCirculo svg {
+  opacity: 1;
+  transform: scale(1);
+  animation: tique-entra var(--d-moderada) var(--curva-saida);
+}
+
+@keyframes tique-entra {
+  0% {
+    transform: scale(0.4);
+  }
+  60% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .corpo {
@@ -150,6 +283,20 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--azul-70);
+}
+
+/* Mesmo código de cor da barra de gestos, para o resumo e a lista falarem
+   a mesma língua. */
+.itemTipo[data-gesto='estudar'] {
+  color: var(--azul-70);
+}
+
+.itemTipo[data-gesto='praticar'] {
+  color: var(--area-natureza);
+}
+
+.itemTipo[data-gesto='revisar'] {
+  color: var(--alerta-escuro);
 }
 
 .itemSubtitulo {
@@ -272,11 +419,30 @@
   border-bottom: var(--borda) solid var(--cinza-10);
   text-decoration: none;
   color: inherit;
-  transition: background var(--d-rapida) var(--curva);
+  transition:
+    background var(--d-rapida) var(--curva),
+    padding-left var(--d-rapida) var(--curva);
+  /* Entrada em cascata, uma área por vez, na ordem em que a prova acontece.
+     O atraso vem de style inline no componente. */
+  animation: revelar var(--d-moderada) var(--curva-saida) both;
 }
 
 .areaLinha:hover {
   background: var(--cinza-3);
+  padding-left: var(--e-2x);
+}
+
+/* A marca da área engorda no hover: confirma qual linha está sob o cursor
+   sem precisar de sombra nem de deslocamento do texto. */
+.areaMarca {
+  transition:
+    width var(--d-rapida) var(--curva),
+    height var(--d-rapida) var(--curva);
+}
+
+.areaLinha:hover .areaMarca {
+  width: 8px;
+  height: 46px;
 }
 
 .areaMarca {
@@ -346,29 +512,8 @@
 /* --- Resumo do dia na faixa escura -----------------------------------
    Três números numa linha só. Depois de um contador em escala de cartaz,
    repetir o formato de número grande faria tudo gritar ao mesmo tempo. */
-.resumoDia {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--e-base) var(--e-3x);
-  margin: 0;
-  max-width: none;
-  font-size: var(--t-base);
-  color: var(--azul-20);
-}
 
-.resumoDia strong {
-  font-weight: var(--peso-bold);
-  font-variant-numeric: tabular-nums;
-  color: var(--branco);
-}
 
-.resumoBarra {
-  display: none;
-  width: 1px;
-  height: 1em;
-  background: rgba(255, 255, 255, 0.28);
-}
 
 /* O separador só existe quando os três cabem na mesma linha; abaixo disso
    ele apareceria pendurado no começo da linha seguinte. */
@@ -376,4 +521,286 @@
   .resumoBarra {
     display: block;
   }
+}
+
+/* ==================================================================
+   OS DOIS DOMINGOS
+   Fecha a jornada da home: tenho X dias → sei onde estou → sei o que
+   fazer hoje → é para isto aqui. Duas placas, não um parágrafo: a
+   estrutura da prova é informação com forma própria.
+   ================================================================== */
+.datas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--e-2x);
+}
+
+@media (min-width: 768px) {
+  .datas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--e-3x);
+  }
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-2x);
+  padding: var(--e-3x);
+  background: var(--papel-2);
+  border-top: 3px solid var(--azul-90);
+}
+
+.dataCabecalho {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--e-base) var(--e-baseh);
+}
+
+.dataNumero {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--azul-70);
+  width: 100%;
+}
+
+/* A data em escala editorial: é o único número desta seção, e o que o
+   aluno procura quando abre a página. */
+.dataDia {
+  font-family: var(--fonte-titulo);
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' 72;
+  font-size: var(--t-up-06);
+  font-weight: var(--peso-semibold);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--cinza-90);
+  font-variant-numeric: lining-nums;
+}
+
+.dataMes {
+  font-size: var(--t-up-03);
+  color: var(--cinza-60);
+}
+
+.dataAno {
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+}
+
+.dataAreas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-base);
+}
+
+.dataAreas li {
+  display: flex;
+  align-items: center;
+  gap: var(--e-base);
+  font-size: var(--t-up-01);
+  color: var(--cinza-90);
+}
+
+.dataAreaMarca {
+  width: 4px;
+  height: 18px;
+  border-radius: 1px;
+  background: var(--acento, var(--azul-70));
+  flex-shrink: 0;
+}
+
+.dataAreaQtd {
+  margin-left: auto;
+  font-size: var(--t-base);
+  color: var(--cinza-60);
+  font-variant-numeric: tabular-nums;
+}
+
+.dataTotal {
+  padding-top: var(--e-baseh);
+  border-top: var(--borda) solid var(--papel-borda);
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+}
+
+/* ==================================================================
+   PRÓXIMO PASSO (hero)
+   A ação principal da página, dentro da faixa escura. Placa clara sobre
+   o azul: é o único elemento do hero que se pode clicar, e precisa
+   parecer isso à primeira vista.
+   ================================================================== */
+.proximo {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--e-base);
+  max-width: 26rem;
+  padding: var(--e-2x) var(--e-3x);
+  background: rgba(255, 255, 255, 0.06);
+  border: var(--borda) solid rgba(173, 205, 255, 0.28);
+  border-left: 3px solid var(--alerta);
+  border-radius: var(--raio);
+  text-decoration: none;
+  color: var(--branco);
+  transition:
+    background var(--d-rapida) var(--curva),
+    transform var(--d-rapida) var(--curva);
+}
+
+.proximo:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(3px);
+  color: var(--branco);
+}
+
+.proximoRotulo {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-bold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--alerta);
+}
+
+.proximoTitulo {
+  font-size: var(--t-up-02);
+  font-weight: var(--peso-semibold);
+  line-height: var(--lh-baixa);
+}
+
+.proximoMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-base);
+  font-size: var(--t-base);
+  color: var(--azul-20);
+}
+
+/* A seta anda no hover — sinaliza para onde o clique leva. */
+.proximo svg {
+  transition: transform var(--d-rapida) var(--curva);
+}
+
+.proximo:hover svg {
+  transform: translateX(4px);
+}
+
+/* ==================================================================
+   NÚMEROS DO DIA (hero)
+   Lista de definição: o número é o dado, o rótulo é o que ele mede.
+   Três colunas com filete entre elas, não cards — cards aqui
+   transformariam a faixa num painel de indicadores.
+   ================================================================== */
+.resumoDia {
+  /* Três colunas em qualquer largura. Em flex-wrap, o terceiro número caía
+     sozinho para a linha de baixo no celular e custava 60px de altura numa
+     tela em que o que importa é o primeiro item do plano aparecer cedo. */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--e-2x);
+  margin: var(--e-4x) 0 0;
+  padding-top: var(--e-3x);
+  border-top: var(--borda) solid rgba(173, 205, 255, 0.22);
+}
+
+@media (min-width: 576px) {
+  .resumoDia {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-3x) var(--e-5x);
+  }
+
+  .resumoDia dd {
+    font-size: var(--t-up-05);
+  }
+}
+
+.resumoDia > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+}
+
+.resumoDia dd {
+  margin: 0;
+  font-size: var(--t-up-04);
+  font-weight: var(--peso-bold);
+  line-height: 1;
+  color: var(--branco);
+  font-variant-numeric: tabular-nums;
+}
+
+.resumoDia dt {
+  font-size: var(--t-down-01);
+  font-weight: var(--peso-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--azul-30);
+}
+
+/* ==================================================================
+   AVISO DE REVISÃO VENCIDA
+   Faixa clicável, não seção. Antes isto ocupava um bloco inteiro —
+   cabeçalho, subtítulo e botão — para comunicar uma frase que o hero
+   já resume em número. Agora é uma linha que leva direto à fila.
+   ================================================================== */
+.aviso {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2x);
+  margin-top: var(--e-5x);
+  padding: var(--e-2x) var(--e-3x);
+  background: var(--alerta-fundo);
+  border-left: 4px solid var(--alerta);
+  text-decoration: none;
+  color: var(--cinza-90);
+  transition: background var(--d-rapida) var(--curva);
+}
+
+.aviso:hover {
+  background: #fde8b0;
+  color: var(--cinza-90);
+}
+
+.avisoMarca {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--alerta-escuro);
+  flex-shrink: 0;
+}
+
+.avisoTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--t-base);
+  color: var(--cinza-70);
+  min-width: 0;
+}
+
+.avisoTexto strong {
+  font-size: var(--t-up-01);
+  font-weight: var(--peso-bold);
+  color: var(--cinza-90);
+}
+
+.avisoAcao {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: var(--t-base);
+  font-weight: var(--peso-semibold);
+  color: var(--azul-70);
+  white-space: nowrap;
+}
+
+.aviso:hover .avisoAcao {
+  text-decoration: underline;
 }

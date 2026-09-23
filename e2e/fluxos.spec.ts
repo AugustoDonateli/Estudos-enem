@@ -402,14 +402,43 @@ test.describe('contraste', () => {
           };
           return 0.2126 * canal(r) + 0.7152 * canal(g) + 0.0722 * canal(b);
         };
+        /*
+         * Compõe as camadas de fundo respeitando o alfa.
+         *
+         * A versão anterior devolvia a primeira cor não transparente que
+         * encontrasse e o cálculo de luminância descartava o alfa — então um
+         * fundo `rgba(255,255,255,0.06)` sobre azul escuro era medido como
+         * branco puro, e todo texto claro em cima dele reprovava com razão
+         * 1:1. Empilhar as camadas e compor de trás para frente mede a cor
+         * que o olho realmente vê.
+         */
         const fundoDe = (el: Element): string => {
+          const camadas: { r: number; g: number; b: number; a: number }[] = [];
           let atual: Element | null = el;
           while (atual) {
             const bg = getComputedStyle(atual).backgroundColor;
-            if (bg && !bg.startsWith('rgba(0, 0, 0, 0)') && bg !== 'transparent') return bg;
+            const nums = (bg.match(/\d*\.?\d+/g) ?? []).map(Number);
+            if (nums.length >= 3) {
+              const a = nums.length >= 4 ? nums[3]! : 1;
+              if (a > 0) {
+                camadas.push({ r: nums[0]!, g: nums[1]!, b: nums[2]!, a });
+                if (a >= 1) break;
+              }
+            }
             atual = atual.parentElement;
           }
-          return 'rgb(255, 255, 255)';
+          // A página começa branca; as camadas se aplicam da mais funda para
+          // a mais rasa.
+          let base = { r: 255, g: 255, b: 255 };
+          for (let i = camadas.length - 1; i >= 0; i--) {
+            const c = camadas[i]!;
+            base = {
+              r: c.a * c.r + (1 - c.a) * base.r,
+              g: c.a * c.g + (1 - c.a) * base.g,
+              b: c.a * c.b + (1 - c.a) * base.b,
+            };
+          }
+          return `rgb(${base.r}, ${base.g}, ${base.b})`;
         };
 
         const problemas: { texto: string; razao: number; cor: string }[] = [];

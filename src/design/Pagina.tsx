@@ -18,6 +18,7 @@ export function HeroEscuro({
   descricao,
   areaId,
   aside,
+  acao,
   abaixo,
 }: {
   rotulo?: string;
@@ -25,12 +26,15 @@ export function HeroEscuro({
   descricao?: ReactNode;
   areaId?: AreaId;
   aside?: ReactNode;
+  /** Chamada da coluna esquerda, abaixo da descrição. */
+  acao?: ReactNode;
   abaixo?: ReactNode;
 }) {
   return (
     <section className={s.heroEscuro} {...(areaId ? { 'data-area': areaId } : {})}>
-      {/* Sem grafismo: quando o hero traz a grade de dias, dois padrões na
-          mesma faixa viram ruído — e o que é dado ganha do que é textura. */}
+      {/* Sem grafismo quando o hero traz a grade de dias: dois padrões de
+          círculo na mesma faixa competem, e o que é dado tem de ganhar do
+          que é textura. */}
       {!aside && <Grafismo variante="bolhas" />}
       <div className={`container ${s.heroInterno}`}>
         <div className={s.heroGrade}>
@@ -38,6 +42,7 @@ export function HeroEscuro({
             {rotulo && <span className="rotulo">{rotulo}</span>}
             <h1>{titulo}</h1>
             {descricao && <div className={s.descricao}>{descricao}</div>}
+            {acao && <div className={s.acao}>{acao}</div>}
           </div>
           {aside && <div className={`${s.aside} entrada-2`}>{aside}</div>}
         </div>

@@ -34,7 +34,7 @@
 
 @media (min-width: 992px) {
   .heroInterno {
-    padding-block: var(--e-6x) var(--e-7x);
+    padding-block: var(--e-5x) var(--e-6x);
   }
 }
 
@@ -54,13 +54,26 @@
 .heroGrade {
   display: grid;
   gap: var(--e-4x);
-  align-items: center;
+  align-items: start;
 }
 
 @media (min-width: 992px) {
   .heroGrade {
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-    gap: var(--e-8x);
+    /* Proporção mais equilibrada: a 1.6fr o painel encolhia e sobrava um
+       vão azul à esquerda que nenhum conteúdo preenchia. */
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--e-6x);
+  }
+}
+
+/* Chamada do hero, abaixo da descrição. */
+.acao {
+  margin-top: var(--e-3x);
+}
+
+@media (min-width: 992px) {
+  .acao {
+    margin-top: var(--e-4x);
   }
 }
 
