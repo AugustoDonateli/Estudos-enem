@@ -3,7 +3,6 @@ import {
   IMAGENS,
   LARGURAS_IMAGEM,
   creditada,
-  creditoDe,
   type ChaveImagem,
   type Imagem,
 } from '@/content/imagens';
@@ -14,10 +13,10 @@ import s from './Figura.module.css';
  *
  * Quatro razões para não ser um `<img>` solto:
  *
- * 1. O crédito é obrigatório e fica visível. A regra editorial do projeto é a
- *    mesma para texto e para imagem: dá para saber de onde veio. Crédito
- *    incompleto não renderiza, o que torna impossível publicar uma imagem sem
- *    dizer de onde ela vem.
+ * 1. A procedência é obrigatória nos metadados. Imagem sem crédito completo
+ *    não renderiza — continua impossível publicar uma imagem sem registrar de
+ *    onde ela vem. O crédito não aparece mais sobre a arte: ele é declarado na
+ *    página de fontes, que é onde a procedência do site inteiro mora.
  * 2. Nada quebra quando o arquivo não existe. O componente não renderiza, e a
  *    página segue sem buraco.
  * 3. **O tamanho é do site, não do arquivo.** A vinheta tem largura máxima
@@ -50,7 +49,6 @@ export function Figura({ nome }: { nome: ChaveImagem }) {
         decoding="async"
         onError={() => setFalhou(true)}
       />
-      <figcaption className={s.credito}>{creditoDe(imagem)}</figcaption>
     </figure>
   );
 }

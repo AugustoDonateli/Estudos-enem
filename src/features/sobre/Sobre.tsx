@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { contagemPorProcedencia, ASSUNTOS, QUESTOES, SECOES_REDACAO } from '@/content/conteudo';
+import { IMAGENS } from '@/content/imagens';
 import { Destaque, SeloProcedencia } from '@/design/Primitivos';
 import { CabecalhoPagina, Metricas } from '@/design/Pagina';
 import { definirTitulo } from '@/lib/titulo';
@@ -32,6 +33,10 @@ const FONTES = [
     o_que: 'Explicação oficial dos três parâmetros dos itens.',
   },
 ];
+
+/* As ilustrações deixaram de trazer crédito sobre a arte; a procedência
+   delas é declarada aqui, junto com a do resto do conteúdo. */
+const IMAGENS_GERADAS = Object.values(IMAGENS).filter((img) => img.gerada);
 
 export function Sobre() {
   useEffect(() => {
@@ -205,6 +210,31 @@ export function Sobre() {
                     {f.nome}
                   </a>
                   <span className={s.fonteDescricao}>{f.o_que}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="secao" aria-labelledby="imagens">
+          <div className="secao-cabecalho">
+            <h2 id="imagens" className="secao-titulo">
+              Ilustrações
+            </h2>
+            <span className="secao-meta">{IMAGENS_GERADAS.length} no site</span>
+          </div>
+          <p className="subtitulo">
+            As ilustrações de abertura das páginas de Áreas e de Redação foram{' '}
+            <strong>geradas por inteligência artificial</strong> (Recraft V4.1, via Higgsfield)
+            para este site. Não são fotografias, não retratam pessoas reais e não vêm do INEP.
+            Estão declaradas aqui, e não sobre a própria imagem, para não competir com a arte.
+          </p>
+          <ul className={s.fontes}>
+            {IMAGENS_GERADAS.map((img) => (
+              <li key={img.base} className={s.fonte}>
+                <div>
+                  <span className={s.fonteNome}>{img.alt}</span>
+                  <span className={s.fonteDescricao}>{img.fonte}</span>
                 </div>
               </li>
             ))}

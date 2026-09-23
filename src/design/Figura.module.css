@@ -22,17 +22,3 @@
   /* Leve dessaturação: a ilustração entra como documento, não como banner. */
   filter: saturate(0.92) contrast(1.02);
 }
-
-/* Crédito como legenda, fora da imagem.
-   Antes era uma tarja escura sobreposta ao canto — legível, mas marca
-   d'água: sujava a arte e competia com ela. A procedência continua
-   declarada, no lugar onde legenda de imagem sempre esteve. */
-.credito {
-  padding-top: var(--e-base);
-  font-size: var(--t-down-02);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  line-height: 1.4;
-  color: var(--cinza-50);
-  text-align: center;
-}

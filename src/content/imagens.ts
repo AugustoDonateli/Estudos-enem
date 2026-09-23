@@ -67,6 +67,13 @@ export const LARGURAS_IMAGEM = [640, 1280, 1920] as const;
  * Uma imagem só é exibível quando a procedência está completa — e o que
  * conta como completa depende do tipo.
  */
+/**
+ * Uma imagem sem procedência completa não renderiza.
+ *
+ * O crédito não é mais impresso sobre a arte — ele é declarado na página de
+ * fontes. A exigência dos metadados continua de pé: sem ela seria possível
+ * publicar uma imagem sem registrar de onde veio, em qualquer lugar do site.
+ */
 export function creditada(imagem: Imagem): boolean {
   if (imagem.gerada) return imagem.fonte.trim() !== '';
   return (
@@ -74,10 +81,4 @@ export function creditada(imagem: Imagem): boolean {
     imagem.fonte.trim() !== '' &&
     (imagem.licenca ?? '').trim() !== ''
   );
-}
-
-/** A linha de crédito impressa sobre a imagem. */
-export function creditoDe(imagem: Imagem): string {
-  if (imagem.gerada) return `Ilustração gerada por IA · ${imagem.fonte}`;
-  return [imagem.autor, imagem.fonte, imagem.licenca].filter(Boolean).join(' · ');
 }
