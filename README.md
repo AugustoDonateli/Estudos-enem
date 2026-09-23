@@ -92,9 +92,11 @@ Tudo é classificado em três níveis, e a classificação fica visível no site
 - **Análise** — julgamento pedagógico deste site, derivado do que é oficial.
 - **Autoral** — explicações, exemplos, diagramas e questões escritos para este site.
 
-O banco tem **69 questões**: **11 oficiais**, aplicadas nas provas de 2024 e 2025 e transcritas
-com referência de ano, dia, caderno e número, e **58 autorais**, escritas para este site no
-formato do exame. O selo de procedência aparece no cabeçalho de toda questão, sem exceção.
+O banco tem **116 questões**: **11 oficiais**, aplicadas nas provas de 2024 e 2025 e transcritas
+com referência de ano, dia, caderno e número, e **105 autorais**, escritas para este site no
+formato do exame. São **4 questões por assunto** nos 29 assuntos do catálogo — o mínimo para que
+a segunda revisão de um assunto não caia sempre nas mesmas questões. O selo de procedência
+aparece no cabeçalho de toda questão, sem exceção.
 
 O site também reproduz o **texto oficial da Matriz de Referência** — os 5 eixos cognitivos e as
 120 habilidades — e mostra, na página de cada assunto, quais habilidades aquele conteúdo ajuda a
